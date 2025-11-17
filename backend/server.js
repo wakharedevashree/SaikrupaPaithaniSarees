@@ -124,9 +124,9 @@ app.use('/api/email', emailRoutes);
 
 
 // 404 Fallback for unknown routes
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "../frontend/pages/404.html"));
-});
+// app.use((req, res) => {
+//   res.status(404).sendFile(path.join(__dirname, "../frontend/pages/404.html"));
+// });
 
 // Start Server
 const PORT = process.env.PORT || 5000;
