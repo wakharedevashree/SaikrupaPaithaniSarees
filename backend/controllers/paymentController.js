@@ -1604,32 +1604,34 @@ import axios from 'axios';
 import Order from '../models/Order.js';
 import Cart from '../models/Cart.js';
 
-// ✅ CORRECT Cashfree Configuration
+// ✅ SECURE: All credentials from environment variables
 const CASHFREE_CONFIG = {
-  appId: "113119408c59d0467a52033ed674911311",
-  secretKey: "cfsk_ma_prod_bdc3d8d9d28778b4a9b30ede7cf67baa_31782357",
-  environment: "PRODUCTION",
-  baseURL: "https://api.cashfree.com/pg"  // ✅ CASHFREE URL
+  appId: process.env.CASHFREE_APP_ID,
+  secretKey: process.env.CASHFREE_SECRET_KEY,
+  environment: process.env.CASHFREE_ENVIRONMENT || 'PRODUCTION',
+  baseURL: process.env.CASHFREE_ENVIRONMENT === 'PRODUCTION' 
+    ? "https://api.cashfree.com/pg" 
+    : "https://sandbox.cashfree.com/pg"
 };
 
 console.log('=== CASHFREE PAYMENT CONTROLLER LOADED ===');
 console.log('✅ Using Cashfree Gateway');
 console.log('🔗 Base URL:', CASHFREE_CONFIG.baseURL);
+console.log('🔐 Environment:', CASHFREE_CONFIG.environment);
 
 // Debug function to check configuration
 const checkCashfreeConfig = () => {
-  // ✅ Verify we're using Cashfree, not Razorpay
-  if (CASHFREE_CONFIG.baseURL.includes('razorpay')) {
-    console.error('❌ WRONG GATEWAY: Using Razorpay instead of Cashfree');
-    return false;
-  }
-  
   if (!CASHFREE_CONFIG.appId || !CASHFREE_CONFIG.secretKey) {
-    console.error('❌ MISSING: Cashfree credentials not found');
+    console.error('❌ MISSING: Cashfree credentials not found in environment variables');
     return false;
   }
   
-  console.log('✅ Cashfree configuration is OK');
+  if (CASHFREE_CONFIG.appId.includes('YOUR_') || CASHFREE_CONFIG.secretKey.includes('YOUR_')) {
+    console.error('❌ INVALID: Using placeholder credentials');
+    return false;
+  }
+  
+  console.log('✅ Cashfree configuration loaded from environment variables');
   return true;
 };
 
@@ -1640,23 +1642,23 @@ export const testRoute = async (req, res) => {
     success: true,
     message: 'Cashfree Payment controller is working!',
     config: {
-      appId: CASHFREE_CONFIG.appId ? 'Loaded' : 'Missing',
       environment: CASHFREE_CONFIG.environment,
-      baseURL: CASHFREE_CONFIG.baseURL
+      baseURL: CASHFREE_CONFIG.baseURL,
+      configStatus: 'Loaded from environment variables'
     }
   });
 };
 
-// Create Cashfree order - CORRECTED VERSION
+// Create Cashfree order - SECURE VERSION
 export const createCashfreeOrder = async (req, res) => {
   try {
     console.log('=== CREATE CASHFREE ORDER CALLED ===');
     
-    // ✅ Verify we're using correct gateway
+    // ✅ Verify configuration
     if (!checkCashfreeConfig()) {
       return res.status(500).json({
         success: false,
-        message: "Payment gateway configuration error - Wrong gateway detected"
+        message: "Payment gateway configuration error - Check environment variables"
       });
     }
 
@@ -1676,7 +1678,7 @@ export const createCashfreeOrder = async (req, res) => {
     // Generate unique order ID for Cashfree
     const cfOrderId = `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // ✅ CORRECT Cashfree order data structure
+    // ✅ Secure order data structure
     const orderData = {
       order_id: cfOrderId,
       order_amount: amount,
@@ -1688,13 +1690,13 @@ export const createCashfreeOrder = async (req, res) => {
         customer_phone: customerDetails?.customer_phone || '9999999999'
       },
       order_meta: {
-        return_url: `https://saikrupapaithani-3.onrender.com/checkout.html?order_id=${cfOrderId}`
+        return_url: `${process.env.CLIENT_URL || 'https://saikrupapaithani-3.onrender.com'}/checkout.html?order_id=${cfOrderId}`
       }
     };
 
-    console.log("📦 Cashfree order data:", JSON.stringify(orderData, null, 2));
+    console.log("📦 Cashfree order data prepared");
 
-    // ✅ CORRECT Cashfree headers
+    // ✅ Secure headers using environment variables
     const headers = {
       'Content-Type': 'application/json',
       'x-client-id': CASHFREE_CONFIG.appId,
@@ -1702,9 +1704,9 @@ export const createCashfreeOrder = async (req, res) => {
       'x-api-version': '2022-09-01'
     };
 
-    console.log("🔐 Making request to Cashfree API:", `${CASHFREE_CONFIG.baseURL}/orders`);
+    console.log("🔐 Making request to Cashfree API");
 
-    // ✅ Make request to CASHFREE API
+    // ✅ Make secure request to CASHFREE API
     const response = await axios.post(
       `${CASHFREE_CONFIG.baseURL}/orders`,
       orderData,
@@ -1715,22 +1717,21 @@ export const createCashfreeOrder = async (req, res) => {
     );
 
     console.log("✅ Cashfree API response received");
-    console.log("📄 Full Cashfree Response:", response.data);
 
     // ✅ Extract payment_session_id from Cashfree response
     const cashfreeResponse = response.data;
     
     if (!cashfreeResponse.payment_session_id) {
-      console.error("❌ Cashfree response missing payment_session_id:", cashfreeResponse);
+      console.error("❌ Cashfree response missing payment_session_id");
       throw new Error('Cashfree did not return payment_session_id');
     }
 
-    // ✅ Return CORRECT Cashfree response structure
+    // ✅ Return secure response structure
     res.json({
       success: true,
       order: {
         order_id: cashfreeResponse.order_id,
-        payment_session_id: cashfreeResponse.payment_session_id, // ✅ This is critical
+        payment_session_id: cashfreeResponse.payment_session_id,
         order_amount: cashfreeResponse.order_amount,
         order_currency: cashfreeResponse.order_currency,
         order_status: cashfreeResponse.order_status
@@ -1742,9 +1743,7 @@ export const createCashfreeOrder = async (req, res) => {
     console.error("❌ Cashfree order creation FAILED:");
     
     if (error.response) {
-      console.error("📊 Error Response Details:");
-      console.error("Status:", error.response.status);
-      console.error("Data:", error.response.data);
+      console.error("📊 Error Response Status:", error.response.status);
       
       let userMessage = "Payment gateway error";
       if (error.response.status === 401) {
@@ -1758,19 +1757,14 @@ export const createCashfreeOrder = async (req, res) => {
       res.status(error.response.status).json({
         success: false,
         message: userMessage,
-        error: error.response.data,
-        debug: {
-          environment: CASHFREE_CONFIG.environment,
-          baseURL: CASHFREE_CONFIG.baseURL
-        }
+        error: "Payment gateway error occurred"
       });
     } else if (error.request) {
-      // No response received
       console.error("❌ No response received from Cashfree API");
       res.status(503).json({
         success: false,
         message: "Cashfree is not responding. Please try again.",
-        error: "Network error - no response received"
+        error: "Network error"
       });
     } else {
       console.error("❌ Setup error:", error.message);
@@ -1810,7 +1804,7 @@ export const verifyPayment = async (req, res) => {
     );
 
     const payments = response.data;
-    console.log("💰 Cashfree payment details:", payments);
+    console.log("💰 Cashfree payment verification response received");
 
     if (!payments || payments.length === 0) {
       return res.status(400).json({
@@ -1913,11 +1907,11 @@ export const verifyPayment = async (req, res) => {
     }
 
   } catch (error) {
-    console.error("❌ Cashfree payment verification error:", error.response?.data || error.message);
+    console.error("❌ Cashfree payment verification error:", error.message);
     res.status(500).json({
       success: false,
       message: "Payment verification failed",
-      error: error.response?.data || error.message
+      error: error.message
     });
   }
 };
@@ -1967,7 +1961,7 @@ export const generateQRCode = async (req, res) => {
 
     const cashfreeResponse = response.data;
 
-    // For now, return a simple QR code data (you can integrate Cashfree QR API later)
+    // QR code data
     const qrData = {
       orderId: qrOrderId,
       amount: amount,
@@ -2025,11 +2019,11 @@ export const getPaymentStatus = async (req, res) => {
       order: orderData
     });
   } catch (error) {
-    console.error("❌ Get Cashfree payment status error:", error.response?.data || error.message);
+    console.error("❌ Get Cashfree payment status error:", error.message);
     res.status(500).json({
       success: false,
       message: "Failed to fetch payment status",
-      error: error.response?.data || error.message
+      error: error.message
     });
   }
 };
@@ -2038,7 +2032,7 @@ export const getPaymentStatus = async (req, res) => {
 export const handleWebhook = async (req, res) => {
   try {
     const webhookData = req.body;
-    console.log("🔔 Cashfree webhook received:", webhookData);
+    console.log("🔔 Cashfree webhook received");
 
     const { orderId, paymentStatus, transactionId } = webhookData;
 
@@ -2098,22 +2092,18 @@ export const testCashfreeConfig = async (req, res) => {
       message: "Cashfree configuration is working",
       environment: CASHFREE_CONFIG.environment,
       baseURL: CASHFREE_CONFIG.baseURL,
-      testResponse: testResponse.data
+      testResponse: "API connection successful"
     });
 
   } catch (error) {
-    console.error("❌ Cashfree test failed:", error.response?.data || error.message);
+    console.error("❌ Cashfree test failed:", error.message);
     
     res.status(500).json({
       success: false,
       message: "Cashfree test failed",
-      error: error.response?.data || error.message,
+      error: error.message,
       environment: CASHFREE_CONFIG.environment,
-      baseURL: CASHFREE_CONFIG.baseURL,
-      debug: {
-        appId: CASHFREE_CONFIG.appId,
-        hasSecretKey: !!CASHFREE_CONFIG.secretKey
-      }
+      baseURL: CASHFREE_CONFIG.baseURL
     });
   }
 };
@@ -2166,11 +2156,11 @@ export const initiateRefund = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ Cashfree refund initiation error:", error.response?.data || error.message);
+    console.error("❌ Cashfree refund initiation error:", error.message);
     res.status(500).json({
       success: false,
       message: "Failed to initiate refund",
-      error: error.response?.data || error.message
+      error: error.message
     });
   }
 };
@@ -2206,11 +2196,11 @@ export const getOrderDetails = async (req, res) => {
       order: orderDetails
     });
   } catch (error) {
-    console.error("❌ Get Cashfree order details error:", error.response?.data || error.message);
+    console.error("❌ Get Cashfree order details error:", error.message);
     res.status(500).json({
       success: false,
       message: "Failed to fetch order details",
-      error: error.response?.data || error.message
+      error: error.message
     });
   }
 };
