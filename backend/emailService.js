@@ -25,7 +25,7 @@ try {
     transporter.verify((error, success) => {
       if (error) {
         console.error('❌ Email configuration error:', error.message);
-        transporter = null; // Disable transporter if verification fails
+        transporter = null;
       } else {
         console.log('✅ Email server is ready to send messages');
       }
@@ -65,7 +65,7 @@ function getExpectedDeliveryDate(shippingMethod) {
   });
 }
 
-// Email templates (same as before)
+// Email templates
 function generatePaymentSuccessEmailTemplate(customerName, orderNumber, totalAmount, orderData) {
   const itemsList = orderData.items.map(item => 
     `<tr>

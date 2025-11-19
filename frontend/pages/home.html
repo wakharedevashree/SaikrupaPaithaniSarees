@@ -1,9 +1,27 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paithani Sarees</title>
+
+     <title>Saikrupa Paithani – Buy Pure Silk Paithani Sarees Online</title>
+
+     <meta 
+      name="description" 
+      content="Saikrupa Paithani ,Shop original pure silk Paithani sarees from Saikrupa Paithani. Handwoven Yeola Paithani, bridal Paithani, Muniya border, lotus design & premium traditional sarees." 
+    />
+
+    <meta 
+      name="keywords" 
+      content="Saikrupa Paithani,Paithani saree, pure silk Paithani, Yeola Paithani, handwoven Paithani, bridal paithani, Maharashtrian saree, paithani online shop" 
+    />
+    <meta property="og:title" content="Saikrupa Paithani – Pure Silk Paithani Sarees" />
+    <meta property="og:description" content="Buy handwoven pure silk Paithani sarees directly from Saikrupa Paithani." />
+    <meta property="og:image" content="saikrupa_logo.jpg" />
+    <meta property="og:type" content="website" />
+
+     <link rel="icon" type="image/png" href="images/logo3.png" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
@@ -40,9 +58,17 @@
         line-height: 1.6;
         color: #333;
         background-color: #fcedd5;
-
         background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
       }
+
+      /* Ensure body doesn't scroll when menu is open */
+      body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      }
+
       nav {
         display: flex;
         justify-content: space-between;
@@ -102,6 +128,8 @@
       nav ul {
         display: flex;
         list-style: none;
+        margin: 0;
+        padding: 0;
       }
 
       nav ul li {
@@ -138,12 +166,12 @@
       .nav-icons {
         display: flex;
         align-items: center;
+        gap: 15px;
       }
 
       .nav-icon {
         color: #800000;
         font-size: 1.3rem;
-        margin-left: 20px;
         position: relative;
         cursor: pointer;
         transition: transform 0.3s ease, color 0.3s ease;
@@ -182,56 +210,143 @@
         display: none;
         font-size: 1.8rem;
         cursor: pointer;
-        margin-left: 20px;
         color: #800000;
         transition: color 0.3s ease;
+        background: none;
+        border: none;
+        padding: 5px;
+        z-index: 1001;
       }
 
       .hamburger:hover {
         color: #b30000;
       }
 
-     
+      /* Mobile menu styles - CORRECTED */
       @media (max-width: 900px) {
         nav {
           padding: 0 20px;
+          height: 70px;
         }
 
         .hamburger {
           display: block;
+          order: 3;
+          margin-left: 10px;
         }
 
         nav ul {
           display: none;
-          position: absolute;
-          top: 100%;
+          position: fixed;
+          top: 70px;
           left: 0;
           width: 100%;
+          height: calc(100vh - 70px);
           background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(10px);
           flex-direction: column;
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-          padding: 20px;
+          padding: 20px 0;
+          margin: 0;
+          overflow-y: auto;
+          z-index: 999;
         }
 
         nav ul.show {
           display: flex;
+          animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         nav ul li {
-          margin: 10px 0;
+          margin: 0;
           width: 100%;
           text-align: center;
+          border-bottom: 1px solid rgba(128, 0, 0, 0.1);
+        }
+
+        nav ul li:last-child {
+          border-bottom: none;
+        }
+
+        nav ul li a {
+          padding: 15px 20px;
+          font-size: 1.2rem;
+          color: #800000;
+          transition: all 0.3s ease;
+          display: block;
+          width: 100%;
+        }
+
+        nav ul li a:hover {
+          background: rgba(128, 0, 0, 0.05);
+          color: #b30000;
         }
 
         .nav-icons {
-          margin-left: auto;
+          order: 2;
+          margin-left: 0;
+          gap: 10px;
         }
 
         .logo-text {
           display: none;
         }
+
+        .logo-img {
+          height: 60px;
+          width: 60px;
+          margin-right: 0;
+        }
+
+        nav .logo {
+          flex: 1;
+        }
+
+        .nav-icons {
+          flex-shrink: 0;
+        }
       }
 
+      /* Extra small devices */
+      @media (max-width: 480px) {
+        nav {
+          padding: 0 15px;
+        }
+
+        .nav-icons {
+          gap: 8px;
+        }
+
+        .nav-icon {
+          font-size: 1.2rem;
+        }
+
+        .hamburger {
+          font-size: 1.6rem;
+          padding: 6px;
+        }
+
+        .logo-img {
+          height: 50px;
+          width: 50px;
+        }
+
+        nav ul li a {
+          padding: 12px 15px;
+          font-size: 1.1rem;
+        }
+      }
  
       .slider {
         position: relative;
@@ -421,9 +536,9 @@
       }
 
       .carousel-item img:hover {
-        transform: scale(1.03) translateY(-5px); /* Slight lift */
-        box-shadow: 0 8px 20px rgba(128, 0, 0, 0.6); /* Soft glowing shadow */
-        border-color: #680000; /* Darker border on hover */
+        transform: scale(1.03) translateY(-5px);
+        box-shadow: 0 8px 20px rgba(128, 0, 0, 0.6);
+        border-color: #680000;
       }
 
       .carousel-item p {
@@ -646,7 +761,6 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-
         color: #fff;
         text-align: center;
         padding: 120px 20px;
@@ -751,14 +865,12 @@
       .review-section {
         margin: auto;
         width: 100%;
-
         text-align: center;
         padding: 20px 20px;
         background: linear-gradient(
           rgba(128, 0, 0, 0.9),
           rgba(173, 78, 1, 0.2)
         );
-
         border-radius: 15px;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
       }
@@ -768,7 +880,6 @@
         font-size: 3rem;
         color: #800000;
         position: relative;
-
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         text-align: center;
       }
@@ -811,7 +922,6 @@
         width: 30%;
         padding: 30px;
         background-color: #fcedd5;
-
         background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
         border-radius: 30%;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
@@ -1084,7 +1194,6 @@
       @media screen and (max-width: 776px) {
         .hero-content h1 {
           font-size: 1.5rem;
-
           font-weight: bold;
           text-shadow: 1px 1px 2px rgba(38, 0, 0, 0.11);
           font-family: cursive;
@@ -1469,7 +1578,7 @@
           <div class="slide-content">
             <h2>Elegance Woven in Gold and Silk</h2>
             <p>
-              Experience the timeless beauty of Yeola’s authentic Paithani
+              Experience the timeless beauty of Yeola's authentic Paithani
               sarees, handcrafted to perfection.
             </p>
             <a href="signup_login.html"
@@ -1479,7 +1588,7 @@
         </div>
         <div class="slide" style="background-image: url('images/slider.png')">
           <div class="slide-content">
-            <h2>The Bride’s Eternal Pride – Yeola Paithani</h2>
+            <h2>The Bride's Eternal Pride – Yeola Paithani</h2>
             <p>
               Celebrate your wedding with sarees that carry centuries of royal
               tradition and unmatched artistry.
@@ -1494,7 +1603,7 @@
           "
         >
           <div class="slide-content">
-            <h2>Fresh From Yeola’s Looms to Your Wardrobe</h2>
+            <h2>Fresh From Yeola's Looms to Your Wardrobe</h2>
             <p>
               Explore exclusive new patterns and vibrant hues, directly crafted
               by master weavers.
@@ -1609,7 +1718,7 @@
       <p class="video-text">
         Discover the timeless elegance of Yeola Paithani sarees through our
         YouTube channel. Watch weaving traditions, styling tips, and customer
-        stories. Don’t forget to
+        stories. Don't forget to
         <a
           href="https://www.youtube.com/@saikrupapatiahniandsilksarees?sub_confirmation=1"
           target="_blank"
@@ -1735,220 +1844,207 @@
     </footer>
 
     <script>
-      const hamburger = document.querySelector(".hamburger");
-      const navMenu = document.querySelector("nav ul");
-      const nav = document.querySelector("nav");
+      // Mobile menu functionality - CORRECTED VERSION
+      document.addEventListener('DOMContentLoaded', function() {
+          const hamburger = document.querySelector('.hamburger');
+          const navMenu = document.querySelector('nav ul');
+          const body = document.body;
+          const nav = document.querySelector('nav');
 
-      hamburger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        navMenu.classList.toggle("show");
-      });
+          // Function to close menu
+          function closeMenu() {
+              navMenu.classList.remove('show');
+              body.classList.remove('menu-open');
+              hamburger.innerHTML = '&#9776;';
+          }
 
-      document.addEventListener("click", function (event) {
-        const isClickInsideNav = event.target.closest("nav");
-        const isClickInsideMenu = event.target.closest("nav ul");
+          // Function to toggle menu
+          function toggleMenu() {
+              navMenu.classList.toggle('show');
+              body.classList.toggle('menu-open');
+              hamburger.innerHTML = navMenu.classList.contains('show') ? '✕' : '&#9776;';
+          }
 
-        if (
-          !isClickInsideNav &&
-          !isClickInsideMenu &&
-          window.innerWidth <= 900
-        ) {
-          navMenu.classList.remove("show");
-        }
-      });
+          // Hamburger click event
+          if (hamburger && navMenu) {
+              hamburger.addEventListener('click', function(e) {
+                  e.stopPropagation(); // Prevent event from bubbling up
+                  toggleMenu();
+              });
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-          nav.classList.add("scrolled");
-        } else {
-          nav.classList.remove("scrolled");
-        }
-      });
+              // Close menu when clicking on a link
+              const navLinks = document.querySelectorAll('nav ul li a');
+              navLinks.forEach(link => {
+                  link.addEventListener('click', function() {
+                      closeMenu();
+                  });
+              });
 
-      const slides = document.querySelector(".slides");
-      const slideElements = document.querySelectorAll(".slide");
-      const prevBtn = document.getElementById("prev");
-      const nextBtn = document.getElementById("next");
-      const dots = document.querySelectorAll(".dot");
-      let index = 0;
-      let slideInterval;
+              // Close menu when clicking outside
+              document.addEventListener('click', function(event) {
+                  const isClickInsideNav = event.target.closest('nav');
+                  const isClickInsideMenu = event.target.closest('nav ul');
+                  
+                  if (!isClickInsideNav && !isClickInsideMenu && navMenu.classList.contains('show')) {
+                      closeMenu();
+                  }
+              });
 
-      function showSlide(i) {
-        index = (i + slideElements.length) % slideElements.length;
-        slides.style.transform = `translateX(${-index * 100}%)`;
+              // Close menu on escape key
+              document.addEventListener('keydown', function(event) {
+                  if (event.key === 'Escape' && navMenu.classList.contains('show')) {
+                      closeMenu();
+                  }
+              });
+          }
 
-        slideElements.forEach((slide, idx) => {
-          if (idx === index) slide.classList.add("active");
-          else slide.classList.remove("active");
-        });
+          // Nav scroll effect
+          window.addEventListener('scroll', () => {
+              if (window.scrollY > 50) {
+                  nav.classList.add('scrolled');
+              } else {
+                  nav.classList.remove('scrolled');
+              }
+          });
 
-        dots.forEach((dot, idx) => {
-          if (idx === index) dot.classList.add("active");
-          else dot.classList.remove("active");
-        });
+          // Slider functionality
+          const slides = document.querySelector(".slides");
+          const slideElements = document.querySelectorAll(".slide");
+          const prevBtn = document.getElementById("prev");
+          const nextBtn = document.getElementById("next");
+          const dots = document.querySelectorAll(".dot");
+          let index = 0;
+          let slideInterval;
 
-        clearInterval(slideInterval);
-        slideInterval = setInterval(() => showSlide(index + 1), 5000);
-      }
+          function showSlide(i) {
+              index = (i + slideElements.length) % slideElements.length;
+              slides.style.transform = `translateX(${-index * 100}%)`;
 
-      prevBtn.addEventListener("click", () => showSlide(index - 1));
-      nextBtn.addEventListener("click", () => showSlide(index + 1));
+              slideElements.forEach((slide, idx) => {
+                  if (idx === index) slide.classList.add("active");
+                  else slide.classList.remove("active");
+              });
 
-      dots.forEach((dot) => {
-        dot.addEventListener("click", () => {
-          showSlide(parseInt(dot.getAttribute("data-index")));
-        });
-      });
+              dots.forEach((dot, idx) => {
+                  if (idx === index) dot.classList.add("active");
+                  else dot.classList.remove("active");
+              });
 
-      slideInterval = setInterval(() => showSlide(index + 1), 5000);
+              clearInterval(slideInterval);
+              slideInterval = setInterval(() => showSlide(index + 1), 5000);
+          }
 
-     
-      document.querySelector("footer button").addEventListener("click", () => {
-        const email = document.querySelector("footer input").value;
-        if (email) alert(`Thank you for subscribing: ${email}`);
-        else alert("Please enter a valid email.");
-      });
+          if (prevBtn && nextBtn) {
+              prevBtn.addEventListener("click", () => showSlide(index - 1));
+              nextBtn.addEventListener("click", () => showSlide(index + 1));
+          }
 
-   
-      document.querySelectorAll(".shop-now-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          window.location.href = "#featured";
-        });
-      });
+          if (dots.length > 0) {
+              dots.forEach((dot) => {
+                  dot.addEventListener("click", () => {
+                      showSlide(parseInt(dot.getAttribute("data-index")));
+                  });
+              });
+          }
 
-  
-      const carousel = document.getElementById("carousel");
-      const prev = document.querySelector(".prev");
-      const next = document.querySelector(".next");
-      const scrollStep = 200;
+          if (slideElements.length > 0) {
+              slideInterval = setInterval(() => showSlide(index + 1), 5000);
+          }
 
-      next.addEventListener("click", () => {
-        carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
-      });
+          // Carousel functionality
+          const carousel = document.getElementById("carousel");
+          const prevCarousel = document.querySelector(".prev");
+          const nextCarousel = document.querySelector(".next");
+          const scrollStep = 200;
 
-      prev.addEventListener("click", () => {
-        carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
-      });
+          if (nextCarousel && carousel) {
+              nextCarousel.addEventListener("click", () => {
+                  carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+              });
+          }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const viewAllBtn = document.getElementById("viewAllBtn");
-        const hiddenCards = document.querySelectorAll(".arrival-card.hidden");
-      });
+          if (prevCarousel && carousel) {
+              prevCarousel.addEventListener("click", () => {
+                  carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+              });
+          }
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const carousel = document.querySelector(".carousel");
-        const cards = document.querySelectorAll(".review-card");
-        const prevBtn = document.querySelector(".prev-btn");
-        const nextBtn = document.querySelector(".next-btn");
-        const indicators = document.querySelectorAll(".indicator");
-
-        let currentIndex = 0;
-        const cardWidth = cards[0].offsetWidth + 30; 
-
-      
-        function updateCarousel() {
-          carousel.style.transform = `translateX(-${
-            currentIndex * cardWidth
-          }px)`;
-
+          // New arrivals functionality
+          const arrivalContainer = document.getElementById("arrivalContainer");
           
-          indicators.forEach((indicator, index) => {
-            if (index === currentIndex) {
-              indicator.classList.add("active");
-            } else {
-              indicator.classList.remove("active");
-            }
+          async function fetchNewArrivals() {
+              try {
+                const res = await fetch("http://localhost:5000/api/products");
+                if (!res.ok) throw new Error("Failed to fetch products");
+                const data = await res.json();
+                displayNewArrivals(data);
+              } catch (err) {
+                console.error("Error fetching arrivals:", err);
+                if (arrivalContainer) {
+                    arrivalContainer.innerHTML = `
+                      <div style="text-align: center; color: #800000; padding: 40px;">
+                        <p>Failed to load new arrivals. Please try again later.</p>
+                      </div>
+                    `;
+                }
+              }
+          }
+
+          function displayNewArrivals(products) {
+              if (!arrivalContainer) return;
+              
+              const newArrivals = products.slice(0, 8);
+              
+              if (newArrivals.length === 0) {
+                arrivalContainer.innerHTML = `
+                  <div style="text-align: center; color: #800000; padding: 40px;">
+                    <p>No new arrivals available at the moment.</p>
+                  </div>
+                `;
+                return;
+              }
+
+              arrivalContainer.innerHTML = newArrivals.map(product => {
+                const imageSrc = product.images?.[0] 
+                  ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
+                  : 'https://via.placeholder.com/300x300?text=No+Image';
+                
+                return `
+                  <div class="arrival-card">
+                    <img src="${imageSrc}" alt="${product.name}" />
+                    <h3>${product.name}</h3>
+                    <p>₹${product.price.toLocaleString()}</p>
+                    <a href="description.html?id=${product._id}">
+                     <a href="signup_login.html"><button class="buy-btn">View More</button></a>
+                    </a>
+                  </div>
+                `;
+              }).join('');
+          }
+
+          // Fetch new arrivals on page load
+          fetchNewArrivals();
+
+          // Footer newsletter
+          const footerButton = document.querySelector("footer button");
+          const footerInput = document.querySelector("footer input");
+          
+          if (footerButton && footerInput) {
+              footerButton.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  const email = footerInput.value;
+                  if (email) alert(`Thank you for subscribing: ${email}`);
+                  else alert("Please enter a valid email.");
+              });
+          }
+
+          // Shop now buttons
+          document.querySelectorAll(".shop-now-btn").forEach((btn) => {
+              btn.addEventListener("click", () => {
+                  window.location.href = "#featured";
+              });
           });
-        }
-
- 
-        nextBtn.addEventListener("click", () => {
-          currentIndex = (currentIndex + 1) % cards.length;
-          updateCarousel();
-        });
-
-       
-        prevBtn.addEventListener("click", () => {
-          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-          updateCarousel();
-        });
-
-        
-        indicators.forEach((indicator, index) => {
-          indicator.addEventListener("click", () => {
-            currentIndex = index;
-            updateCarousel();
-          });
-        });
-
-     
-        setInterval(() => {
-          currentIndex = (currentIndex + 1) % cards.length;
-          updateCarousel();
-        }, 5000);
-
-        window.addEventListener("resize", () => {
-         
-          cardWidth = cards[0].offsetWidth + 30;
-          updateCarousel();
-        });
       });
-       document.addEventListener("DOMContentLoaded", async function () {
-  const arrivalContainer = document.getElementById("arrivalContainer");
-async function fetchNewArrivals() {
-    try {
-      const res = await fetch("http://localhost:5000/api/products");
-      if (!res.ok) throw new Error("Failed to fetch products");
-      const data = await res.json();
-      displayNewArrivals(data);
-    } catch (err) {
-      console.error("Error fetching arrivals:", err);
-      arrivalContainer.innerHTML = `
-        <div style="text-align: center; color: #800000; padding: 40px;">
-          <p>Failed to load new arrivals. Please try again later.</p>
-        </div>
-      `;
-    }
-  }
-       function displayNewArrivals(products) {
-   
-    const newArrivals = products.slice(0, 8);
-    
-    if (newArrivals.length === 0) {
-      arrivalContainer.innerHTML = `
-        <div style="text-align: center; color: #800000; padding: 40px;">
-          <p>No new arrivals available at the moment.</p>
-        </div>
-      `;
-      return;
-    }
-
-    arrivalContainer.innerHTML = newArrivals.map(product => {
-      const imageSrc = product.images?.[0] 
-        ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
-        : 'https://via.placeholder.com/300x300?text=No+Image';
-      
-      return `
-        <div class="arrival-card">
-          <img src="${imageSrc}" alt="${product.name}" />
-          <h3>${product.name}</h3>
-          <p>₹${product.price.toLocaleString()}</p>
-          <a href="description.html?id=${product._id}">
-           <a a href =" signup_login.html"><button class="buy-btn">View More</button></a>
-          </a>
-        </div>
-      `;
-    }).join('');
-  }
-
-
-  fetchNewArrivals();
-});
     </script>
-
-
   </body>
-</html> 
-
-
-
+</html>

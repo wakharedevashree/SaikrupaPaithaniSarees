@@ -1,12 +1,25 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paithani Sarees Collection | SaiKrupa Paithani</title>
+    <title>Paithani Saree Collection – Pure Silk & Handwoven Designs</title>
+    
+     <meta 
+      name="description" 
+      content="Explore a wide range of handwoven Paithani sarees in pure silk. Shop traditional, bridal, Muniya border, lotus and peacock Paithani sarees online at best prices." 
+    />
+
+    <meta 
+      name="keywords" 
+      content="Paithani saree collection, pure silk paithani online, paithani designs, paithani types, maharashtrian sarees, paithani shop" 
+    />
+    <meta property="og:title" content="Saikrupa Paithani – Pure Silk Paithani Sarees" />
+    <meta property="og:description" content="Buy handwoven pure silk Paithani sarees directly from Saikrupa Paithani." />
+    <meta property="og:image" content="saikrupa_logo.jpg" />
+    <meta property="og:type" content="website" />
+
+     <link rel="icon" type="image/png" href="images/logo3.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Roboto:wght@300;400;500;700&display=swap"
       rel="stylesheet"
@@ -705,6 +718,176 @@
         gap: 8px;
       }
 
+      /* Loading Animation with Logo */
+      .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 3000;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .loading-content {
+        background-color: var(--white);
+        border-radius: 15px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo-loader {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-loader .logo {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(45deg, var(--primary-color), var(--gold));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        animation: logoPulse 2s infinite ease-in-out;
+      }
+
+      .logo-loader .logo i {
+        font-size: 40px;
+        color: var(--white);
+      }
+
+      .loading-text {
+        color: var(--primary-color);
+        font-family: "Playfair Display", serif;
+        font-size: 20px;
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      @keyframes logoPulse {
+        0%, 100% { 
+          transform: scale(1); 
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        50% { 
+          transform: scale(1.1); 
+          box-shadow: 0 8px 25px rgba(128, 0, 0, 0.3);
+        }
+      }
+
+      /* Success/Error Messages */
+      .message-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 3000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .message-content {
+        background-color: var(--white);
+        border-radius: 15px;
+        padding: 30px;
+        width: 400px;
+        max-width: 90%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        position: relative;
+      }
+
+      .message-icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+      }
+
+      .success-icon {
+        color: #228b22;
+      }
+
+      .error-icon {
+        color: var(--primary-color);
+      }
+
+      .message-text {
+        font-size: 18px;
+        margin-bottom: 25px;
+        color: var(--black);
+        font-family: "Playfair Display", serif;
+      }
+
+      .message-btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--dark-red)
+        );
+        color: #fff;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .message-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
+      }
+
+      /* Button Loading State */
+      .button-loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      .button-loading::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        border: 2px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: button-spinner 1s ease infinite;
+      }
+
+      @keyframes button-spinner {
+        from {
+          transform: rotate(0turn);
+        }
+        to {
+          transform: rotate(1turn);
+        }
+      }
+
       /* Responsive Design */
       @media (max-width: 1024px) {
         .container {
@@ -895,6 +1078,29 @@
       </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="logo-loader">
+          <div class="logo">
+            <i class="fas fa-vest"></i>
+          </div>
+        </div>
+        <div class="loading-text" id="loadingText">Adding to Cart...</div>
+      </div>
+    </div>
+
+    <!-- Message Overlay -->
+    <div class="message-overlay" id="messageOverlay">
+      <div class="message-content">
+        <div class="message-icon" id="messageIcon">
+          <i class="fas fa-check-circle success-icon"></i>
+        </div>
+        <div class="message-text" id="messageText">Product added to cart successfully!</div>
+        <button class="message-btn" id="messageBtn">OK</button>
+      </div>
+    </div>
+
     <footer>
       <div class="footer-content">
         <div class="footer-column">
@@ -1077,9 +1283,51 @@
         const applyBtn = document.querySelector(".apply-btn");
         const resetBtn = document.querySelector(".reset-btn");
         const cartCount = document.querySelector(".cart-count");
+        
+        // Loading and Message overlays
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const loadingText = document.getElementById("loadingText");
+        const messageOverlay = document.getElementById("messageOverlay");
+        const messageIcon = document.getElementById("messageIcon");
+        const messageText = document.getElementById("messageText");
+        const messageBtn = document.getElementById("messageBtn");
 
         let products = [];
         let filteredProducts = [];
+
+        // Show loading overlay
+        function showLoading(text = "Adding to Cart...") {
+          loadingText.textContent = text;
+          loadingOverlay.style.display = "flex";
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+          loadingOverlay.style.display = "none";
+        }
+
+        // Show message overlay
+        function showMessage(text, isSuccess = true) {
+          messageText.textContent = text;
+          
+          if (isSuccess) {
+            messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
+          } else {
+            messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+          }
+          
+          messageOverlay.style.display = "flex";
+        }
+
+        // Hide message overlay
+        function hideMessage() {
+          messageOverlay.style.display = "none";
+        }
+
+        // Message button click
+        messageBtn.addEventListener("click", () => {
+          hideMessage();
+        });
 
         // Get authentication token
         function getAuthToken() {
@@ -1119,24 +1367,23 @@
           }
         }
 
-        // ✅ UPDATED: Add to cart handler with proper stock management
+        // ✅ UPDATED: Add to cart handler with logo loading animation
         async function addToCartHandler(productId, quantity = 1, event) {
           try {
             const authToken = getAuthToken();
             
             if (!authToken) {
-              if (confirm("Please login to add items to cart. Redirect to login page?")) {
-                window.location.href = "signup_login.html";
-                return;
-              }
+              showMessage("Please login to add items to cart", false);
+              setTimeout(() => {
+                if (confirm("Redirect to login page?")) {
+                  window.location.href = "signup_login.html";
+                }
+              }, 1000);
               return;
             }
 
-            // Show loading state
-            const originalButton = event.target;
-            const originalText = originalButton.innerHTML;
-            originalButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
-            originalButton.disabled = true;
+            // Show loading animation
+            showLoading("Adding to Cart...");
 
             // Get current product details from database to ensure we have latest stock
             const productResponse = await fetch(`http://localhost:5000/api/products/${productId}`);
@@ -1206,7 +1453,9 @@
             }
 
             if (result.success) {
-              alert("✅ Product added to cart successfully!");
+              // Hide loading and show success message
+              hideLoading();
+              showMessage("Product added to cart successfully!");
               
               // Update local products array with new stock
               const productIndex = products.findIndex(p => p._id === productId);
@@ -1223,16 +1472,12 @@
 
           } catch (err) {
             console.error("Add to cart error:", err);
-            alert("❌ " + err.message);
+            // Hide loading and show error message
+            hideLoading();
+            showMessage(err.message, false);
             
             // Refresh products to ensure stock is accurate
             await fetchProducts();
-          } finally {
-            // Reset button state
-            if (event && event.target) {
-              event.target.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
-              event.target.disabled = false;
-            }
           }
         }
 

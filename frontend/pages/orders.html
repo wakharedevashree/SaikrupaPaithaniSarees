@@ -2274,7 +2274,7 @@
 
 
 
-
+<!-- 
 
 
 <!DOCTYPE html>
@@ -2494,6 +2494,1156 @@
         </div>
     </main>
 
+    <div id="orderDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-gray-800" id="orderDetailsTitle">Order Details</h3>
+                    <button class="text-gray-400 hover:text-gray-600" id="closeOrderDetailsBtn">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6" id="orderDetailsContent">
+              
+            </div>
+        </div>
+    </div>
+
+    <div id="updateStatusModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Update Order Status</h3>
+            </div>
+            <div class="p-6">
+                <form id="updateStatusForm">
+                    <input type="hidden" id="statusOrderId">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Order ID</label>
+                        <input type="text" id="statusOrderNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Status</label>
+                        <input type="text" id="currentStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">New Status</label>
+                        <select id="newOrderStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium" id="cancelStatusBtn">
+                    Cancel
+                </button>
+                <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg font-medium" id="saveStatusBtn">
+                    Update Status
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateDeliveryDateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Update Delivery Date</h3>
+            </div>
+            <div class="p-6">
+                <form id="updateDeliveryDateForm">
+                    <input type="hidden" id="deliveryDateOrderId">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Order ID</label>
+                        <input type="text" id="deliveryDateOrderNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Status</label>
+                        <input type="text" id="deliveryDateCurrentStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Date</label>
+                        <input type="date" id="newDeliveryDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium" id="cancelDeliveryDateBtn">
+                    Cancel
+                </button>
+                <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg font-medium" id="saveDeliveryDateBtn">
+                    Update Date
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="updatePaymentStatusModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Update Payment Status</h3>
+            </div>
+            <div class="p-6">
+                <form id="updatePaymentStatusForm">
+                    <input type="hidden" id="paymentStatusOrderId">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Order ID</label>
+                        <input type="text" id="paymentStatusOrderNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Payment Status</label>
+                        <input type="text" id="currentPaymentStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                        <input type="text" id="paymentMethod" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">New Payment Status</label>
+                        <select id="newPaymentStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                            <option value="failed">Failed</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium" id="cancelPaymentStatusBtn">
+                    Cancel
+                </button>
+                <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg font-medium" id="savePaymentStatusBtn">
+                    Update Payment Status
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteOrderModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Delete Order</h3>
+            </div>
+            <div class="p-6">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                    </div>
+                </div>
+                <p class="text-center text-gray-700 mb-2">Are you sure you want to delete this order?</p>
+                <p class="text-center text-sm text-gray-500 mb-4" id="deleteOrderInfo">This action cannot be undone.</p>
+                <input type="hidden" id="deleteOrderId">
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium" id="cancelDeleteBtn">
+                    Cancel
+                </button>
+                <button type="button" class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700" id="confirmDeleteBtn">
+                    Delete Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let allOrders = [];
+    let filteredOrders = [];
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function getAuthToken() {
+        return localStorage.getItem("authToken") || localStorage.getItem("token");
+    }
+
+    function checkAdminAuth() {
+        const token = getAuthToken();
+        if (!token) {
+            alert("Please login as admin");
+            window.location.href = "signup_login.html";
+            return false;
+        }
+        return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!checkAdminAuth()) return;
+        
+        initializeEventListeners();
+        loadOrders();
+    });
+
+    function initializeEventListeners() {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-primary', 'text-white');
+                
+                currentFilter = this.dataset.status;
+                filterOrders();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentSearch = this.value.toLowerCase();
+            filterOrders();
+        });
+
+        document.getElementById('applyDateFilter').addEventListener('click', function() {
+            filterOrders();
+        });
+
+        document.getElementById('closeOrderDetailsBtn').addEventListener('click', function() {
+            document.getElementById('orderDetailsModal').classList.add('hidden');
+        });
+
+        document.getElementById('cancelStatusBtn').addEventListener('click', function() {
+            document.getElementById('updateStatusModal').classList.add('hidden');
+        });
+
+        document.getElementById('saveStatusBtn').addEventListener('click', updateOrderStatus);
+
+        document.getElementById('cancelDeliveryDateBtn').addEventListener('click', function() {
+            document.getElementById('updateDeliveryDateModal').classList.add('hidden');
+        });
+
+        document.getElementById('saveDeliveryDateBtn').addEventListener('click', updateDeliveryDate);
+
+        document.getElementById('cancelPaymentStatusBtn').addEventListener('click', function() {
+            document.getElementById('updatePaymentStatusModal').classList.add('hidden');
+        });
+
+        document.getElementById('savePaymentStatusBtn').addEventListener('click', updatePaymentStatus);
+
+        document.getElementById('cancelDeleteBtn').addEventListener('click', function() {
+            document.getElementById('deleteOrderModal').classList.add('hidden');
+        });
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', deleteOrder);
+
+        document.getElementById('orderDetailsModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+
+        document.getElementById('updateStatusModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+
+        document.getElementById('updateDeliveryDateModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+
+        document.getElementById('updatePaymentStatusModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+
+        document.getElementById('deleteOrderModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+    }
+
+    async function loadOrders() {
+        try {
+            showLoadingState();
+            
+            const token = getAuthToken();
+            const response = await fetch('http://localhost:5000/api/orders/all-orders', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch orders');
+
+            const result = await response.json();
+            
+            if (result.success) {
+                allOrders = result.orders;
+                updateOrderStats(allOrders);
+                filterOrders();
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error loading orders:', error);
+            showNotification('Failed to load orders: ' + error.message, 'error');
+            showEmptyState();
+        }
+    }
+
+    function updateOrderStats(orders) {
+        const total = orders.length;
+        const pending = orders.filter(order => order.status === 'pending').length;
+        const shipped = orders.filter(order => order.status === 'shipped').length;
+        const delivered = orders.filter(order => order.status === 'delivered').length;
+
+        document.getElementById('totalOrders').textContent = total;
+        document.getElementById('pendingOrders').textContent = pending;
+        document.getElementById('shippedOrders').textContent = shipped;
+        document.getElementById('deliveredOrders').textContent = delivered;
+    }
+
+    function filterOrders() {
+        let filtered = allOrders;
+
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(order => order.status === currentFilter);
+        }
+
+        if (currentSearch) {
+            filtered = filtered.filter(order => 
+                order.orderNumber.toLowerCase().includes(currentSearch) ||
+                (order.shippingAddress.firstName && order.shippingAddress.firstName.toLowerCase().includes(currentSearch)) ||
+                (order.shippingAddress.lastName && order.shippingAddress.lastName.toLowerCase().includes(currentSearch)) ||
+                (order.shippingAddress.email && order.shippingAddress.email.toLowerCase().includes(currentSearch))
+            );
+        }
+
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        
+        if (startDate) {
+            filtered = filtered.filter(order => new Date(order.createdAt) >= new Date(startDate));
+        }
+        if (endDate) {
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999);
+            filtered = filtered.filter(order => new Date(order.createdAt) <= end);
+        }
+
+        filteredOrders = filtered;
+        currentPage = 1;
+        renderOrdersTable();
+    }
+
+    function renderOrdersTable() {
+        const container = document.getElementById('ordersTableBody');
+        const loading = document.getElementById('loadingState');
+        const empty = document.getElementById('emptyState');
+
+        if (filteredOrders.length === 0) {
+            container.innerHTML = '';
+            loading.classList.add('hidden');
+            empty.classList.remove('hidden');
+            updatePaginationInfo(0);
+            return;
+        }
+
+        empty.classList.add('hidden');
+        loading.classList.add('hidden');
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
+
+        container.innerHTML = paginatedOrders.map(order => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-primary">${order.orderNumber}</div>
+                    <div class="text-sm text-gray-500">${order.items.length} item(s)</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">
+                        ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}
+                    </div>
+                    <div class="text-sm text-gray-500">${order.shippingAddress.email}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${formatDate(order.createdAt)}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-primary">
+                    ₹${order.orderSummary.total.toLocaleString()}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex flex-col gap-1">
+                        <span class="inline-block px-2 py-1 text-xs rounded-full payment-${order.paymentStatus}">
+                            ${order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
+                        </span>
+                        <span class="text-xs text-gray-500">${order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'cashfree' ? 'Cashfree' : 'UPI QR Code'}</span>
+                        ${order.cashfreePaymentId ? `
+                            <span class="text-xs text-gray-400">ID: ${order.cashfreePaymentId.substring(0, 8)}...</span>
+                        ` : ''}
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-block px-2 py-1 text-xs rounded-full status-${order.status}">
+                        ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div class="delivery-date-info" data-order-id="${order._id}">
+                        ${order.deliveryDate ? 
+                            `<span class="text-green-600 font-medium">${formatDate(order.deliveryDate)}</span>` : 
+                            order.expectedDelivery ? 
+                            `<span class="text-blue-600">Expected: ${formatDate(order.expectedDelivery)}</span>` : 
+                            '<span class="text-gray-400">Not set</span>'
+                        }
+                    </div>
+                    ${order.status !== 'delivered' && order.status !== 'cancelled' ? `
+                        <button class="text-blue-600 hover:text-blue-800 text-xs mt-1 update-delivery-date" 
+                                data-id="${order._id}" data-number="${order.orderNumber}">
+                            <i class="fas fa-calendar-alt mr-1"></i>Update
+                        </button>
+                    ` : ''}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button class="text-primary hover:text-darkRed mr-3 view-order" data-id="${order._id}">
+                        <i class="fas fa-eye mr-1"></i>View
+                    </button>
+                    <button class="text-green-600 hover:text-green-800 update-status mr-3" data-id="${order._id}">
+                        <i class="fas fa-edit mr-1"></i>Status
+                    </button>
+                    <button class="text-blue-600 hover:text-blue-800 update-payment-status mr-3" data-id="${order._id}">
+                        <i class="fas fa-credit-card mr-1"></i>Payment
+                    </button>
+                    <button class="text-red-600 hover:text-red-800 delete-order" data-id="${order._id}" data-number="${order.orderNumber}">
+                        <i class="fas fa-trash mr-1"></i>Delete
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        updatePaginationInfo(filteredOrders.length);
+        attachOrderEventListeners();
+    }
+
+    function attachOrderEventListeners() {
+        document.querySelectorAll('.view-order').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                viewOrderDetails(orderId);
+            });
+        });
+
+        document.querySelectorAll('.update-status').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                openUpdateStatusModal(orderId);
+            });
+        });
+
+        document.querySelectorAll('.update-delivery-date').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                openUpdateDeliveryDateModal(orderId);
+            });
+        });
+
+        document.querySelectorAll('.update-payment-status').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                openUpdatePaymentStatusModal(orderId);
+            });
+        });
+
+        document.querySelectorAll('.delete-order').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                const orderNumber = this.dataset.number;
+                openDeleteModal(orderId, orderNumber);
+            });
+        });
+    }
+
+    async function viewOrderDetails(orderId) {
+        try {
+            const token = getAuthToken();
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error('Order not found');
+                }
+                throw new Error('Failed to fetch order details');
+            }
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showOrderDetailsModal(result.order);
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error loading order details:', error);
+            showNotification('Failed to load order details: ' + error.message, 'error');
+        }
+    }
+
+    function showOrderDetailsModal(order) {
+        const modal = document.getElementById('orderDetailsModal');
+        const title = document.getElementById('orderDetailsTitle');
+        const content = document.getElementById('orderDetailsContent');
+
+        title.textContent = `Order Details - ${order.orderNumber}`;
+        
+        content.innerHTML = `
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h4 class="text-lg font-semibold text-primary mb-3">Customer Information</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="mb-2"><strong>Name:</strong> ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}</p>
+                        <p class="mb-2"><strong>Email:</strong> ${order.shippingAddress.email}</p>
+                        <p class="mb-2"><strong>Phone:</strong> ${order.shippingAddress.phone}</p>
+                        <p><strong>Address:</strong> ${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.state} - ${order.shippingAddress.pincode}</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-primary mb-3">Order & Payment Information</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="mb-2"><strong>Order Date:</strong> ${formatDateTime(order.createdAt)}</p>
+                        <p class="mb-2"><strong>Status:</strong> <span class="status-${order.status} px-2 py-1 rounded-full text-sm">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
+                        <p class="mb-2"><strong>Payment Method:</strong> ${order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'cashfree' ? 'Cashfree' : 'UPI QR Code'}</p>
+                        <p class="mb-2"><strong>Payment Status:</strong> <span class="payment-${order.paymentStatus} px-2 py-1 rounded-full text-sm">${order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}</span></p>
+                        ${order.cashfreeOrderId ? `<p class="mb-2"><strong>Cashfree Order ID:</strong> ${order.cashfreeOrderId}</p>` : ''}
+                        ${order.cashfreePaymentId ? `<p class="mb-2"><strong>Cashfree Payment ID:</strong> ${order.cashfreePaymentId}</p>` : ''}
+                        ${order.expectedDelivery ? `
+                            <p class="mb-2"><strong>Expected Delivery:</strong> ${formatDate(order.expectedDelivery)}</p>
+                        ` : ''}
+                        ${order.deliveryDate ? `
+                            <p class="mb-2"><strong>Actual Delivery:</strong> <span class="text-green-600 font-medium">${formatDate(order.deliveryDate)}</span></p>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-primary mb-3">Order Items</h4>
+                <div class="space-y-3">
+                    ${order.items.map(item => `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-gray-200 rounded-lg mr-3 flex items-center justify-center overflow-hidden">
+                                    ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : `<i class="fas fa-tshirt text-primary"></i>`}
+                                </div>
+                                <div>
+                                    <div class="font-medium">${item.name}</div>
+                                    <div class="text-sm text-gray-500">Quantity: ${item.quantity}</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-primary">₹${(item.price * item.quantity).toLocaleString()}</div>
+                                <div class="text-sm text-gray-500">₹${item.price} each</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="text-lg font-semibold text-primary mb-3">Order Summary</h4>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span>Subtotal:</span>
+                        <span>₹${order.orderSummary.subtotal.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping:</span>
+                        <span>₹${order.orderSummary.shipping.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Tax:</span>
+                        <span>₹${order.orderSummary.tax.toLocaleString()}</span>
+                    </div>
+                    ${order.orderSummary.discount > 0 ? `
+                        <div class="flex justify-between text-green-600">
+                            <span>Discount:</span>
+                            <span>-₹${order.orderSummary.discount.toLocaleString()}</span>
+                        </div>
+                    ` : ''}
+                    ${order.paymentMethod === 'cod' ? `
+                        <div class="flex justify-between text-orange-600">
+                            <span>COD Charges:</span>
+                            <span>₹50</span>
+                        </div>
+                    ` : ''}
+                    <div class="flex justify-between text-lg font-bold border-t pt-2">
+                        <span>Total:</span>
+                        <span class="text-primary">₹${order.orderSummary.total.toLocaleString()}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+    }
+
+    function openUpdateStatusModal(orderId) {
+        const order = allOrders.find(o => o._id === orderId);
+        if (!order) return;
+
+        const modal = document.getElementById('updateStatusModal');
+        document.getElementById('statusOrderId').value = order._id;
+        document.getElementById('statusOrderNumber').value = order.orderNumber;
+        document.getElementById('currentStatus').value = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+        document.getElementById('newOrderStatus').value = order.status;
+
+        modal.classList.remove('hidden');
+    }
+
+    function openUpdateDeliveryDateModal(orderId) {
+        const order = allOrders.find(o => o._id === orderId);
+        if (!order) return;
+
+        const modal = document.getElementById('updateDeliveryDateModal');
+        document.getElementById('deliveryDateOrderId').value = order._id;
+        document.getElementById('deliveryDateOrderNumber').value = order.orderNumber;
+        document.getElementById('deliveryDateCurrentStatus').value = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+        
+        if (order.deliveryDate) {
+            document.getElementById('newDeliveryDate').value = new Date(order.deliveryDate).toISOString().split('T')[0];
+        } else {
+            document.getElementById('newDeliveryDate').value = '';
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    function openUpdatePaymentStatusModal(orderId) {
+        const order = allOrders.find(o => o._id === orderId);
+        if (!order) return;
+
+        const modal = document.getElementById('updatePaymentStatusModal');
+        document.getElementById('paymentStatusOrderId').value = order._id;
+        document.getElementById('paymentStatusOrderNumber').value = order.orderNumber;
+        document.getElementById('currentPaymentStatus').value = order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1);
+        document.getElementById('paymentMethod').value = order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'cashfree' ? 'Cashfree' : 'UPI QR Code';
+        document.getElementById('newPaymentStatus').value = order.paymentStatus;
+
+        modal.classList.remove('hidden');
+    }
+
+    async function updateDeliveryDate() {
+        const orderId = document.getElementById('deliveryDateOrderId').value;
+        const deliveryDate = document.getElementById('newDeliveryDate').value;
+
+        if (!deliveryDate) {
+            showNotification('Please provide delivery date', 'error');
+            return;
+        }
+
+        try {
+            const token = getAuthToken();
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/delivery-date`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ 
+                    deliveryDate: deliveryDate
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to update delivery date');
+            }
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Delivery date updated successfully', 'success');
+                document.getElementById('updateDeliveryDateModal').classList.add('hidden');
+                
+                updateOrderInUI(orderId, { 
+                    deliveryDate: deliveryDate,
+                    expectedDelivery: deliveryDate 
+                });
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error updating delivery date:', error);
+            showNotification('Failed to update delivery date: ' + error.message, 'error');
+        }
+    }
+
+    async function updatePaymentStatus() {
+        const orderId = document.getElementById('paymentStatusOrderId').value;
+        const newPaymentStatus = document.getElementById('newPaymentStatus').value;
+
+        try {
+            const token = getAuthToken();
+            
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/payment-status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ 
+                    paymentStatus: newPaymentStatus
+                })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Payment status updated successfully', 'success');
+                document.getElementById('updatePaymentStatusModal').classList.add('hidden');
+                loadOrders(); 
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error updating payment status:', error);
+            showNotification('Failed to update payment status: ' + error.message, 'error');
+        }
+    }
+ 
+    async function updateOrderStatus() {
+        const orderId = document.getElementById('statusOrderId').value;
+        const newStatus = document.getElementById('newOrderStatus').value;
+
+        try {
+            const token = getAuthToken();
+            
+            const updateData = { status: newStatus };
+            if (newStatus === 'delivered') {
+                updateData.deliveryDate = new Date().toISOString();
+            }
+
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updateData)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Order status updated successfully', 'success');
+                document.getElementById('updateStatusModal').classList.add('hidden');
+                loadOrders(); 
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            showNotification('Failed to update order status: ' + error.message, 'error');
+        }
+    }
+
+    function updateOrderInUI(orderId, updates) {
+        const orderIndex = allOrders.findIndex(order => order._id === orderId);
+        if (orderIndex !== -1) {
+            allOrders[orderIndex] = { ...allOrders[orderIndex], ...updates };
+            
+            const deliveryDateCell = document.querySelector(`.delivery-date-info[data-order-id="${orderId}"]`);
+            if (deliveryDateCell && updates.deliveryDate) {
+                deliveryDateCell.innerHTML = `<span class="text-green-600 font-medium">${formatDate(updates.deliveryDate)}</span>`;
+            }
+            
+            filterOrders();
+        }
+    }
+
+    function openDeleteModal(orderId, orderNumber) {
+        const modal = document.getElementById('deleteOrderModal');
+        document.getElementById('deleteOrderId').value = orderId;
+        document.getElementById('deleteOrderInfo').textContent = `Order: ${orderNumber}`;
+        modal.classList.remove('hidden');
+    }
+
+    async function deleteOrder() {
+        const orderId = document.getElementById('deleteOrderId').value;
+
+        try {
+            const token = getAuthToken();
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Order deleted successfully', 'success');
+                document.getElementById('deleteOrderModal').classList.add('hidden');
+                loadOrders(); 
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            showNotification('Failed to delete order: ' + error.message, 'error');
+        }
+    }
+
+    function updatePaginationInfo(totalItems) {
+        const start = Math.min((currentPage - 1) * itemsPerPage + 1, totalItems);
+        const end = Math.min(currentPage * itemsPerPage, totalItems);
+        
+        document.getElementById('ordersStart').textContent = start;
+        document.getElementById('ordersEnd').textContent = end;
+        document.getElementById('ordersTotal').textContent = totalItems;
+
+        renderPagination(totalItems);
+    }
+
+    function renderPagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const container = document.getElementById('paginationContainer');
+        
+        let paginationHTML = '';
+
+        if (currentPage > 1) {
+            paginationHTML += `<button class="px-3 py-1 border border-gray-300 rounded-lg text-sm pagination-btn" data-page="${currentPage - 1}">Previous</button>`;
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                paginationHTML += `<button class="px-3 py-1 bg-primary text-white rounded-lg text-sm pagination-btn active" data-page="${i}">${i}</button>`;
+            } else {
+                paginationHTML += `<button class="px-3 py-1 border border-gray-300 rounded-lg text-sm pagination-btn" data-page="${i}">${i}</button>`;
+            }
+        }
+
+        if (currentPage < totalPages) {
+            paginationHTML += `<button class="px-3 py-1 border border-gray-300 rounded-lg text-sm pagination-btn" data-page="${currentPage + 1}">Next</button>`;
+        }
+
+        container.innerHTML = paginationHTML;
+
+        document.querySelectorAll('.pagination-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentPage = parseInt(this.dataset.page);
+                renderOrdersTable();
+            });
+        });
+    }
+
+    function formatDate(dateString) {
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return 'Invalid Date';
+            }
+            return date.toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        } catch (error) {
+            console.error('Date formatting error:', error);
+            return 'Invalid Date';
+        }
+    }
+
+    function formatDateTime(dateString) {
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return 'Invalid Date';
+            }
+            return date.toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        } catch (error) {
+            console.error('Date formatting error:', error);
+            return 'Invalid Date';
+        }
+    }
+
+    function showLoadingState() {
+        document.getElementById('loadingState').classList.remove('hidden');
+        document.getElementById('emptyState').classList.add('hidden');
+        document.getElementById('ordersTableBody').innerHTML = '';
+    }
+
+    function showEmptyState() {
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('emptyState').classList.remove('hidden');
+        document.getElementById('ordersTableBody').innerHTML = '';
+    }
+
+    function showNotification(message, type = 'info') {
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) existingNotification.remove();
+
+        const notification = document.createElement('div');
+        notification.className = `notification fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+            type === 'success' ? 'bg-green-500 text-white' :
+            type === 'error' ? 'bg-red-500 text-white' :
+            'bg-blue-500 text-white'
+        }`;
+        
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle mr-2"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
+</script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management - SaiKrupa Paithani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#800000",
+                        primaryLight: "#b30000",
+                        gold: "#D4AF37",
+                        lightGold: "#F2E8C9",
+                        cream: "#F8F4E3",
+                        darkRed: "#680000",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .status-pending { background-color: #fef3c7; color: #92400e; }
+        .status-confirmed { background-color: #dbeafe; color: #1e40af; }
+        .status-shipped { background-color: #e0e7ff; color: #3730a3; }
+        .status-delivered { background-color: #d1fae5; color: #065f46; }
+        .status-cancelled { background-color: #fee2e2; color: #991b1b; }
+        .status-return_requested { background-color: #fef3c7; color: #92400e; }
+        .status-return_approved { background-color: #dbeafe; color: #1e40af; }
+        .status-return_processed { background-color: #e0e7ff; color: #3730a3; }
+        .status-refunded { background-color: #d1fae5; color: #065f46; }
+        .payment-pending { background-color: #fef3c7; color: #92400e; }
+        .payment-completed { background-color: #d1fae5; color: #065f46; }
+        .payment-failed { background-color: #fee2e2; color: #991b1b; }
+        .payment-refunded { background-color: #e0e7ff; color: #3730a3; }
+        .return-none { background-color: #f3f4f6; color: #374151; }
+        .return-requested { background-color: #fef3c7; color: #92400e; }
+        .return-approved { background-color: #dbeafe; color: #1e40af; }
+        .return-processed { background-color: #e0e7ff; color: #3730a3; }
+        .return-refunded { background-color: #d1fae5; color: #065f46; }
+    </style>
+</head>
+<body class="bg-gray-50">
+ 
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="flex items-center justify-between p-4">
+            <div class="flex items-center">
+                <a href="admin.html" class="p-2 rounded-lg hover:bg-gray-100 mr-4">
+                    <i class="fas fa-arrow-left text-gray-600"></i>
+                </a>
+                <h2 class="text-xl font-semibold text-gray-800">Order Management</h2>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button class="p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-bell text-gray-600"></i>
+                    </button>
+                </div>
+                <div class="flex items-center">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=800000&color=fff" 
+                         alt="Admin" class="w-8 h-8 rounded-full">
+                </div>
+            </div>
+        </div>
+    </header>
+
+   
+    <main class="p-6">
+       
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">Order Management</h1>
+            <p class="text-gray-600">Manage and track all customer orders</p>
+        </div>
+
+       
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-primary">
+                <div class="flex items-center">
+                    <div class="p-3 bg-primary bg-opacity-10 rounded-lg mr-4">
+                        <i class="fas fa-shopping-cart text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Total Orders</p>
+                        <h3 class="text-2xl font-bold text-gray-800" id="totalOrders">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-500 bg-opacity-10 rounded-lg mr-4">
+                        <i class="fas fa-clock text-yellow-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Pending</p>
+                        <h3 class="text-2xl font-bold text-gray-800" id="pendingOrders">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-500">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-500 bg-opacity-10 rounded-lg mr-4">
+                        <i class="fas fa-shipping-fast text-blue-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Shipped</p>
+                        <h3 class="text-2xl font-bold text-gray-800" id="shippedOrders">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-500 bg-opacity-10 rounded-lg mr-4">
+                        <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Delivered</p>
+                        <h3 class="text-2xl font-bold text-gray-800" id="deliveredOrders">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                <div class="flex flex-wrap gap-2">
+                    <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium filter-btn" data-status="all">
+                        All Orders
+                    </button>
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium filter-btn" data-status="pending">
+                        Pending
+                    </button>
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium filter-btn" data-status="confirmed">
+                        Confirmed
+                    </button>
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium filter-btn" data-status="shipped">
+                        Shipped
+                    </button>
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium filter-btn" data-status="delivered">
+                        Delivered
+                    </button>
+                    <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium filter-btn" data-status="return_requested">
+                        Return Requested
+                    </button>
+                </div>
+                <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+                    <div class="relative">
+                        <input type="text" placeholder="Search orders..." 
+                               class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm w-full md:w-64"
+                               id="searchInput">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="date" class="border border-gray-300 rounded-lg px-3 py-2 text-sm" id="startDate">
+                        <input type="date" class="border border-gray-300 rounded-lg px-3 py-2 text-sm" id="endDate">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium" id="applyDateFilter">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Order Details
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Customer
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Date
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Total
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Payment
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Return Status
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Delivery Date
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="ordersTableBody">
+                    
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="loadingState" class="p-8 text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+                <p class="text-gray-600 mt-2">Loading orders...</p>
+            </div>
+
+            <div id="emptyState" class="hidden p-8 text-center">
+                <i class="fas fa-shopping-cart text-4xl text-gray-400 mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900">No orders found</h3>
+                <p class="text-gray-600">There are no orders matching your criteria.</p>
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
+                <div class="text-sm text-gray-700 mb-2 md:mb-0">
+                    Showing <span id="ordersStart">0</span> to <span id="ordersEnd">0</span> of 
+                    <span id="ordersTotal">0</span> results
+                </div>
+                <div class="flex space-x-2" id="paginationContainer">
+                  
+                </div>
+            </div>
+        </div>
+    </main>
+
     <!-- Order Details Modal -->
     <div id="orderDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -2536,6 +3686,10 @@
                             <option value="shipped">Shipped</option>
                             <option value="delivered">Delivered</option>
                             <option value="cancelled">Cancelled</option>
+                            <option value="return_requested">Return Requested</option>
+                            <option value="return_approved">Return Approved</option>
+                            <option value="return_processed">Return Processed</option>
+                            <option value="refunded">Refunded</option>
                         </select>
                     </div>
                 </form>
@@ -2623,6 +3777,54 @@
                 </button>
                 <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg font-medium" id="savePaymentStatusBtn">
                     Update Payment Status
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Return Status Modal -->
+    <div id="updateReturnStatusModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800">Update Return Status</h3>
+            </div>
+            <div class="p-6">
+                <form id="updateReturnStatusForm">
+                    <input type="hidden" id="returnStatusOrderId">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Order ID</label>
+                        <input type="text" id="returnStatusOrderNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Return Status</label>
+                        <input type="text" id="currentReturnStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">New Return Status</label>
+                        <select id="newReturnStatus" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="none">No Return</option>
+                            <option value="requested">Return Requested</option>
+                            <option value="approved">Return Approved</option>
+                            <option value="processed">Return Processed</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Instructions (Optional)</label>
+                        <textarea id="returnInstructions" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Add instructions for the customer..."></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Refund Amount (₹)</label>
+                        <input type="number" id="refundAmount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Enter refund amount">
+                    </div>
+                </form>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button type="button" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium" id="cancelReturnStatusBtn">
+                    Cancel
+                </button>
+                <button type="button" class="px-4 py-2 bg-primary text-white rounded-lg font-medium" id="saveReturnStatusBtn">
+                    Update Return Status
                 </button>
             </div>
         </div>
@@ -2740,6 +3942,13 @@
 
         document.getElementById('savePaymentStatusBtn').addEventListener('click', updatePaymentStatus);
 
+        // Return status modal events
+        document.getElementById('cancelReturnStatusBtn').addEventListener('click', function() {
+            document.getElementById('updateReturnStatusModal').classList.add('hidden');
+        });
+
+        document.getElementById('saveReturnStatusBtn').addEventListener('click', updateReturnStatus);
+
         // Delete modal events
         document.getElementById('cancelDeleteBtn').addEventListener('click', function() {
             document.getElementById('deleteOrderModal').classList.add('hidden');
@@ -2761,6 +3970,10 @@
         });
 
         document.getElementById('updatePaymentStatusModal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.add('hidden');
+        });
+
+        document.getElementById('updateReturnStatusModal').addEventListener('click', function(e) {
             if (e.target === this) this.classList.add('hidden');
         });
 
@@ -2893,14 +4106,16 @@
                             ${order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
                         </span>
                         <span class="text-xs text-gray-500">${order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'cashfree' ? 'Cashfree' : 'UPI QR Code'}</span>
-                        ${order.cashfreePaymentId ? `
-                            <span class="text-xs text-gray-400">ID: ${order.cashfreePaymentId.substring(0, 8)}...</span>
-                        ` : ''}
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="inline-block px-2 py-1 text-xs rounded-full status-${order.status}">
-                        ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        ${getStatusDisplayText(order.status)}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-block px-2 py-1 text-xs rounded-full return-${order.returnStatus}">
+                        ${getReturnStatusDisplayText(order.returnStatus)}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2929,6 +4144,9 @@
                     <button class="text-blue-600 hover:text-blue-800 update-payment-status mr-3" data-id="${order._id}">
                         <i class="fas fa-credit-card mr-1"></i>Payment
                     </button>
+                    <button class="text-purple-600 hover:text-purple-800 update-return-status mr-3" data-id="${order._id}">
+                        <i class="fas fa-undo mr-1"></i>Return
+                    </button>
                     <button class="text-red-600 hover:text-red-800 delete-order" data-id="${order._id}" data-number="${order.orderNumber}">
                         <i class="fas fa-trash mr-1"></i>Delete
                     </button>
@@ -2938,6 +4156,32 @@
 
         updatePaginationInfo(filteredOrders.length);
         attachOrderEventListeners();
+    }
+
+    function getStatusDisplayText(status) {
+        const statusMap = {
+            'pending': 'Pending',
+            'confirmed': 'Confirmed',
+            'shipped': 'Shipped',
+            'delivered': 'Delivered',
+            'cancelled': 'Cancelled',
+            'return_requested': 'Return Requested',
+            'return_approved': 'Return Approved',
+            'return_processed': 'Return Processed',
+            'refunded': 'Refunded'
+        };
+        return statusMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
+    }
+
+    function getReturnStatusDisplayText(status) {
+        const statusMap = {
+            'none': 'No Return',
+            'requested': 'Return Requested',
+            'approved': 'Return Approved',
+            'processed': 'Return Processed',
+            'refunded': 'Refunded'
+        };
+        return statusMap[status] || status;
     }
 
     // Attach event listeners to order buttons
@@ -2971,6 +4215,14 @@
             btn.addEventListener('click', function() {
                 const orderId = this.dataset.id;
                 openUpdatePaymentStatusModal(orderId);
+            });
+        });
+
+        // Update return status
+        document.querySelectorAll('.update-return-status').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const orderId = this.dataset.id;
+                openUpdateReturnStatusModal(orderId);
             });
         });
 
@@ -3037,11 +4289,10 @@
                     <h4 class="text-lg font-semibold text-primary mb-3">Order & Payment Information</h4>
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <p class="mb-2"><strong>Order Date:</strong> ${formatDateTime(order.createdAt)}</p>
-                        <p class="mb-2"><strong>Status:</strong> <span class="status-${order.status} px-2 py-1 rounded-full text-sm">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></p>
+                        <p class="mb-2"><strong>Status:</strong> <span class="status-${order.status} px-2 py-1 rounded-full text-sm">${getStatusDisplayText(order.status)}</span></p>
+                        <p class="mb-2"><strong>Return Status:</strong> <span class="return-${order.returnStatus} px-2 py-1 rounded-full text-sm">${getReturnStatusDisplayText(order.returnStatus)}</span></p>
                         <p class="mb-2"><strong>Payment Method:</strong> ${order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'cashfree' ? 'Cashfree' : 'UPI QR Code'}</p>
                         <p class="mb-2"><strong>Payment Status:</strong> <span class="payment-${order.paymentStatus} px-2 py-1 rounded-full text-sm">${order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}</span></p>
-                        ${order.cashfreeOrderId ? `<p class="mb-2"><strong>Cashfree Order ID:</strong> ${order.cashfreeOrderId}</p>` : ''}
-                        ${order.cashfreePaymentId ? `<p class="mb-2"><strong>Cashfree Payment ID:</strong> ${order.cashfreePaymentId}</p>` : ''}
                         ${order.expectedDelivery ? `
                             <p class="mb-2"><strong>Expected Delivery:</strong> ${formatDate(order.expectedDelivery)}</p>
                         ` : ''}
@@ -3051,6 +4302,22 @@
                     </div>
                 </div>
             </div>
+
+            ${order.returnStatus && order.returnStatus !== 'none' ? `
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-primary mb-3">Return Information</h4>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        ${order.returnInfo.reason ? `<p class="mb-2"><strong>Reason:</strong> ${order.returnInfo.reason}</p>` : ''}
+                        ${order.returnInfo.description ? `<p class="mb-2"><strong>Description:</strong> ${order.returnInfo.description}</p>` : ''}
+                        ${order.returnInfo.requestedAt ? `<p class="mb-2"><strong>Requested At:</strong> ${formatDateTime(order.returnInfo.requestedAt)}</p>` : ''}
+                        ${order.returnInfo.approvedAt ? `<p class="mb-2"><strong>Approved At:</strong> ${formatDateTime(order.returnInfo.approvedAt)}</p>` : ''}
+                        ${order.returnInfo.pickupScheduled ? `<p class="mb-2"><strong>Pickup Scheduled:</strong> ${formatDateTime(order.returnInfo.pickupScheduled)}</p>` : ''}
+                        ${order.returnInfo.refundProcessedAt ? `<p class="mb-2"><strong>Refund Processed:</strong> ${formatDateTime(order.returnInfo.refundProcessedAt)}</p>` : ''}
+                        ${order.returnInfo.refundAmount ? `<p class="mb-2"><strong>Refund Amount:</strong> ₹${order.returnInfo.refundAmount.toLocaleString()}</p>` : ''}
+                        ${order.returnInfo.instructions ? `<p class="mb-2"><strong>Instructions:</strong> ${order.returnInfo.instructions}</p>` : ''}
+                    </div>
+                </div>
+            ` : ''}
 
             <div class="mb-6">
                 <h4 class="text-lg font-semibold text-primary mb-3">Order Items</h4>
@@ -3121,7 +4388,7 @@
         const modal = document.getElementById('updateStatusModal');
         document.getElementById('statusOrderId').value = order._id;
         document.getElementById('statusOrderNumber').value = order.orderNumber;
-        document.getElementById('currentStatus').value = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+        document.getElementById('currentStatus').value = getStatusDisplayText(order.status);
         document.getElementById('newOrderStatus').value = order.status;
 
         modal.classList.remove('hidden');
@@ -3135,7 +4402,7 @@
         const modal = document.getElementById('updateDeliveryDateModal');
         document.getElementById('deliveryDateOrderId').value = order._id;
         document.getElementById('deliveryDateOrderNumber').value = order.orderNumber;
-        document.getElementById('deliveryDateCurrentStatus').value = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+        document.getElementById('deliveryDateCurrentStatus').value = getStatusDisplayText(order.status);
         
         // Set current delivery date if exists
         if (order.deliveryDate) {
@@ -3162,7 +4429,35 @@
         modal.classList.remove('hidden');
     }
 
-    // Update delivery date - FIXED VERSION
+    // Open update return status modal
+    function openUpdateReturnStatusModal(orderId) {
+        const order = allOrders.find(o => o._id === orderId);
+        if (!order) return;
+
+        const modal = document.getElementById('updateReturnStatusModal');
+        document.getElementById('returnStatusOrderId').value = order._id;
+        document.getElementById('returnStatusOrderNumber').value = order.orderNumber;
+        document.getElementById('currentReturnStatus').value = getReturnStatusDisplayText(order.returnStatus);
+        document.getElementById('newReturnStatus').value = order.returnStatus;
+        
+        // Set refund amount if exists
+        if (order.returnInfo && order.returnInfo.refundAmount) {
+            document.getElementById('refundAmount').value = order.returnInfo.refundAmount;
+        } else {
+            document.getElementById('refundAmount').value = order.orderSummary.total;
+        }
+
+        // Set instructions if exists
+        if (order.returnInfo && order.returnInfo.instructions) {
+            document.getElementById('returnInstructions').value = order.returnInfo.instructions;
+        } else {
+            document.getElementById('returnInstructions').value = '';
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    // Update delivery date
     async function updateDeliveryDate() {
         const orderId = document.getElementById('deliveryDateOrderId').value;
         const deliveryDate = document.getElementById('newDeliveryDate').value;
@@ -3185,23 +4480,12 @@
                 })
             });
 
-            // Add proper error handling
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to update delivery date');
-            }
-
             const result = await response.json();
             
             if (result.success) {
                 showNotification('Delivery date updated successfully', 'success');
                 document.getElementById('updateDeliveryDateModal').classList.add('hidden');
-                
-                // Update the specific order in the UI without reloading all orders
-                updateOrderInUI(orderId, { 
-                    deliveryDate: deliveryDate,
-                    expectedDelivery: deliveryDate 
-                });
+                loadOrders(); 
             } else {
                 throw new Error(result.message);
             }
@@ -3244,6 +4528,44 @@
             showNotification('Failed to update payment status: ' + error.message, 'error');
         }
     }
+
+    // Update return status
+    async function updateReturnStatus() {
+        const orderId = document.getElementById('returnStatusOrderId').value;
+        const newReturnStatus = document.getElementById('newReturnStatus').value;
+        const instructions = document.getElementById('returnInstructions').value;
+        const refundAmount = document.getElementById('refundAmount').value;
+
+        try {
+            const token = getAuthToken();
+            
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/return-status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ 
+                    returnStatus: newReturnStatus,
+                    instructions: instructions,
+                    refundAmount: parseFloat(refundAmount)
+                })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Return status updated successfully', 'success');
+                document.getElementById('updateReturnStatusModal').classList.add('hidden');
+                loadOrders(); 
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            console.error('Error updating return status:', error);
+            showNotification('Failed to update return status: ' + error.message, 'error');
+        }
+    }
  
     // Update order status
     async function updateOrderStatus() {
@@ -3280,24 +4602,6 @@
         } catch (error) {
             console.error('Error updating order status:', error);
             showNotification('Failed to update order status: ' + error.message, 'error');
-        }
-    }
-
-    // Helper function to update order in UI without reloading
-    function updateOrderInUI(orderId, updates) {
-        const orderIndex = allOrders.findIndex(order => order._id === orderId);
-        if (orderIndex !== -1) {
-            // Update the order in our data
-            allOrders[orderIndex] = { ...allOrders[orderIndex], ...updates };
-            
-            // Update the specific row in the table
-            const deliveryDateCell = document.querySelector(`.delivery-date-info[data-order-id="${orderId}"]`);
-            if (deliveryDateCell && updates.deliveryDate) {
-                deliveryDateCell.innerHTML = `<span class="text-green-600 font-medium">${formatDate(updates.deliveryDate)}</span>`;
-            }
-            
-            // Re-render the table to reflect changes
-            filterOrders();
         }
     }
 

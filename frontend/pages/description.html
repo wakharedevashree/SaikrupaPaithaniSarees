@@ -3,7 +3,25 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Luxury Paithani Saree - Traditional Elegance</title>
+<title>Buy Pure Silk Paithani Saree – Product Details | Saikrupa Paithani</title>
+
+
+
+     <meta 
+      name="description" 
+      content="View detailed information of the selected Paithani saree. 100% pure silk, handwoven craftsmanship, premium borders & authentic Maharashtra designs." 
+    />
+
+    <meta 
+      name="keywords" 
+      content="paithani product details, pure silk paithani features, handwoven paithani specifications, bridal paithani description" 
+    />
+    <meta property="og:title" content="Saikrupa Paithani – Pure Silk Paithani Sarees" />
+    <meta property="og:description" content="Buy handwoven pure silk Paithani sarees directly from Saikrupa Paithani." />
+    <meta property="og:image" content="saikrupa_logo.jpg" />
+    <meta property="og:type" content="website" />
+
+     <link rel="icon" type="image/png" href="images/logo3.png" />
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="nav.css">
@@ -34,6 +52,141 @@
   .saree-image:hover { transform: scale(1.02); }
   .thumbnail { cursor: pointer; border: 2px solid transparent; transition: all 0.3s ease; }
   .thumbnail.active { border-color: #D4AF37; }
+
+  /* Loading Animation with Logo */
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .loading-content {
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .logo-loader {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-loader .logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #800000, #D4AF37);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: logoPulse 2s infinite ease-in-out;
+  }
+
+  .logo-loader .logo i {
+    font-size: 40px;
+    color: white;
+  }
+
+  .loading-text {
+    color: #800000;
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  @keyframes logoPulse {
+    0%, 100% { 
+      transform: scale(1); 
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% { 
+      transform: scale(1.1); 
+      box-shadow: 0 8px 25px rgba(128, 0, 0, 0.3);
+    }
+  }
+
+  /* Success/Error Messages */
+  .message-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .message-content {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+  }
+
+  .message-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .success-icon {
+    color: #228b22;
+  }
+
+  .error-icon {
+    color: #800000;
+  }
+
+  .message-text {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #333333;
+    font-family: "Playfair Display", serif;
+  }
+
+  .message-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #800000, #680000);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .message-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
+  }
 
   .slider-container {
     position: relative;
@@ -144,6 +297,29 @@
 </head>
 <body class="bg-cream">
 
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+      <div class="logo-loader">
+        <div class="logo">
+          <i class="fas fa-vest"></i>
+        </div>
+      </div>
+      <div class="loading-text" id="loadingText">Processing...</div>
+    </div>
+  </div>
+
+  <!-- Message Overlay -->
+  <div class="message-overlay" id="messageOverlay">
+    <div class="message-content">
+      <div class="message-icon" id="messageIcon">
+        <i class="fas fa-check-circle success-icon"></i>
+      </div>
+      <div class="message-text" id="messageText">Operation completed successfully!</div>
+      <button class="message-btn" id="messageBtn">OK</button>
+    </div>
+  </div>
+
   <nav class="flex justify-between items-center p-4 bg-white shadow sticky top-0 z-50">
     <a href="dashboard.html" class="font-bold text-darkRed flex items-center">
       <img src="images/logo3.png" alt="Paithani Logo" class="h-16 w-16 rounded-full mr-3">
@@ -247,6 +423,48 @@ let currentProduct = null;
 let currentSlide = 0;
 let totalSlides = 0;
 let slidesPerView = 3;
+
+// Loading and Message overlays
+const loadingOverlay = document.getElementById("loadingOverlay");
+const loadingText = document.getElementById("loadingText");
+const messageOverlay = document.getElementById("messageOverlay");
+const messageIcon = document.getElementById("messageIcon");
+const messageText = document.getElementById("messageText");
+const messageBtn = document.getElementById("messageBtn");
+
+// Show loading overlay
+function showLoading(text = "Processing...") {
+  loadingText.textContent = text;
+  loadingOverlay.style.display = "flex";
+}
+
+// Hide loading overlay
+function hideLoading() {
+  loadingOverlay.style.display = "none";
+}
+
+// Show message overlay
+function showMessage(text, isSuccess = true) {
+  messageText.textContent = text;
+  
+  if (isSuccess) {
+    messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
+  } else {
+    messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+  }
+  
+  messageOverlay.style.display = "flex";
+}
+
+// Hide message overlay
+function hideMessage() {
+  messageOverlay.style.display = "none";
+}
+
+// Message button click
+messageBtn.addEventListener("click", () => {
+  hideMessage();
+});
 
 // Update slides per view based on screen size
 function updateSlidesPerView() {
@@ -374,13 +592,13 @@ function getProductId() {
   return new URLSearchParams(window.location.search).get("id");
 }
 
-// Quantity functions with stock validation
+// Quantity functions with stock validation - UPDATED
 function increaseQuantity() { 
   if (currentProduct && quantity < currentProduct.stock) {
     quantity++; 
     document.getElementById("quantity").textContent = quantity; 
   } else {
-    alert(`🚫 Maximum available quantity is ${currentProduct.stock}`);
+    showMessage(`Maximum available quantity is ${currentProduct.stock}`, false);
   }
 }
 
@@ -389,7 +607,7 @@ function decreaseQuantity() {
     quantity--; 
     document.getElementById("quantity").textContent = quantity; 
   } else {
-    alert("❌ Quantity cannot be less than 1");
+    showMessage("Quantity cannot be less than 1", false);
   }
 }
 
@@ -521,7 +739,7 @@ async function fetchReviewStats(productId) {
   }
 }
 
-// Review system with API integration
+// Review system with API integration - UPDATED
 function handleReviewForm() {
   const form = document.getElementById("reviewForm");
   
@@ -542,16 +760,18 @@ function handleReviewForm() {
     console.log('Form data:', { name, rating, text, productId });
     
     if(rating === 0){ 
-      alert("Please select a rating!"); 
+      showMessage("Please select a rating!", false); 
       return; 
     }
 
     if (text.length > 1000) {
-      alert("Review text must be 1000 characters or less.");
+      showMessage("Review text must be 1000 characters or less.", false);
       return;
     }
 
     try {
+      showLoading("Submitting your review...");
+
       const reviewData = {
         productId: productId,
         reviewerName: name,
@@ -565,7 +785,8 @@ function handleReviewForm() {
       const result = await submitReview(reviewData);
       
       if (result.success) {
-        alert("Review submitted successfully!");
+        hideLoading();
+        showMessage("Review submitted successfully!");
         form.reset();
         document.querySelectorAll(".star-rating").forEach(s => s.textContent = "☆");
         document.getElementById("ratingValue").value = 0;
@@ -576,7 +797,8 @@ function handleReviewForm() {
       }
     } catch (err) {
       console.error('Review submission failed:', err);
-      alert("Failed to submit review: " + err.message);
+      hideLoading();
+      showMessage("Failed to submit review: " + err.message, false);
     }
   });
 }
@@ -826,7 +1048,7 @@ function renderProduct(product){
   }
 }
 
-// CORRECTED Add to cart handler with stock validation AND database update
+// UPDATED: Add to cart handler with logo loading animation
 async function addToCartHandler() {
   try {
     const addToCartBtn = document.getElementById("addToCartBtn");
@@ -834,22 +1056,23 @@ async function addToCartHandler() {
     
     // Check if requested quantity is available
     if (quantity > currentProduct.stock) {
-      alert(`Sorry, only ${currentProduct.stock} units available in stock.`);
+      showMessage(`Sorry, only ${currentProduct.stock} units available in stock.`, false);
       return;
     }
 
-    addToCartBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Adding...';
-    addToCartBtn.disabled = true;
+    // Show loading animation
+    showLoading("Adding to Cart...");
 
     const authToken = getAuthToken();
     
     if (!authToken) {
-      if (confirm("Please login to add items to cart. Redirect to login page?")) {
-        window.location.href = "signup_login.html";
-        return;
-      }
-      addToCartBtn.innerHTML = originalText;
-      addToCartBtn.disabled = false;
+      hideLoading();
+      showMessage("Please login to add items to cart", false);
+      setTimeout(() => {
+        if (confirm("Redirect to login page?")) {
+          window.location.href = "signup_login.html";
+        }
+      }, 1000);
       return;
     }
 
@@ -900,15 +1123,20 @@ async function addToCartHandler() {
     if (!res.ok) {
       if (res.status === 401) {
         localStorage.removeItem('authToken');
-        alert("Session expired. Please login again.");
-        window.location.href = "signup_login.html";
+        hideLoading();
+        showMessage("Session expired. Please login again.", false);
+        setTimeout(() => {
+          window.location.href = "signup_login.html";
+        }, 1500);
         return;
       }
       throw new Error(result.message || "Failed to add to cart");
     }
 
     if (result.success) {
-      alert("✅ Product added to cart successfully!");
+      // Hide loading and show success message
+      hideLoading();
+      showMessage("Product added to cart successfully!");
       
       // Update product stock locally with the actual updated value
       currentProduct.stock = newStock;
@@ -923,7 +1151,9 @@ async function addToCartHandler() {
 
   } catch (err) {
     console.error("Add to cart error:", err);
-    alert("❌ Failed to add to cart: " + err.message);
+    // Hide loading and show error message
+    hideLoading();
+    showMessage("Failed to add to cart: " + err.message, false);
     
     // Reload product data to get correct stock
     await fetchProductData(currentProduct._id);

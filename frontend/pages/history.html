@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,7 +88,6 @@
             background-clip: text;
         }
 
-        /* Tracking Progress Bar */
         .tracking-progress {
             height: 8px;
             background: #e5e7eb;
@@ -140,7 +139,6 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Delivery Timeline */
         .delivery-timeline {
             position: relative;
             padding-left: 30px;
@@ -326,7 +324,6 @@
         color: #b30000;
       }
 
-      /* Mobile menu styles */
       @media (max-width: 900px) {
         nav {
           padding: 0 20px;
@@ -371,7 +368,7 @@
 </head>
 <body class="bg-cream">
 
-    <!-- Navigation Header --> <nav>
+     <nav>
       <a href="home.html" class="logo">
         <img src="images/logo3.png" alt="Paithani Logo" class="logo-img" />
         <img src="saikrupa_logo.jpg" alt="SaiKrupa Paithani" class="logo-text-image" />
@@ -384,7 +381,7 @@
       </ul>
       
       <div class="nav-icons">
-        <!-- Search Icon with Search Bar -->
+      
         <div class="nav-icon search-container">
           
          
@@ -407,8 +404,1174 @@
       </div>
     </nav>
 
-    <!-- Breadcrumb -->
+
    
+
+ 
+    <div class="container mx-auto px-6 py-8">
+        <div class="text-center mb-12">
+            <h1 class="page-title text-4xl font-bold mb-4">Order History & Tracking</h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                Track your orders in real-time and stay updated on your Paithani delivery journey
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-1">
+                <div class="filter-card p-6 sticky top-24">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-primaryLight rounded-xl flex items-center justify-center text-white mr-3 shadow-lg">
+                            <i class="fas fa-filter text-sm"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-primary">Filters</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Time Period</label>
+                            <select id="timeFilter" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 bg-white">
+                                <option value="all">All time</option>
+                                <option value="30">Last 30 days</option>
+                                <option value="90">Last 3 months</option>
+                                <option value="180">Last 6 months</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-3">Order Status</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="delivered" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                        Delivered
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="shipped" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-shipping-fast text-blue-500 mr-2"></i>
+                                        Shipped
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="confirmed" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                                        Confirmed
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="pending" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-hourglass-half text-orange-500 mr-2"></i>
+                                        Pending
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button id="applyFilters" class="w-full bg-gradient-to-r from-primary to-primaryLight text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-lightGold to-cream">
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                            <div>
+                                <h2 class="text-2xl font-bold text-primary">Your Orders</h2>
+                                <p class="text-gray-600 mt-1">Track and manage your Paithani purchases</p>
+                            </div>
+                            <div class="relative">
+                                <input type="text" placeholder="Search orders..." 
+                                       class="pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-80 bg-white transition-all duration-300"
+                                       id="searchOrders">
+                                <i class="fas fa-search absolute left-4 top-3.5 text-gray-400 text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ordersList" class="divide-y divide-gray-100">
+                    </div>
+
+                    <div id="loadingState" class="p-12 text-center">
+                        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Loading Your Orders</h3>
+                        <p class="text-gray-600">We're fetching your beautiful Paithani collection...</p>
+                    </div>
+
+                    <div id="emptyState" class="hidden p-12 text-center">
+                        <div class="w-24 h-24 bg-gradient-to-br from-primary/10 to-primaryLight/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shopping-bag text-3xl text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">No Orders Yet</h3>
+                        <p class="text-gray-600 mb-8 max-w-md mx-auto">
+                            Start your journey with traditional Paithani elegance. Explore our exquisite collection of handwoven sarees.
+                        </p>
+                        <a href="product.html" class="inline-flex items-center bg-gradient-to-r from-primary to-primaryLight text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-shopping-bag mr-3"></i>
+                            Explore Collections
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="trackingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-primary to-primaryLight text-white">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-semibold" id="trackingModalTitle">Order Tracking</h3>
+                    <button class="text-white hover:text-lightGold" id="closeTrackingModal">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6" id="trackingModalContent">
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-gradient text-white mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary mr-3">
+                            <i class="fas fa-crown text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">SaiKrupa Paithani</h3>
+                    </div>
+                    <p class="text-lightGold leading-relaxed">
+                        Bringing traditional Maharashtrian elegance to your doorstep with authentic handwoven Paithani sarees since 2010.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="about.html" class="text-lightGold hover:text-gold transition-colors">About Us</a></li>
+                        <li><a href="product.html" class="text-lightGold hover:text-gold transition-colors">Collections</a></li>
+                        <li><a href="shipping.html" class="text-lightGold hover:text-gold transition-colors">Shipping Policy</a></li>
+                        <li><a href="returns.html" class="text-lightGold hover:text-gold transition-colors">Return Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4 text-gold">Customer Service</h4>
+                    <ul class="space-y-3">
+                        <li><a href="contact.html" class="text-lightGold hover:text-gold transition-colors">Contact Us</a></li>
+                        <li><a href="faq.html" class="text-lightGold hover:text-gold transition-colors">FAQs</a></li>
+                        <li><a href="track-order.html" class="text-lightGold hover:text-gold transition-colors">Track Order</a></li>
+                        <li><a href="order-history.html" class="text-lightGold hover:text-gold transition-colors">Order History</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4 text-gold">Newsletter</h4>
+                    <p class="text-lightGold mb-4">
+                        Subscribe for exclusive offers and traditional fashion insights.
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" 
+                               class="px-4 py-3 rounded-l-xl w-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-gold">
+                        <button class="bg-gold text-gray-800 px-6 py-3 rounded-r-xl font-semibold hover:bg-lightGold transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-primaryLight mt-8 pt-8 text-center">
+                <p class="text-lightGold">© 2025 SaiKrupa Paithani. Crafted with ❤️ for traditional elegance.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let allOrders = [];
+        let filteredOrders = [];
+
+        async function loadOrderHistory() {
+            try {
+                showLoadingState();
+                
+                const token = localStorage.getItem('authToken') || localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = 'signup_login.html';
+                    return;
+                }
+
+                const response = await fetch('http://localhost:5000/api/orders/user-orders', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    allOrders = result.orders || [];
+                    filterOrders();
+                } else {
+                    throw new Error('Failed to load orders');
+                }
+            } catch (error) {
+                console.error('Error loading order history:', error);
+                showEmptyState();
+            }
+        }
+
+        function filterOrders() {
+            const timeFilter = document.getElementById('timeFilter').value;
+            const statusFilters = Array.from(document.querySelectorAll('.status-filter:checked')).map(cb => cb.value);
+            const searchTerm = document.getElementById('searchOrders').value.toLowerCase();
+
+            let filtered = allOrders;
+
+            if (timeFilter !== 'all') {
+                const days = parseInt(timeFilter);
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - days);
+                filtered = filtered.filter(order => new Date(order.createdAt) >= cutoffDate);
+            }
+
+            if (statusFilters.length > 0) {
+                filtered = filtered.filter(order => statusFilters.includes(order.status));
+            }
+
+            if (searchTerm) {
+                filtered = filtered.filter(order => 
+                    order.orderNumber.toLowerCase().includes(searchTerm) ||
+                    order.items.some(item => item.name.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            filteredOrders = filtered;
+            displayOrders(filteredOrders);
+        }
+
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersList');
+            const loading = document.getElementById('loadingState');
+            const empty = document.getElementById('emptyState');
+
+            if (!orders || orders.length === 0) {
+                loading.classList.add('hidden');
+                empty.classList.remove('hidden');
+                container.innerHTML = '';
+                return;
+            }
+
+            loading.classList.add('hidden');
+            empty.classList.add('hidden');
+
+            const sortedOrders = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            container.innerHTML = sortedOrders.map(order => `
+                <div class="order-card relative p-6 m-4">
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-4 mb-3">
+                                <h3 class="text-xl font-bold text-primary">Order #${order.orderNumber}</h3>
+                                <span class="px-3 py-1 text-sm rounded-full status-${order.status} font-semibold">
+                                    <i class="fas ${getStatusIcon(order.status)} mr-1"></i>
+                                    ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                </span>
+                            </div>
+                            <p class="text-gray-600 flex items-center">
+                                <i class="fas fa-calendar mr-2 text-primary"></i>
+                                Placed on ${formatDate(order.createdAt)}
+                            </p>
+                        </div>
+                        <div class="text-right mt-4 lg:mt-0">
+                            <p class="text-2xl font-bold text-primary">₹${order.orderSummary.total.toLocaleString()}</p>
+                            <p class="text-sm text-gray-600">${order.items.length} item(s)</p>
+                        </div>
+                    </div>
+
+                   
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-semibold text-gray-800">Delivery Progress</h4>
+                            <span class="text-sm text-gray-600">
+                                ${getDeliveryStatusText(order)}
+                            </span>
+                        </div>
+                        
+                  
+                        <div class="tracking-progress mb-4">
+                            <div class="tracking-progress-fill" style="width: ${getProgressPercentage(order)}%"></div>
+                        </div>
+                        
+                       
+                        <div class="grid grid-cols-4 gap-4 text-center">
+                            ${getTrackingSteps(order)}
+                        </div>
+
+                     
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            ${order.expectedDelivery ? `
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-clock text-blue-500 mr-3"></i>
+                                    <div>
+                                        <p class="font-semibold text-blue-800">Expected Delivery</p>
+                                        <p class="text-blue-600">${formatDate(order.expectedDelivery)}</p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${order.deliveryDate ? `
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                    <div>
+                                        <p class="font-semibold text-green-800">Delivered On</p>
+                                        <p class="text-green-600">${formatDate(order.deliveryDate)}</p>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 mb-6">
+                        ${order.items.slice(0, 3).map(item => `
+                            <div class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-lightGold transition-colors">
+                                <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl mr-4 flex items-center justify-center overflow-hidden shadow-sm">
+                                    ${item.image ? 
+                                        `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : 
+                                        `<i class="fas fa-tshirt text-primary text-xl"></i>`
+                                    }
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-gray-800">${item.name}</p>
+                                    <p class="text-sm text-gray-600">Quantity: ${item.quantity} • ₹${item.price.toLocaleString()} each</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-primary">₹${(item.price * item.quantity).toLocaleString()}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    ${order.items.length > 3 ? `
+                        <div class="text-center mb-6">
+                            <span class="inline-flex items-center px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+                                <i class="fas fa-plus-circle mr-2"></i>
+                                +${order.items.length - 3} more item(s)
+                            </span>
+                        </div>
+                    ` : ''}
+
+                    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-map-marker-alt mr-2 text-primary"></i>
+                            <span>Shipped to: ${order.shippingAddress.city}, ${order.shippingAddress.state}</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="track-order bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-darkRed transition-colors flex items-center" data-id="${order._id}">
+                                <i class="fas fa-shipping-fast mr-2"></i>Track Order
+                            </button>
+                            <button class="view-order-details bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors flex items-center" data-id="${order._id}">
+                                <i class="fas fa-eye mr-2"></i>View Details
+                            </button>
+                            <button class="reorder-btn bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-colors flex items-center" data-id="${order._id}">
+                                <i class="fas fa-redo mr-2"></i>Reorder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            attachEventListeners();
+        }
+
+        function getStatusIcon(status) {
+            const icons = {
+                'pending': 'fa-clock',
+                'confirmed': 'fa-check-circle',
+                'shipped': 'fa-shipping-fast',
+                'delivered': 'fa-box-open',
+                'cancelled': 'fa-times-circle'
+            };
+            return icons[status] || 'fa-shopping-bag';
+        }
+
+        function getProgressPercentage(order) {
+            const progress = {
+                'pending': 25,
+                'confirmed': 50,
+                'shipped': 75,
+                'delivered': 100,
+                'cancelled': 0
+            };
+            return progress[order.status] || 0;
+        }
+
+        function getDeliveryStatusText(order) {
+            const statusText = {
+                'pending': 'Order received, processing soon',
+                'confirmed': 'Order confirmed, preparing for shipment',
+                'shipped': 'Shipped and on the way',
+                'delivered': 'Delivered successfully',
+                'cancelled': 'Order cancelled'
+            };
+            return statusText[order.status] || 'Processing your order';
+        }
+
+        function getTrackingSteps(order) {
+            const steps = [
+                { status: 'pending', icon: 'fa-shopping-cart', label: 'Order Placed' },
+                { status: 'confirmed', icon: 'fa-check-circle', label: 'Confirmed' },
+                { status: 'shipped', icon: 'fa-shipping-fast', label: 'Shipped' },
+                { status: 'delivered', icon: 'fa-box-open', label: 'Delivered' }
+            ];
+
+            return steps.map(step => {
+                const isCompleted = getStepCompletion(order.status, step.status);
+                const isActive = order.status === step.status;
+                const stepClass = isCompleted ? 'completed' : isActive ? 'active' : 'pending';
+                
+                return `
+                    <div class="tracking-step ${stepClass}">
+                        <div class="step-icon">
+                            <i class="fas ${step.icon}"></i>
+                        </div>
+                        <p class="text-xs font-semibold ${isCompleted ? 'text-green-600' : isActive ? 'text-blue-600' : 'text-gray-500'}">
+                            ${step.label}
+                        </p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getStepCompletion(currentStatus, stepStatus) {
+            const statusOrder = ['pending', 'confirmed', 'shipped', 'delivered'];
+            const currentIndex = statusOrder.indexOf(currentStatus);
+            const stepIndex = statusOrder.indexOf(stepStatus);
+            return currentIndex >= stepIndex;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function attachEventListeners() {
+            document.querySelectorAll('.track-order').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const orderId = this.dataset.id;
+                    showOrderTracking(orderId);
+                });
+            });
+
+            document.querySelectorAll('.view-order-details').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const orderId = this.dataset.id;
+                    viewOrderDetails(orderId);
+                });
+            });
+
+            document.querySelectorAll('.reorder-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const orderId = this.dataset.id;
+                    reorderItems(orderId);
+                });
+            });
+        }
+
+        async function showOrderTracking(orderId) {
+            try {
+                const order = allOrders.find(o => o._id === orderId);
+                if (!order) return;
+
+                const modal = document.getElementById('trackingModal');
+                const title = document.getElementById('trackingModalTitle');
+                const content = document.getElementById('trackingModalContent');
+
+                title.textContent = `Tracking Order #${order.orderNumber}`;
+                
+                content.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 rounded-xl p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <p class="text-sm text-gray-600">Order Date</p>
+                                    <p class="font-semibold">${formatDate(order.createdAt)}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600">Total Amount</p>
+                                    <p class="font-semibold text-primary">₹${order.orderSummary.total.toLocaleString()}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600">Items</p>
+                                    <p class="font-semibold">${order.items.length} item(s)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-3">Delivery Address</h4>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <p class="font-semibold">${order.shippingAddress.firstName} ${order.shippingAddress.lastName}</p>
+                                <p class="text-gray-600">${order.shippingAddress.address}</p>
+                                <p class="text-gray-600">${order.shippingAddress.city}, ${order.shippingAddress.state} - ${order.shippingAddress.pincode}</p>
+                                <p class="text-gray-600">📞 ${order.shippingAddress.phone}</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-4">Delivery Timeline</h4>
+                            <div class="delivery-timeline">
+                                ${getDetailedTimeline(order)}
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-primary to-primaryLight text-white rounded-xl p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-semibold text-lg">Current Status</h4>
+                                    <p class="text-lightGold">${getDeliveryStatusText(order)}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</p>
+                                    ${order.expectedDelivery ? `
+                                        <p class="text-lightGold">Expected by ${formatDate(order.expectedDelivery)}</p>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                            <div class="flex items-start">
+                                <i class="fas fa-headset text-yellow-500 text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-yellow-800 mb-2">Need Help with Your Order?</h4>
+                                    <p class="text-yellow-700 mb-3">Our customer support team is here to help you with any questions about your delivery.</p>
+                                    <div class="flex space-x-4">
+                                        <a href="tel:+919876543210" class="flex items-center text-yellow-700 hover:text-yellow-800">
+                                            <i class="fas fa-phone mr-2"></i>
+                                            +91 98765 43210
+                                        </a>
+                                        <a href="mailto:support@saikrupa.com" class="flex items-center text-yellow-700 hover:text-yellow-800">
+                                            <i class="fas fa-envelope mr-2"></i>
+                                            Email Support
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                modal.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error loading tracking details:', error);
+            }
+        }
+
+        function getDetailedTimeline(order) {
+            const timelineEvents = [
+                {
+                    date: order.createdAt,
+                    status: 'pending',
+                    title: 'Order Placed',
+                    description: 'Your order has been successfully placed and is being processed.',
+                    completed: true
+                },
+                {
+                    date: order.status !== 'pending' ? new Date(new Date(order.createdAt).getTime() + 2 * 60 * 60 * 1000).toISOString() : null,
+                    status: 'confirmed',
+                    title: 'Order Confirmed',
+                    description: 'Your order has been confirmed and is being prepared for shipment.',
+                    completed: ['confirmed', 'shipped', 'delivered'].includes(order.status)
+                },
+                {
+                    date: ['shipped', 'delivered'].includes(order.status) ? new Date(new Date(order.createdAt).getTime() + 24 * 60 * 60 * 1000).toISOString() : null,
+                    status: 'shipped',
+                    title: 'Order Shipped',
+                    description: 'Your order has been shipped and is on its way to you.',
+                    completed: ['shipped', 'delivered'].includes(order.status)
+                },
+                {
+                    date: order.deliveryDate,
+                    status: 'delivered',
+                    title: 'Order Delivered',
+                    description: 'Your order has been successfully delivered.',
+                    completed: order.status === 'delivered'
+                }
+            ];
+
+            return timelineEvents.map(event => {
+                if (!event.completed && !event.date) return '';
+
+                return `
+                    <div class="timeline-item ${event.completed ? 'completed' : ''}">
+                        <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-semibold text-gray-800">${event.title}</h5>
+                                <span class="text-sm text-gray-500">
+                                    ${event.date ? formatDate(event.date) : 'Pending'}
+                                </span>
+                            </div>
+                            <p class="text-gray-600 text-sm">${event.description}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showLoadingState() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('ordersList').innerHTML = '';
+        }
+
+        function showEmptyState() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('ordersList').innerHTML = '';
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = allOrders.find(o => o._id === orderId);
+            if (order) {
+                alert(`Order Details for #${order.orderNumber}\n\nStatus: ${order.status}\nTotal: ₹${order.orderSummary.total}\nItems: ${order.items.length}`);
+            }
+        }
+
+        function reorderItems(orderId) {
+            const order = allOrders.find(o => o._id === orderId);
+            if (order) {
+                if (confirm(`Add all ${order.items.length} items from order #${order.orderNumber} to cart?`)) {
+                    alert('Items added to cart successfully!');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderHistory();
+            
+            const cartCount = localStorage.getItem('cartCount') || '0';
+            document.getElementById('headerCartCount').textContent = cartCount;
+            
+            document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            });
+
+            document.getElementById('applyFilters').addEventListener('click', filterOrders);
+            document.getElementById('searchOrders').addEventListener('input', filterOrders);
+            document.querySelectorAll('.status-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', filterOrders);
+            });
+            document.getElementById('timeFilter').addEventListener('change', filterOrders);
+
+            document.getElementById('closeTrackingModal').addEventListener('click', function() {
+                document.getElementById('trackingModal').classList.add('hidden');
+            });
+
+            document.getElementById('trackingModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>  -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History & Tracking - SaiKrupa Paithani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="nav.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#800000",
+                        primaryLight: "#b30000",
+                        gold: "#D4AF37",
+                        lightGold: "#F2E8C9",
+                        cream: "#F8F4E3",
+                        darkRed: "#680000",
+                        gray: "#777",
+                        lightGray: "#f5f5f5",
+                        white: "#ffffff",
+                        black: "#333333",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        /* Navbar Styles */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #800000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(128, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 80px;
+}
+
+nav.scrolled {
+    padding: 0 30px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 5px 20px rgba(128, 0, 0, 0.15);
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #680000;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+nav.scrolled .logo {
+    transform: scale(0.95);
+}
+
+.logo-img {
+    height: 60px;
+    width: 60px;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #800000;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #800000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 10px 5px;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav ul li a.active {
+    color: #b30000;
+    font-weight: 600;
+}
+
+nav ul li a:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #800000;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover:after,
+nav ul li a.active:after {
+    width: 100%;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon {
+    color: #800000;
+    font-size: 1.3rem;
+    margin-left: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-icon a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon:hover {
+    transform: scale(1.1);
+    color: #b30000;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #800000;
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.nav-icon:hover .cart-count {
+    background: #b30000;
+    transform: scale(1.1);
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-left: 20px;
+    color: #800000;
+    transition: color 0.3s ease;
+}
+
+.hamburger:hover {
+    color: #b30000;
+}
+
+/* Mobile menu styles */
+@media (max-width: 900px) {
+    nav {
+        padding: 0 20px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-icons {
+        margin-left: auto;
+    }
+}
+        .status-pending { background-color: #fef3c7; color: #92400e; }
+        .status-confirmed { background-color: #dbeafe; color: #1e40af; }
+        .status-shipped { background-color: #e0e7ff; color: #3730a3; }
+        .status-delivered { background-color: #d1fae5; color: #065f46; }
+        .status-cancelled { background-color: #fee2e2; color: #991b1b; }
+        .status-return_requested { background-color: #fef3c7; color: #92400e; }
+        .status-return_approved { background-color: #dbeafe; color: #1e40af; }
+        .status-return_processed { background-color: #e0e7ff; color: #3730a3; }
+        .status-refunded { background-color: #d1fae5; color: #065f46; }
+        
+        .order-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .order-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #800000;
+        }
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #800000, #b30000);
+        }
+        
+        .filter-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f4e3 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f4e3 100%);
+            box-shadow: 0 4px 20px rgba(128, 0, 0, 0.1);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #800000 0%, #680000 100%);
+        }
+        
+        .page-title {
+            background: linear-gradient(135deg, #800000, #b30000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tracking-progress {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .tracking-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.5s ease;
+        }
+        
+        .tracking-step {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .tracking-step.completed .step-icon {
+            background: #10b981;
+            color: white;
+        }
+        
+        .tracking-step.active .step-icon {
+            background: #3b82f6;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        .tracking-step.pending .step-icon {
+            background: #9ca3af;
+            color: white;
+        }
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .delivery-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .delivery-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #800000;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #800000;
+        }
+        
+        .timeline-item.completed::before {
+            background: #10b981;
+            box-shadow: 0 0 0 2px #10b981;
+        }
+
+        /* Return Request Styles */
+        .return-reason {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+        .return-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .return-timeline {
+            position: relative;
+            padding-left: 24px;
+            margin: 16px 0;
+        }
+        
+        .return-timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        
+        .return-timeline-item {
+            position: relative;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+        
+        .return-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #800000;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #800000;
+        }
+        
+        .return-timeline-item.completed::before {
+            background: #10b981;
+            box-shadow: 0 0 0 2px #10b981;
+        }
+    </style>
+</head>
+<body class="bg-cream">
+
+    <!-- Navigation Header -->
+    <!-- <nav>
+      <a href="home.html" class="logo">
+        <img src="images/logo3.png" alt="Paithani Logo" class="logo-img" />
+        <img src="saikrupa_logo.jpg" alt="SaiKrupa Paithani" class="logo-text-image" />
+      </a>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="product.html">Collection</a></li>
+        <li><a href="#review">Testimonials</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      
+      <div class="nav-icons">
+        <div class="nav-icon">
+          <a style="color: #920101" href="history.html">
+            <i class="fas fa-shipping-fast mr-2"></i>
+          </a>
+        </div>
+        
+        <div class="nav-icon">
+          <a href="cart.html">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+        
+        <div class="hamburger">&#9776;</div>
+      </div>
+    </nav> -->
+
+    <!-- Navigation Header -->
+<nav>
+    <a href="home.html" class="logo">
+        <img src="images/logo3.png" alt="Paithani Logo" class="logo-img" />
+        <!-- Remove the second image if it's causing issues -->
+         <img src="saikrupa_logo.jpg" alt="SaiKrupa Paithani" class="logo-text-image" />
+    </a>
+    <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="product.html">Collection</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="history.html" class="active">My Orders</a></li>
+    </ul>
+    
+    
+</nav>
 
     <!-- Main Content -->
     <div class="container mx-auto px-6 py-8">
@@ -471,6 +1634,27 @@
                                     <span class="flex items-center">
                                         <i class="fas fa-hourglass-half text-orange-500 mr-2"></i>
                                         Pending
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="return_requested" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-undo text-purple-500 mr-2"></i>
+                                        Return Requested
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="return_approved" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                                        Return Approved
+                                    </span>
+                                </label>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-lightGold transition-colors cursor-pointer">
+                                    <input type="checkbox" class="status-filter rounded border-gray-300 text-primary focus:ring-primary mr-3" value="refunded" checked>
+                                    <span class="flex items-center">
+                                        <i class="fas fa-money-bill-wave text-green-500 mr-2"></i>
+                                        Refunded
                                     </span>
                                 </label>
                             </div>
@@ -550,6 +1734,23 @@
         </div>
     </div>
 
+    <!-- Return Request Modal -->
+    <div id="returnModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 bg-gradient-to-r from-primary to-primaryLight text-white">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-semibold" id="returnModalTitle">Request Return</h3>
+                    <button class="text-white hover:text-lightGold" id="closeReturnModal">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6" id="returnModalContent">
+                <!-- Return request form will be loaded here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer-gradient text-white mt-16">
         <div class="container mx-auto px-6 py-12">
@@ -607,7 +1808,7 @@
         let allOrders = [];
         let filteredOrders = [];
 
-        // JavaScript for order history page with tracking
+        // JavaScript for order history page with tracking and return functionality
         async function loadOrderHistory() {
             try {
                 showLoadingState();
@@ -695,8 +1896,14 @@
                                 <h3 class="text-xl font-bold text-primary">Order #${order.orderNumber}</h3>
                                 <span class="px-3 py-1 text-sm rounded-full status-${order.status} font-semibold">
                                     <i class="fas ${getStatusIcon(order.status)} mr-1"></i>
-                                    ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                    ${getStatusDisplayText(order.status)}
                                 </span>
+                                ${order.returnStatus && order.returnStatus !== 'none' ? `
+                                    <span class="px-3 py-1 text-sm rounded-full status-${order.returnStatus} font-semibold">
+                                        <i class="fas ${getReturnStatusIcon(order.returnStatus)} mr-1"></i>
+                                        ${getReturnStatusDisplayText(order.returnStatus)}
+                                    </span>
+                                ` : ''}
                             </div>
                             <p class="text-gray-600 flex items-center">
                                 <i class="fas fa-calendar mr-2 text-primary"></i>
@@ -708,6 +1915,9 @@
                             <p class="text-sm text-gray-600">${order.items.length} item(s)</p>
                         </div>
                     </div>
+
+                    <!-- Return Request Section -->
+                    ${order.returnStatus && order.returnStatus !== 'none' ? renderReturnSection(order) : ''}
 
                     <!-- Order Tracking Section -->
                     <div class="mb-6">
@@ -792,9 +2002,11 @@
                             <button class="view-order-details bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-700 transition-colors flex items-center" data-id="${order._id}">
                                 <i class="fas fa-eye mr-2"></i>View Details
                             </button>
-                            <button class="reorder-btn bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-colors flex items-center" data-id="${order._id}">
-                                <i class="fas fa-redo mr-2"></i>Reorder
-                            </button>
+                            ${order.status === 'delivered' && (!order.returnStatus || order.returnStatus === 'none') && isWithinReturnPeriod(order.deliveryDate) ? `
+                                <button class="return-btn bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-colors flex items-center" data-id="${order._id}">
+                                    <i class="fas fa-undo mr-2"></i>Return
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
                 </div>
@@ -804,15 +2016,137 @@
             attachEventListeners();
         }
 
+        function renderReturnSection(order) {
+            if (!order.returnStatus || order.returnStatus === 'none') return '';
+
+            const returnInfo = order.returnInfo || {};
+            
+            return `
+                <div class="return-reason mb-6">
+                    <div class="flex justify-between items-start mb-3">
+                        <h4 class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-undo text-purple-500 mr-2"></i>
+                            Return Request
+                        </h4>
+                        <span class="return-status status-${order.returnStatus}">
+                            ${getReturnStatusDisplayText(order.returnStatus)}
+                        </span>
+                    </div>
+                    
+                    ${returnInfo.reason ? `
+                        <div class="mb-3">
+                            <p class="text-sm text-gray-700"><strong>Reason:</strong> ${returnInfo.reason}</p>
+                            ${returnInfo.description ? `<p class="text-sm text-gray-600 mt-1">${returnInfo.description}</p>` : ''}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="return-timeline">
+                        ${returnInfo.requestedAt ? `
+                            <div class="return-timeline-item ${order.returnStatus !== 'requested' ? 'completed' : ''}">
+                                <div class="text-sm">
+                                    <strong>Return Requested</strong>
+                                    <span class="text-gray-500 ml-2">${formatDate(returnInfo.requestedAt)}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${returnInfo.approvedAt ? `
+                            <div class="return-timeline-item ${order.returnStatus !== 'approved' && order.returnStatus !== 'requested' ? 'completed' : ''}">
+                                <div class="text-sm">
+                                    <strong>Return Approved</strong>
+                                    <span class="text-gray-500 ml-2">${formatDate(returnInfo.approvedAt)}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${returnInfo.pickupScheduled ? `
+                            <div class="return-timeline-item ${order.returnStatus === 'processed' || order.returnStatus === 'refunded' ? 'completed' : ''}">
+                                <div class="text-sm">
+                                    <strong>Pickup Scheduled</strong>
+                                    <span class="text-gray-500 ml-2">${formatDate(returnInfo.pickupScheduled)}</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${returnInfo.refundProcessedAt ? `
+                            <div class="return-timeline-item ${order.returnStatus === 'refunded' ? 'completed' : ''}">
+                                <div class="text-sm">
+                                    <strong>Refund Processed</strong>
+                                    <span class="text-gray-500 ml-2">${formatDate(returnInfo.refundProcessedAt)}</span>
+                                    ${returnInfo.refundAmount ? `<span class="text-green-600 font-medium ml-2">₹${returnInfo.refundAmount.toLocaleString()}</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    
+                    ${returnInfo.instructions ? `
+                        <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                            <p class="text-sm text-blue-800"><strong>Instructions:</strong> ${returnInfo.instructions}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function getStatusDisplayText(status) {
+            const statusMap = {
+                'pending': 'Pending',
+                'confirmed': 'Confirmed',
+                'shipped': 'Shipped',
+                'delivered': 'Delivered',
+                'cancelled': 'Cancelled',
+                'return_requested': 'Return Requested',
+                'return_approved': 'Return Approved',
+                'return_processed': 'Return Processed',
+                'refunded': 'Refunded'
+            };
+            return statusMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
+        }
+
+        function getReturnStatusDisplayText(status) {
+            const statusMap = {
+                'none': 'No Return',
+                'requested': 'Return Requested',
+                'approved': 'Return Approved',
+                'processed': 'Return Processed',
+                'refunded': 'Refunded'
+            };
+            return statusMap[status] || status;
+        }
+
         function getStatusIcon(status) {
             const icons = {
                 'pending': 'fa-clock',
                 'confirmed': 'fa-check-circle',
                 'shipped': 'fa-shipping-fast',
                 'delivered': 'fa-box-open',
-                'cancelled': 'fa-times-circle'
+                'cancelled': 'fa-times-circle',
+                'return_requested': 'fa-undo',
+                'return_approved': 'fa-check-circle',
+                'return_processed': 'fa-truck-loading',
+                'refunded': 'fa-money-bill-wave'
             };
             return icons[status] || 'fa-shopping-bag';
+        }
+
+        function getReturnStatusIcon(status) {
+            const icons = {
+                'none': 'fa-ban',
+                'requested': 'fa-clock',
+                'approved': 'fa-check-circle',
+                'processed': 'fa-truck-loading',
+                'refunded': 'fa-money-bill-wave'
+            };
+            return icons[status] || 'fa-undo';
+        }
+
+        function isWithinReturnPeriod(deliveryDate) {
+            if (!deliveryDate) return false;
+            const delivery = new Date(deliveryDate);
+            const today = new Date();
+            const diffTime = today - delivery;
+            const diffDays = diffTime / (1000 * 60 * 60 * 24);
+            return diffDays <= 7; // 7-day return policy
         }
 
         function getProgressPercentage(order) {
@@ -821,7 +2155,11 @@
                 'confirmed': 50,
                 'shipped': 75,
                 'delivered': 100,
-                'cancelled': 0
+                'cancelled': 0,
+                'return_requested': 100,
+                'return_approved': 100,
+                'return_processed': 100,
+                'refunded': 100
             };
             return progress[order.status] || 0;
         }
@@ -832,7 +2170,11 @@
                 'confirmed': 'Order confirmed, preparing for shipment',
                 'shipped': 'Shipped and on the way',
                 'delivered': 'Delivered successfully',
-                'cancelled': 'Order cancelled'
+                'cancelled': 'Order cancelled',
+                'return_requested': 'Return requested - processing',
+                'return_approved': 'Return approved - schedule pickup',
+                'return_processed': 'Return processed - refund pending',
+                'refunded': 'Refund completed'
             };
             return statusText[order.status] || 'Processing your order';
         }
@@ -897,13 +2239,202 @@
                 });
             });
 
-            // Reorder buttons
-            document.querySelectorAll('.reorder-btn').forEach(btn => {
+            // Return buttons
+            document.querySelectorAll('.return-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const orderId = this.dataset.id;
-                    reorderItems(orderId);
+                    showReturnModal(orderId);
                 });
             });
+        }
+
+        function showReturnModal(orderId) {
+            const order = allOrders.find(o => o._id === orderId);
+            if (!order) return;
+
+            const modal = document.getElementById('returnModal');
+            const title = document.getElementById('returnModalTitle');
+            const content = document.getElementById('returnModalContent');
+
+            title.textContent = `Return Request - Order #${order.orderNumber}`;
+            
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 text-xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-yellow-800 mb-2">Return Policy</h4>
+                                <ul class="text-yellow-700 text-sm space-y-1">
+                                    <li>• Returns accepted within 7 days of delivery</li>
+                                    <li>• Items must be unused and in original condition</li>
+                                    <li>• Original tags and packaging must be intact</li>
+                                    <li>• Refund will be processed within 5-7 business days</li>
+                                    <li>• Return shipping is free for defective products</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="returnRequestForm">
+                        <input type="hidden" id="returnOrderId" value="${order._id}">
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Items to Return</label>
+                            <div class="space-y-3">
+                                ${order.items.map(item => `
+                                    <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                        <input type="checkbox" name="returnItems" value="${item._id}" class="rounded border-gray-300 text-primary focus:ring-primary mr-3">
+                                        <div class="flex items-center flex-1">
+                                            <div class="w-12 h-12 bg-gray-100 rounded-lg mr-3 flex items-center justify-center overflow-hidden">
+                                                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : `<i class="fas fa-tshirt text-primary"></i>`}
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="font-medium text-gray-800">${item.name}</p>
+                                                <p class="text-sm text-gray-600">Quantity: ${item.quantity}</p>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="font-semibold text-primary">₹${(item.price * item.quantity).toLocaleString()}</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Return Reason</label>
+                            <select id="returnReason" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                <option value="">Select a reason</option>
+                                <option value="wrong_size">Wrong Size</option>
+                                <option value="color_mismatch">Color Doesn't Match</option>
+                                <option value="quality_issue">Quality Issue</option>
+                                <option value="damaged_product">Damaged Product</option>
+                                <option value="not_as_described">Not as Described</option>
+                                <option value="changed_mind">Changed Mind</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Details</label>
+                            <textarea id="returnDescription" rows="4" 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" 
+                                      placeholder="Please provide more details about why you're returning this item..."></textarea>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="returnAgreement" class="rounded border-gray-300 text-primary focus:ring-primary mr-3" required>
+                                <span class="text-sm text-gray-700">
+                                    I agree to the <a href="returns.html" class="text-primary hover:underline">return policy</a> and understand that the return must be initiated within 7 days of delivery.
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="flex space-x-3">
+                            <button type="button" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors" id="cancelReturnBtn">
+                                Cancel
+                            </button>
+                            <button type="submit" class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-colors">
+                                Submit Return Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+
+            // Add form submission handler
+            document.getElementById('returnRequestForm').addEventListener('submit', handleReturnRequest);
+            document.getElementById('cancelReturnBtn').addEventListener('click', function() {
+                modal.classList.add('hidden');
+            });
+        }
+
+        async function handleReturnRequest(e) {
+            e.preventDefault();
+            
+            const orderId = document.getElementById('returnOrderId').value;
+            const reason = document.getElementById('returnReason').value;
+            const description = document.getElementById('returnDescription').value;
+            const selectedItems = Array.from(document.querySelectorAll('input[name="returnItems"]:checked')).map(cb => cb.value);
+
+            if (selectedItems.length === 0) {
+                alert('Please select at least one item to return.');
+                return;
+            }
+
+            if (!reason) {
+                alert('Please select a return reason.');
+                return;
+            }
+
+            if (!document.getElementById('returnAgreement').checked) {
+                alert('Please agree to the return policy.');
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('authToken') || localStorage.getItem('token');
+                const response = await fetch(`http://localhost:5000/api/orders/${orderId}/return`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        reason: reason,
+                        description: description,
+                        items: selectedItems
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.success) {
+                        showNotification('Return request submitted successfully!', 'success');
+                        document.getElementById('returnModal').classList.add('hidden');
+                        loadOrderHistory(); // Reload to show updated status
+                    } else {
+                        throw new Error(result.message);
+                    }
+                } else {
+                    throw new Error('Failed to submit return request');
+                }
+            } catch (error) {
+                console.error('Error submitting return request:', error);
+                showNotification('Failed to submit return request: ' + error.message, 'error');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) existingNotification.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
         }
 
         async function showOrderTracking(orderId) {
@@ -964,7 +2495,7 @@
                                     <p class="text-lightGold">${getDeliveryStatusText(order)}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-2xl font-bold">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</p>
+                                    <p class="text-2xl font-bold">${getStatusDisplayText(order.status)}</p>
                                     ${order.expectedDelivery ? `
                                         <p class="text-lightGold">Expected by ${formatDate(order.expectedDelivery)}</p>
                                     ` : ''}
@@ -1073,33 +2604,14 @@
             }
         }
 
-        function reorderItems(orderId) {
-            // Implement reorder functionality
-            const order = allOrders.find(o => o._id === orderId);
-            if (order) {
-                if (confirm(`Add all ${order.items.length} items from order #${order.orderNumber} to cart?`)) {
-                    // Add to cart logic here
-                    alert('Items added to cart successfully!');
-                }
-            }
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             loadOrderHistory();
             
             // Update cart count
             const cartCount = localStorage.getItem('cartCount') || '0';
-            document.getElementById('headerCartCount').textContent = cartCount;
+            document.querySelector('.cart-count').textContent = cartCount;
             
-            // Logout functionality
-            document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
-                e.preventDefault();
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('token');
-                window.location.href = 'index.html';
-            });
-
             // Filter functionality
             document.getElementById('applyFilters').addEventListener('click', filterOrders);
             document.getElementById('searchOrders').addEventListener('input', filterOrders);
@@ -1113,8 +2625,18 @@
                 document.getElementById('trackingModal').classList.add('hidden');
             });
 
+            document.getElementById('closeReturnModal').addEventListener('click', function() {
+                document.getElementById('returnModal').classList.add('hidden');
+            });
+
             // Close modal on backdrop click
             document.getElementById('trackingModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('returnModal').addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.classList.add('hidden');
                 }
