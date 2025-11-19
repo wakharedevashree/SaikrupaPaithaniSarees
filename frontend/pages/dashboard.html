@@ -2252,7 +2252,8 @@ nav.scrolled .logo-text-image {
       // Fetch and display YouTube videos
       async function loadYoutubeVideos() {
         try {
-          const response = await fetch('http://localhost:5000/api/youtube-videos');
+         // const response = await fetch('http://localhost:5000/api/youtube-videos');
+          const response = await fetch('https://saikrupapaithanisarees.onrender.com/api/youtube-videos');
           const data = await response.json();
           
           if (data.success && data.videos.length > 0) {
@@ -2405,7 +2406,8 @@ nav.scrolled .logo-text-image {
       async function fetchAllReviews() {
         try {
           console.log('🔄 Fetching all reviews for home page...');
-          const res = await fetch("http://localhost:5000/api/reviews");
+         // const res = await fetch("http://localhost:5000/api/reviews");
+          const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/reviews");
           
           if (res.ok) {
             const result = await res.json();
@@ -2691,7 +2693,8 @@ nav.scrolled .logo-text-image {
     
         async function fetchNewArrivals() {
           try {
-            const res = await fetch("http://localhost:5000/api/products");
+           // const res = await fetch("http://localhost:5000/api/products");
+           const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products");
             if (!res.ok) throw new Error("Failed to fetch products");
             const data = await res.json();
             displayNewArrivals(data);
@@ -2721,7 +2724,8 @@ nav.scrolled .logo-text-image {
 
           arrivalContainer.innerHTML = newArrivals.map(product => {
             const imageSrc = product.images?.[0] 
-              ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
+            //  ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
+             ? `https://saikrupapaithanisarees.onrender.com/${product.images[0].replace(/\\/g, "/")}`
               : 'https://via.placeholder.com/300x300?text=No+Image';
             
             return `
