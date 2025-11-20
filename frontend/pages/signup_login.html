@@ -974,405 +974,403 @@
       </div>
     </div>
 
-    <script>
-      // Toggle panels for desktop
-      const container = document.getElementById("container");
-      const registerBtn = document.getElementById("registerBtn");
-      const loginBtn = document.getElementById("loginBtn");
-      
-      registerBtn.addEventListener("click", () =>
-        container.classList.add("active")
-      );
-      loginBtn.addEventListener("click", () =>
-        container.classList.remove("active")
-      );
+   <script>
+  // Toggle panels for desktop
+  const container = document.getElementById("container");
+  const registerBtn = document.getElementById("registerBtn");
+  const loginBtn = document.getElementById("loginBtn");
+  
+  registerBtn.addEventListener("click", () =>
+    container.classList.add("active")
+  );
+  loginBtn.addEventListener("click", () =>
+    container.classList.remove("active")
+  );
 
-      // Mobile toggle buttons
-      const mobileSignupBtn = document.getElementById("mobileSignupBtn");
-      const mobileLoginBtn = document.getElementById("mobileLoginBtn");
-      
-      mobileSignupBtn.addEventListener("click", () =>
-        container.classList.add("active")
-      );
-      mobileLoginBtn.addEventListener("click", () =>
-        container.classList.remove("active")
-      );
+  // Mobile toggle buttons
+  const mobileSignupBtn = document.getElementById("mobileSignupBtn");
+  const mobileLoginBtn = document.getElementById("mobileLoginBtn");
+  
+  mobileSignupBtn.addEventListener("click", () =>
+    container.classList.add("active")
+  );
+  mobileLoginBtn.addEventListener("click", () =>
+    container.classList.remove("active")
+  );
 
-      // Modal functionality
-      const forgotPasswordModal = document.getElementById(
-        "forgotPasswordModal"
-      );
-      const forgotPasswordLink = document.getElementById("forgotPasswordLink");
-      const closeModal = document.querySelector(".close-modal");
-      const sendOtpBtn = document.getElementById("sendOtpBtn");
-      const otpSection = document.getElementById("otpSection");
-      const resetPasswordBtn = document.getElementById("resetPasswordBtn");
-      const resendOtpLink = document.getElementById("resendOtpLink");
-      const timerElement = document.getElementById("timer");
-      const otpInputs = document.querySelectorAll(".otp-input");
+  // Modal functionality
+  const forgotPasswordModal = document.getElementById(
+    "forgotPasswordModal"
+  );
+  const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+  const closeModal = document.querySelector(".close-modal");
+  const sendOtpBtn = document.getElementById("sendOtpBtn");
+  const otpSection = document.getElementById("otpSection");
+  const resetPasswordBtn = document.getElementById("resetPasswordBtn");
+  const resendOtpLink = document.getElementById("resendOtpLink");
+  const timerElement = document.getElementById("timer");
+  const otpInputs = document.querySelectorAll(".otp-input");
 
-      // Loading and Message overlays
-      const loadingOverlay = document.getElementById("loadingOverlay");
-      const loadingText = document.getElementById("loadingText");
-      const messageOverlay = document.getElementById("messageOverlay");
-      const messageIcon = document.getElementById("messageIcon");
-      const messageText = document.getElementById("messageText");
-      const messageBtn = document.getElementById("messageBtn");
+  // Loading and Message overlays
+  const loadingOverlay = document.getElementById("loadingOverlay");
+  const loadingText = document.getElementById("loadingText");
+  const messageOverlay = document.getElementById("messageOverlay");
+  const messageIcon = document.getElementById("messageIcon");
+  const messageText = document.getElementById("messageText");
+  const messageBtn = document.getElementById("messageBtn");
 
-      // Show loading overlay
-      function showLoading(text = "Processing...") {
-        loadingText.textContent = text;
-        loadingOverlay.style.display = "flex";
+  // API Base URL - UPDATED TO RENDER
+  const API_BASE_URL = "https://saikrupapaithanisarees-mdqk.onrender.com";
+
+  // Show loading overlay
+  function showLoading(text = "Processing...") {
+    loadingText.textContent = text;
+    loadingOverlay.style.display = "flex";
+  }
+
+  // Hide loading overlay
+  function hideLoading() {
+    loadingOverlay.style.display = "none";
+  }
+
+  // Show message overlay
+  function showMessage(text, isSuccess = true) {
+    messageText.textContent = text;
+    
+    if (isSuccess) {
+      messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
+    } else {
+      messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+    }
+    
+    messageOverlay.style.display = "flex";
+  }
+
+  // Hide message overlay
+  function hideMessage() {
+    messageOverlay.style.display = "none";
+  }
+
+  // Set button loading state
+  function setButtonLoading(button, isLoading) {
+    if (isLoading) {
+      button.classList.add("button-loading");
+      button.disabled = true;
+    } else {
+      button.classList.remove("button-loading");
+      button.disabled = false;
+    }
+  }
+
+  // Open modal
+  forgotPasswordLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    forgotPasswordModal.style.display = "flex";
+  });
+
+  // Close modal
+  closeModal.addEventListener("click", () => {
+    forgotPasswordModal.style.display = "none";
+    resetForm();
+  });
+
+  // Close modal when clicking outside
+  window.addEventListener("click", (e) => {
+    if (e.target === forgotPasswordModal) {
+      forgotPasswordModal.style.display = "none";
+      resetForm();
+    }
+    
+    if (e.target === messageOverlay) {
+      hideMessage();
+    }
+  });
+
+  // Message button click
+  messageBtn.addEventListener("click", () => {
+    hideMessage();
+  });
+
+  // OTP input navigation
+  otpInputs.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      const value = e.target.value;
+      const index = parseInt(e.target.dataset.index);
+
+      if (value && index < 5) {
+        otpInputs[index + 1].focus();
       }
+    });
 
-      // Hide loading overlay
-      function hideLoading() {
-        loadingOverlay.style.display = "none";
+    input.addEventListener("keydown", (e) => {
+      if (
+        e.key === "Backspace" &&
+        !e.target.value &&
+        e.target.dataset.index > 0
+      ) {
+        otpInputs[parseInt(e.target.dataset.index) - 1].focus();
       }
+    });
+  });
 
-      // Show message overlay
-      function showMessage(text, isSuccess = true) {
-        messageText.textContent = text;
-        
-        if (isSuccess) {
-          messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
-        } else {
-          messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+  // Send OTP - UPDATED API URL
+  sendOtpBtn.addEventListener("click", async () => {
+    const email = document.getElementById("resetEmail").value;
+
+    if (!email) {
+      showMessage("Please enter your email", false);
+      return;
+    }
+
+    setButtonLoading(sendOtpBtn, true);
+    showLoading("Sending OTP...");
+
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/auth/forgot-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
         }
-        
-        messageOverlay.style.display = "flex";
-      }
+      );
 
-      // Hide message overlay
-      function hideMessage() {
-        messageOverlay.style.display = "none";
-      }
+      const result = await res.json();
 
-      // Set button loading state
-      function setButtonLoading(button, isLoading) {
-        if (isLoading) {
-          button.classList.add("button-loading");
-          button.disabled = true;
-        } else {
-          button.classList.remove("button-loading");
-          button.disabled = false;
+      if (res.ok) {
+        otpSection.style.display = "block";
+        startTimer();
+        showMessage("OTP sent successfully!");
+      } else {
+        showMessage(result.message || "Failed to send OTP", false);
+      }
+    } catch (err) {
+      console.error(err);
+      showMessage("Server error. Please try again.", false);
+    } finally {
+      hideLoading();
+      setButtonLoading(sendOtpBtn, false);
+    }
+  });
+
+  // Reset password - UPDATED API URL
+  resetPasswordBtn.addEventListener("click", async () => {
+    const email = document.getElementById("resetEmail").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword =
+      document.getElementById("confirmPassword").value;
+    let otp = "";
+
+    otpInputs.forEach((input) => {
+      otp += input.value;
+    });
+
+    if (!email || !otp || !newPassword || !confirmPassword) {
+      showMessage("Please fill all fields", false);
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      showMessage("Passwords do not match", false);
+      return;
+    }
+
+    if (otp.length !== 6) {
+      showMessage("Please enter the complete OTP", false);
+      return;
+    }
+
+    setButtonLoading(resetPasswordBtn, true);
+    showLoading("Resetting password...");
+
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/api/auth/reset-password`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp, newPassword }),
         }
-      }
+      );
 
-      // Open modal
-      forgotPasswordLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        forgotPasswordModal.style.display = "flex";
-      });
+      const result = await res.json();
 
-      // Close modal
-      closeModal.addEventListener("click", () => {
+      if (res.ok) {
+        showMessage("Password reset successfully!");
         forgotPasswordModal.style.display = "none";
         resetForm();
-      });
-
-      // Close modal when clicking outside
-      window.addEventListener("click", (e) => {
-        if (e.target === forgotPasswordModal) {
-          forgotPasswordModal.style.display = "none";
-          resetForm();
-        }
-        
-        if (e.target === messageOverlay) {
-          hideMessage();
-        }
-      });
-
-      // Message button click
-      messageBtn.addEventListener("click", () => {
-        hideMessage();
-      });
-
-      // OTP input navigation
-      otpInputs.forEach((input) => {
-        input.addEventListener("input", (e) => {
-          const value = e.target.value;
-          const index = parseInt(e.target.dataset.index);
-
-          if (value && index < 5) {
-            otpInputs[index + 1].focus();
-          }
-        });
-
-        input.addEventListener("keydown", (e) => {
-          if (
-            e.key === "Backspace" &&
-            !e.target.value &&
-            e.target.dataset.index > 0
-          ) {
-            otpInputs[parseInt(e.target.dataset.index) - 1].focus();
-          }
-        });
-      });
-
-      // Send OTP
-      sendOtpBtn.addEventListener("click", async () => {
-        const email = document.getElementById("resetEmail").value;
-
-        if (!email) {
-          showMessage("Please enter your email", false);
-          return;
-        }
-
-        setButtonLoading(sendOtpBtn, true);
-        showLoading("Sending OTP...");
-
-        try {
-          const res = await fetch(
-            "http://localhost:5000/api/auth/forgot-password",
-        // "https://saikrupapaithanisarees.onrender.com/api/auth/forgot-password",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email }),
-            }
-          );
-
-          const result = await res.json();
-
-          if (res.ok) {
-            otpSection.style.display = "block";
-            startTimer();
-            showMessage("OTP sent successfully!");
-          } else {
-            showMessage(result.message || "Failed to send OTP", false);
-          }
-        } catch (err) {
-          console.error(err);
-          showMessage("Server error. Please try again.", false);
-        } finally {
-          hideLoading();
-          setButtonLoading(sendOtpBtn, false);
-        }
-      });
-
-      // Reset password
-      resetPasswordBtn.addEventListener("click", async () => {
-        const email = document.getElementById("resetEmail").value;
-        const newPassword = document.getElementById("newPassword").value;
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
-        let otp = "";
-
-        otpInputs.forEach((input) => {
-          otp += input.value;
-        });
-
-        if (!email || !otp || !newPassword || !confirmPassword) {
-          showMessage("Please fill all fields", false);
-          return;
-        }
-
-        if (newPassword !== confirmPassword) {
-          showMessage("Passwords do not match", false);
-          return;
-        }
-
-        if (otp.length !== 6) {
-          showMessage("Please enter the complete OTP", false);
-          return;
-        }
-
-        setButtonLoading(resetPasswordBtn, true);
-        showLoading("Resetting password...");
-
-        try {
-          const res = await fetch(
-            "http://localhost:5000/api/auth/reset-password",
-        // "https://saikrupapaithanisarees.onrender.com/api/auth/reset-password",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email, otp, newPassword }),
-            }
-          );
-
-          const result = await res.json();
-
-          if (res.ok) {
-            showMessage("Password reset successfully!");
-            forgotPasswordModal.style.display = "none";
-            resetForm();
-          } else {
-            showMessage(result.message || "Failed to reset password", false);
-          }
-        } catch (err) {
-          console.error(err);
-          showMessage("Server error. Please try again.", false);
-        } finally {
-          hideLoading();
-          setButtonLoading(resetPasswordBtn, false);
-        }
-      });
-
-      // Resend OTP
-      resendOtpLink.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("resetEmail").value;
-
-        if (!email) {
-          showMessage("Email is required", false);
-          return;
-        }
-
-        setButtonLoading(resendOtpLink, true);
-        showLoading("Resending OTP...");
-
-        try {
-         const res = await fetch("http://localhost:5000/api/auth/resend-otp", {
-     // const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/auth/resend-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
-          });
-
-          const result = await res.json();
-
-          if (res.ok) {
-            showMessage("OTP sent successfully!");
-            startTimer();
-          } else {
-            showMessage(result.message || "Failed to resend OTP", false);
-          }
-        } catch (err) {
-          console.error(err);
-          showMessage("Server error. Please try again.", false);
-        } finally {
-          hideLoading();
-          setButtonLoading(resendOtpLink, false);
-        }
-      });
-
-      // Timer function
-      function startTimer() {
-        let timeLeft = 120; // 2 minutes in seconds
-        const timerInterval = setInterval(() => {
-          const minutes = Math.floor(timeLeft / 60);
-          const seconds = timeLeft % 60;
-          timerElement.textContent = `${minutes
-            .toString()
-            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-
-          if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerElement.textContent = "00:00";
-            resendOtpLink.style.pointerEvents = "auto";
-            resendOtpLink.style.color = "var(--primary-color)";
-          } else {
-            timeLeft--;
-            resendOtpLink.style.pointerEvents = "none";
-            resendOtpLink.style.color = "var(--gray)";
-          }
-        }, 1000);
+      } else {
+        showMessage(result.message || "Failed to reset password", false);
       }
+    } catch (err) {
+      console.error(err);
+      showMessage("Server error. Please try again.", false);
+    } finally {
+      hideLoading();
+      setButtonLoading(resetPasswordBtn, false);
+    }
+  });
 
-      // Reset form
-      function resetForm() {
-        document.getElementById("resetEmail").value = "";
-        document.getElementById("newPassword").value = "";
-        document.getElementById("confirmPassword").value = "";
-        otpInputs.forEach((input) => (input.value = ""));
-        otpSection.style.display = "none";
-        timerElement.textContent = "02:00";
+  // Resend OTP - UPDATED API URL
+  resendOtpLink.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("resetEmail").value;
+
+    if (!email) {
+      showMessage("Email is required", false);
+      return;
+    }
+
+    setButtonLoading(resendOtpLink, true);
+    showLoading("Resending OTP...");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        showMessage("OTP sent successfully!");
+        startTimer();
+      } else {
+        showMessage(result.message || "Failed to resend OTP", false);
       }
+    } catch (err) {
+      console.error(err);
+      showMessage("Server error. Please try again.", false);
+    } finally {
+      hideLoading();
+      setButtonLoading(resendOtpLink, false);
+    }
+  });
 
-      // Signup form
-      document
-        .getElementById("signupForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const submitBtn = e.target.querySelector('button[type="submit"]');
-          
-          const data = {
-            name: e.target.name.value,
-            email: e.target.email.value,
-            password: e.target.password.value,
-          };
-          
-          setButtonLoading(submitBtn, true);
-          showLoading("Creating your account...");
+  // Timer function
+  function startTimer() {
+    let timeLeft = 120; // 2 minutes in seconds
+    const timerInterval = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
-          try {
-           const res = await fetch("http://localhost:5000/api/auth/register", {
-        //const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/auth/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
-            const result = await res.json();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = "00:00";
+        resendOtpLink.style.pointerEvents = "auto";
+        resendOtpLink.style.color = "var(--primary-color)";
+      } else {
+        timeLeft--;
+        resendOtpLink.style.pointerEvents = "none";
+        resendOtpLink.style.color = "var(--gray)";
+      }
+    }, 1000);
+  }
 
-            if (res.ok) {
-              showMessage("Registration successful! Please login.");
-              e.target.reset();
-              // Redirect to login panel after signup
-              container.classList.remove("active");
-            } else {
-              showMessage(result.message || "Registration failed", false);
-            }
-          } catch (err) {
-            console.error(err);
-            showMessage("Server error during registration", false);
-          } finally {
-            hideLoading();
-            setButtonLoading(submitBtn, false);
-          }
+  // Reset form
+  function resetForm() {
+    document.getElementById("resetEmail").value = "";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+    otpInputs.forEach((input) => (input.value = ""));
+    otpSection.style.display = "none";
+    timerElement.textContent = "02:00";
+  }
+
+  // Signup form - UPDATED API URL
+  document
+    .getElementById("signupForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      const data = {
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+      };
+      
+      setButtonLoading(submitBtn, true);
+      showLoading("Creating your account...");
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          showMessage("Registration successful! Please login.");
+          e.target.reset();
+          // Redirect to login panel after signup
+          container.classList.remove("active");
+        } else {
+          showMessage(result.message || "Registration failed", false);
+        }
+      } catch (err) {
+        console.error(err);
+        showMessage("Server error during registration", false);
+      } finally {
+        hideLoading();
+        setButtonLoading(submitBtn, false);
+      }
+    });
+
+  // Login form - UPDATED API URL
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      setButtonLoading(submitBtn, true);
+      showLoading("Logging you in...");
+
+      try {
+        const data = {
+          email: e.target.email.value,
+          password: e.target.password.value,
+        };
+
+        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
 
-      // Login form
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const submitBtn = e.target.querySelector('button[type="submit"]');
-          
-          setButtonLoading(submitBtn, true);
-          showLoading("Logging you in...");
+        const result = await res.json();
 
-          try {
-            const data = {
-              email: e.target.email.value,
-              password: e.target.password.value,
-            };
+        if (res.ok && result.success) {
+          // Store token in localStorage
+          localStorage.setItem("authToken", result.token);
+          localStorage.setItem("user", JSON.stringify(result.user));
 
-           const res = await fetch("http://localhost:5000/api/auth/login", {
-       // const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/auth/login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            });
+          showMessage("Login successful! Redirecting...");
 
-            const result = await res.json();
-
-            if (res.ok && result.success) {
-              // Store token in localStorage
-              localStorage.setItem("authToken", result.token);
-              localStorage.setItem("user", JSON.stringify(result.user));
-
-              showMessage("Login successful! Redirecting...");
-
-              // Redirect to home page after login
-              setTimeout(() => {
-                window.location.href = "dashboard.html";
-              }, 1500);
-            } else {
-              showMessage(
-                result.message || "Login failed. Please check your credentials.",
-                false
-              );
-            }
-          } catch (err) {
-            console.error("Login error:", err);
-            showMessage("Server error during login. Please try again.", false);
-          } finally {
-            hideLoading();
-            setButtonLoading(submitBtn, false);
-          }
-        });
-    </script>
+          // Redirect to home page after login
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1500);
+        } else {
+          showMessage(
+            result.message || "Login failed. Please check your credentials.",
+            false
+          );
+        }
+      } catch (err) {
+        console.error("Login error:", err);
+        showMessage("Server error during login. Please try again.", false);
+      } finally {
+        hideLoading();
+        setButtonLoading(submitBtn, false);
+      }
+    });
+</script>
   </body>
 </html>
