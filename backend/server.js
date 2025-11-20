@@ -145,9 +145,35 @@ app.get("/orders1", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/pages/orders1.html"));
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin1", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/pages/admin1.html"));
 });
+
+app.get("/youtube-admin1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/youtube-admin1.html"));
+});
+app.get("/cart1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/cart1.html"));
+});
+app.get("/description1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/description1.html"));
+});
+app.get("/checkout_page1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/checkout_page1.html"));
+});
+app.get("/confirmation1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/confirmation1.html"));
+});
+app.get("/history1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/history1.html"));
+});
+app.get("/product1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/product1.html"));
+});
+app.get("/reviews1", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/pages/reviews1.html"));
+});
+
 
 // Health check route for Render
 app.get("/health", (req, res) => {
