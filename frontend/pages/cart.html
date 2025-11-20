@@ -518,8 +518,8 @@
       const token = getAuthToken();
       console.log("Fetching cart...");
 
-    //  const res = await fetch("http://localhost:5000/api/cart", {
-         const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart", {
+     const res = await fetch("http://localhost:5000/api/cart", {
+       //  const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -693,8 +693,8 @@
       const token = getAuthToken();
 
       // DEBUG: Log the exact URL being called
-   //   const url = `http://localhost:5000/api/cart/update/${productId}`;
-    const url = `https://saikrupapaithanisarees.onrender.com/api/cart/update/${productId}`;
+    const url = `http://localhost:5000/api/cart/update/${productId}`;
+   // const url = `https://saikrupapaithanisarees.onrender.com/api/cart/update/${productId}`;
       console.log("Calling URL:", url);
 
       const res = await fetch(url, {
@@ -754,8 +754,8 @@
       const token = getAuthToken();
 
      
-    //  const url = `http://localhost:5000/api/cart/remove/${productId}`;
-    const url = `https://saikrupapaithanisarees.onrender.com/api/cart/remove/${productId}`;
+      const url = `http://localhost:5000/api/cart/remove/${productId}`;
+   // const url = `https://saikrupapaithanisarees.onrender.com/api/cart/remove/${productId}`;
       console.log("Calling URL:", url);
 
       const res = await fetch(url, {
@@ -802,8 +802,8 @@
 
       const token = getAuthToken();
       
-   //   const res = await fetch("http://localhost:5000/api/cart/clear", {
-    const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart/clear", {
+      const res = await fetch("http://localhost:5000/api/cart/clear", {
+  //  const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart/clear", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

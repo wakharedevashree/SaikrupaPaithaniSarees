@@ -879,8 +879,8 @@
         try {
           showLoadingState();
           
-       //   const res = await fetch("http://localhost:5000/api/products");
-       const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products");
+         const res = await fetch("http://localhost:5000/api/products");
+     //  const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products");
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           
           allProducts = await res.json();
@@ -970,8 +970,7 @@
                 <div class="flex items-center">
                   <div class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl mr-4 flex items-center justify-center product-image overflow-hidden">
                     ${product.images && product.images.length > 0 ? 
-                   //   `<img src="http://localhost:5000/${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                         `<img src="https://saikrupapaithanisarees.onrender.com/${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     `<img src="http://localhost:5000/${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 
                        <div class="w-full h-full hidden items-center justify-center bg-primary/10">
                          <i class="fas fa-tshirt text-primary text-lg"></i>
@@ -1034,8 +1033,8 @@
             
             if (confirm(`Are you sure you want to delete "${productName}"? This action cannot be undone.`)) {
               try {
-             //   const res = await fetch(`http://localhost:5000/api/products/${id}`, { 
-             const res = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${id}`, { 
+                const res = await fetch(`http://localhost:5000/api/products/${id}`, { 
+            // const res = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${id}`, { 
                   method: "DELETE" 
                 });
                 
@@ -1101,8 +1100,8 @@
             throw new Error("Please fill all required fields with valid values");
           }
 
-       //   const res = await fetch(`http://localhost:5000/api/products/${id}`, {
-       const res = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${id}`, {
+         const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+    //   const res = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -1157,8 +1156,8 @@
             throw new Error("Please upload at least one product image");
           }
 
-        //  const res = await fetch("http://localhost:5000/api/products", {
-        const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products", {
+          const res = await fetch("http://localhost:5000/api/products", {
+       // const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products", {
             method: "POST",
             body: formData,
           });

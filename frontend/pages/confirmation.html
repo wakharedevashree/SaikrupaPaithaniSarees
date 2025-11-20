@@ -615,8 +615,8 @@ async function fetchOrderData() {
     const token = getAuthToken();
     console.log("🔄 Fetching order data for:", orderId);
 
-  //  const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-  const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
+    const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+ // const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
       headers: { 
         "Authorization": `Bearer ${token}` 
       }

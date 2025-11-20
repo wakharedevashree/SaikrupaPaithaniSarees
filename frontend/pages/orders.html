@@ -3988,8 +3988,8 @@
             showLoadingState();
             
             const token = getAuthToken();
-          //  const response = await fetch('http://localhost:5000/api/orders/all-orders', {
-          const response = await fetch('https://saikrupapaithanisarees.onrender.com/api/orders/all-orders', {
+            const response = await fetch('http://localhost:5000/api/orders/all-orders', {
+        //  const response = await fetch('https://saikrupapaithanisarees.onrender.com/api/orders/all-orders', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -4241,8 +4241,8 @@
     async function viewOrderDetails(orderId) {
         try {
             const token = getAuthToken();
-         //   const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-         const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+       //  const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -4471,8 +4471,8 @@
 
         try {
             const token = getAuthToken();
-          //  const response = await fetch(`http://localhost:5000/api/orders/${orderId}/delivery-date`, {
-          const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/delivery-date`, {
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/delivery-date`, {
+         // const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/delivery-date`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -4506,8 +4506,8 @@
         try {
             const token = getAuthToken();
             
-       //     const response = await fetch(`http://localhost:5000/api/orders/${orderId}/payment-status`, {
-       const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/payment-status`, {
+          const response = await fetch(`http://localhost:5000/api/orders/${orderId}/payment-status`, {
+     //  const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/payment-status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -4543,8 +4543,8 @@
         try {
             const token = getAuthToken();
             
-       //     const response = await fetch(`http://localhost:5000/api/orders/${orderId}/return-status`, {
-        const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/return-status`, {
+        const response = await fetch(`http://localhost:5000/api/orders/${orderId}/return-status`, {
+      //  const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/return-status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -4586,8 +4586,8 @@
                 updateData.deliveryDate = new Date().toISOString();
             }
 
-          //  const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
-          const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/status`, {
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+         // const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -4625,8 +4625,8 @@
 
         try {
             const token = getAuthToken();
-        //    const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-        const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+        //const response = await fetch(`https://saikrupapaithanisarees.onrender.com/api/orders/${orderId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
