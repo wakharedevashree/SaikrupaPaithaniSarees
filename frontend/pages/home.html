@@ -1843,210 +1843,305 @@
       </div>
     </footer>
 
-    <script>
-      // Mobile menu functionality - CORRECTED VERSION
-      document.addEventListener('DOMContentLoaded', function() {
-          const hamburger = document.querySelector('.hamburger');
-          const navMenu = document.querySelector('nav ul');
-          const body = document.body;
-          const nav = document.querySelector('nav');
+   <script>
+  // Mobile menu functionality - CORRECTED VERSION
+  document.addEventListener('DOMContentLoaded', function() {
+      console.log("🚀 DOM loaded - starting script execution...");
+      
+      const hamburger = document.querySelector('.hamburger');
+      const navMenu = document.querySelector('nav ul');
+      const body = document.body;
+      const nav = document.querySelector('nav');
 
-          // Function to close menu
-          function closeMenu() {
-              navMenu.classList.remove('show');
-              body.classList.remove('menu-open');
-              hamburger.innerHTML = '&#9776;';
-          }
+      // Function to close menu
+      function closeMenu() {
+          navMenu.classList.remove('show');
+          body.classList.remove('menu-open');
+          hamburger.innerHTML = '&#9776;';
+      }
 
-          // Function to toggle menu
-          function toggleMenu() {
-              navMenu.classList.toggle('show');
-              body.classList.toggle('menu-open');
-              hamburger.innerHTML = navMenu.classList.contains('show') ? '✕' : '&#9776;';
-          }
+      // Function to toggle menu
+      function toggleMenu() {
+          navMenu.classList.toggle('show');
+          body.classList.toggle('menu-open');
+          hamburger.innerHTML = navMenu.classList.contains('show') ? '✕' : '&#9776;';
+      }
 
-          // Hamburger click event
-          if (hamburger && navMenu) {
-              hamburger.addEventListener('click', function(e) {
-                  e.stopPropagation(); // Prevent event from bubbling up
-                  toggleMenu();
+      // Hamburger click event
+      if (hamburger && navMenu) {
+          hamburger.addEventListener('click', function(e) {
+              e.stopPropagation();
+              toggleMenu();
+          });
+
+          // Close menu when clicking on a link
+          const navLinks = document.querySelectorAll('nav ul li a');
+          navLinks.forEach(link => {
+              link.addEventListener('click', function() {
+                  closeMenu();
               });
+          });
 
-              // Close menu when clicking on a link
-              const navLinks = document.querySelectorAll('nav ul li a');
-              navLinks.forEach(link => {
-                  link.addEventListener('click', function() {
-                      closeMenu();
-                  });
-              });
-
-              // Close menu when clicking outside
-              document.addEventListener('click', function(event) {
-                  const isClickInsideNav = event.target.closest('nav');
-                  const isClickInsideMenu = event.target.closest('nav ul');
-                  
-                  if (!isClickInsideNav && !isClickInsideMenu && navMenu.classList.contains('show')) {
-                      closeMenu();
-                  }
-              });
-
-              // Close menu on escape key
-              document.addEventListener('keydown', function(event) {
-                  if (event.key === 'Escape' && navMenu.classList.contains('show')) {
-                      closeMenu();
-                  }
-              });
-          }
-
-          // Nav scroll effect
-          window.addEventListener('scroll', () => {
-              if (window.scrollY > 50) {
-                  nav.classList.add('scrolled');
-              } else {
-                  nav.classList.remove('scrolled');
+          // Close menu when clicking outside
+          document.addEventListener('click', function(event) {
+              const isClickInsideNav = event.target.closest('nav');
+              const isClickInsideMenu = event.target.closest('nav ul');
+              
+              if (!isClickInsideNav && !isClickInsideMenu && navMenu.classList.contains('show')) {
+                  closeMenu();
               }
           });
 
-          // Slider functionality
-          const slides = document.querySelector(".slides");
-          const slideElements = document.querySelectorAll(".slide");
-          const prevBtn = document.getElementById("prev");
-          const nextBtn = document.getElementById("next");
-          const dots = document.querySelectorAll(".dot");
-          let index = 0;
-          let slideInterval;
+          // Close menu on escape key
+          document.addEventListener('keydown', function(event) {
+              if (event.key === 'Escape' && navMenu.classList.contains('show')) {
+                  closeMenu();
+              }
+          });
+      }
 
-          function showSlide(i) {
-              index = (i + slideElements.length) % slideElements.length;
-              slides.style.transform = `translateX(${-index * 100}%)`;
+      // Nav scroll effect
+      window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+              nav.classList.add('scrolled');
+          } else {
+              nav.classList.remove('scrolled');
+          }
+      });
 
-              slideElements.forEach((slide, idx) => {
-                  if (idx === index) slide.classList.add("active");
-                  else slide.classList.remove("active");
+      // Slider functionality
+      const slides = document.querySelector(".slides");
+      const slideElements = document.querySelectorAll(".slide");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      const dots = document.querySelectorAll(".dot");
+      let index = 0;
+      let slideInterval;
+
+      function showSlide(i) {
+          index = (i + slideElements.length) % slideElements.length;
+          slides.style.transform = `translateX(${-index * 100}%)`;
+
+          slideElements.forEach((slide, idx) => {
+              if (idx === index) slide.classList.add("active");
+              else slide.classList.remove("active");
+          });
+
+          dots.forEach((dot, idx) => {
+              if (idx === index) dot.classList.add("active");
+              else dot.classList.remove("active");
+          });
+
+          clearInterval(slideInterval);
+          slideInterval = setInterval(() => showSlide(index + 1), 5000);
+      }
+
+      if (prevBtn && nextBtn) {
+          prevBtn.addEventListener("click", () => showSlide(index - 1));
+          nextBtn.addEventListener("click", () => showSlide(index + 1));
+      }
+
+      if (dots.length > 0) {
+          dots.forEach((dot) => {
+              dot.addEventListener("click", () => {
+                  showSlide(parseInt(dot.getAttribute("data-index")));
               });
+          });
+      }
 
-              dots.forEach((dot, idx) => {
-                  if (idx === index) dot.classList.add("active");
-                  else dot.classList.remove("active");
-              });
+      if (slideElements.length > 0) {
+          slideInterval = setInterval(() => showSlide(index + 1), 5000);
+      }
 
-              clearInterval(slideInterval);
-              slideInterval = setInterval(() => showSlide(index + 1), 5000);
-          }
+      // Carousel functionality
+      const carousel = document.getElementById("carousel");
+      const prevCarousel = document.querySelector(".prev");
+      const nextCarousel = document.querySelector(".next");
+      const scrollStep = 200;
 
-          if (prevBtn && nextBtn) {
-              prevBtn.addEventListener("click", () => showSlide(index - 1));
-              nextBtn.addEventListener("click", () => showSlide(index + 1));
-          }
+      if (nextCarousel && carousel) {
+          nextCarousel.addEventListener("click", () => {
+              carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+          });
+      }
 
-          if (dots.length > 0) {
-              dots.forEach((dot) => {
-                  dot.addEventListener("click", () => {
-                      showSlide(parseInt(dot.getAttribute("data-index")));
-                  });
-              });
-          }
+      if (prevCarousel && carousel) {
+          prevCarousel.addEventListener("click", () => {
+              carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+          });
+      }
 
-          if (slideElements.length > 0) {
-              slideInterval = setInterval(() => showSlide(index + 1), 5000);
-          }
-
-          // Carousel functionality
-          const carousel = document.getElementById("carousel");
-          const prevCarousel = document.querySelector(".prev");
-          const nextCarousel = document.querySelector(".next");
-          const scrollStep = 200;
-
-          if (nextCarousel && carousel) {
-              nextCarousel.addEventListener("click", () => {
-                  carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
-              });
-          }
-
-          if (prevCarousel && carousel) {
-              prevCarousel.addEventListener("click", () => {
-                  carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
-              });
-          }
-
-          // New arrivals functionality
-          const arrivalContainer = document.getElementById("arrivalContainer");
-          
-          async function fetchNewArrivals() {
-              try {
-                //const res = await fetch("http://localhost:5000/api/products");
-                const res = await fetch("https://saikrupapaithanisarees-mdqk.onrender.com/api/products");
-                if (!res.ok) throw new Error("Failed to fetch products");
-                const data = await res.json();
-                displayNewArrivals(data);
-              } catch (err) {
-                console.error("Error fetching arrivals:", err);
-                if (arrivalContainer) {
-                    arrivalContainer.innerHTML = `
-                      <div style="text-align: center; color: #800000; padding: 40px;">
-                        <p>Failed to load new arrivals. Please try again later.</p>
+      // ========== NEW ARRIVALS FUNCTIONALITY - DEBUGGED ==========
+      const arrivalContainer = document.getElementById("arrivalContainer");
+      
+      async function fetchNewArrivals() {
+          try {
+              console.log("🔄 Starting fetchNewArrivals...");
+              
+              const API_URL = "https://saikrupapaithanisarees-mdqk.onrender.com";
+              const productsUrl = `${API_URL}/api/products`;
+              
+              console.log("📡 Fetching from:", productsUrl);
+              
+              // Show loading state
+              if (arrivalContainer) {
+                  arrivalContainer.innerHTML = `
+                      <div style="text-align: center; color: #800000; padding: 40px; width: 100%;">
+                          <p>Loading products...</p>
                       </div>
-                    `;
-                }
+                  `;
+              }
+              
+              const res = await fetch(productsUrl);
+              console.log("✅ Response status:", res.status);
+              
+              if (!res.ok) {
+                  throw new Error(`HTTP error! status: ${res.status}`);
+              }
+              
+              const data = await res.json();
+              console.log("📦 Data received successfully:", data);
+              console.log("🔢 Number of products:", data.length);
+              
+              if (data && data.length > 0) {
+                  displayNewArrivals(data);
+              } else {
+                  throw new Error("No products found in response");
+              }
+              
+          } catch (err) {
+              console.error("❌ Error fetching arrivals:", err);
+              if (arrivalContainer) {
+                  arrivalContainer.innerHTML = `
+                      <div style="text-align: center; color: #800000; padding: 40px; width: 100%;">
+                          <h3>Unable to Load Products</h3>
+                          <p>Error: ${err.message}</p>
+                          <p>Please check if the backend is running and try again.</p>
+                          <button onclick="fetchNewArrivals()" style="margin-top: 15px; padding: 10px 20px; background: #800000; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                              Retry
+                          </button>
+                      </div>
+                  `;
               }
           }
+      }
 
-          function displayNewArrivals(products) {
-              if (!arrivalContainer) return;
-              
-              const newArrivals = products.slice(0, 8);
-              
-              if (newArrivals.length === 0) {
-                arrivalContainer.innerHTML = `
-                  <div style="text-align: center; color: #800000; padding: 40px;">
-                    <p>No new arrivals available at the moment.</p>
-                  </div>
-                `;
-                return;
-              }
-
-              arrivalContainer.innerHTML = newArrivals.map(product => {
-                const imageSrc = product.images?.[0] 
-                 // ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
-                 ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
-                  : 'https://via.placeholder.com/300x300?text=No+Image';
-                
-                return `
-                  <div class="arrival-card">
-                    <img src="${imageSrc}" alt="${product.name}" />
-                    <h3>${product.name}</h3>
-                    <p>₹${product.price.toLocaleString()}</p>
-                    <a href="description.html?id=${product._id}">
-                     <a href="signup_login.html"><button class="buy-btn">View More</button></a>
-                    </a>
-                  </div>
-                `;
-              }).join('');
-          }
-
-          // Fetch new arrivals on page load
-          fetchNewArrivals();
-
-          // Footer newsletter
-          const footerButton = document.querySelector("footer button");
-          const footerInput = document.querySelector("footer input");
+      function displayNewArrivals(products) {
+          console.log("🎨 Displaying arrivals:", products);
           
-          if (footerButton && footerInput) {
-              footerButton.addEventListener("click", (e) => {
-                  e.preventDefault();
-                  const email = footerInput.value;
-                  if (email) alert(`Thank you for subscribing: ${email}`);
-                  else alert("Please enter a valid email.");
-              });
+          if (!arrivalContainer) {
+              console.error("❌ arrivalContainer not found!");
+              return;
+          }
+          
+          // Take first 8 products or all if less than 8
+          const newArrivals = products.slice(0, 8);
+          console.log("🖼️ Displaying first", newArrivals.length, "products");
+
+          if (newArrivals.length === 0) {
+              arrivalContainer.innerHTML = `
+                  <div style="text-align: center; color: #800000; padding: 40px; width: 100%;">
+                      <p>No products available at the moment. Please check back later.</p>
+                  </div>
+              `;
+              return;
           }
 
-          // Shop now buttons
-          document.querySelectorAll(".shop-now-btn").forEach((btn) => {
-              btn.addEventListener("click", () => {
-                  window.location.href = "#featured";
-              });
+          arrivalContainer.innerHTML = newArrivals.map(product => {
+              console.log("📝 Processing product:", product.name);
+              
+              // Handle image path - FIXED
+              let imageSrc = 'https://via.placeholder.com/300x400/800000/ffffff?text=No+Image+Available';
+              
+              if (product.images && product.images.length > 0 && product.images[0]) {
+                  const imagePath = product.images[0].replace(/\\/g, "/");
+                  if (imagePath.startsWith('http')) {
+                      imageSrc = imagePath;
+                  } else {
+                      // Remove leading slash if present
+                      const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+                      imageSrc = `https://saikrupapaithanisarees-mdqk.onrender.com/${cleanPath}`;
+                  }
+              }
+              
+              console.log("🖼️ Image source:", imageSrc);
+              
+              return `
+                  <div class="arrival-card">
+                      <img src="${imageSrc}" alt="${product.name || 'Paithani Saree'}" 
+                           onerror="this.src='https://via.placeholder.com/300x400/800000/ffffff?text=Image+Not+Found'"
+                           style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;" />
+                      <h3>${product.name || 'Beautiful Paithani Saree'}</h3>
+                      <p>₹${product.price ? product.price.toLocaleString('en-IN') : 'Price not available'}</p>
+                      <a href="signup_login.html">
+                          <button class="buy-btn">View Details</button>
+                      </a>
+                  </div>
+              `;
+          }).join('');
+          
+          console.log("✅ Products successfully displayed in HTML");
+      }
+
+      // Test API connection first
+      async function testAPI() {
+          try {
+              console.log("🧪 Testing API connection...");
+              const testRes = await fetch('https://saikrupapaithanisarees-mdqk.onrender.com/api/test');
+              const testData = await testRes.json();
+              console.log("🎉 API test successful:", testData);
+              return true;
+          } catch (err) {
+              console.error("💥 API test failed:", err);
+              return false;
+          }
+      }
+
+      // Initialize with better error handling
+      async function initialize() {
+          console.log("🎬 Initializing application...");
+          
+          const apiWorking = await testAPI();
+          if (apiWorking) {
+              console.log("🚀 API is working, fetching products...");
+              await fetchNewArrivals();
+          } else {
+              console.error("❌ API is not accessible");
+              if (arrivalContainer) {
+                  arrivalContainer.innerHTML = `
+                      <div style="text-align: center; color: #800000; padding: 40px; width: 100%;">
+                          <h3>Backend Service Unavailable</h3>
+                          <p>The server is not responding. Please try again later.</p>
+                          <p>Check console for detailed error information.</p>
+                      </div>
+                  `;
+              }
+          }
+      }
+
+      // Start the application
+      initialize();
+
+      // Footer newsletter
+      const footerButton = document.querySelector("footer button");
+      const footerInput = document.querySelector("footer input");
+      
+      if (footerButton && footerInput) {
+          footerButton.addEventListener("click", (e) => {
+              e.preventDefault();
+              const email = footerInput.value;
+              if (email) alert(`Thank you for subscribing: ${email}`);
+              else alert("Please enter a valid email.");
+          });
+      }
+
+      // Shop now buttons
+      document.querySelectorAll(".shop-now-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+              window.location.href = "#featured";
           });
       });
-    </script>
+  });
+</script>
   </body>
 </html>
