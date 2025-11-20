@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login / Signup – Saikrupa Paithani</title>
-     <meta 
-      name="description" 
-      content="Create an account or login to Saikrupa Paithani. Manage your orders, wishlist & fast checkout." 
-    />
-
-    <meta 
-      name="keywords" 
-      content="paithani sign up, paithani login, customer account paithani" 
-    />
+    <meta name="description" content="Create an account or login to Saikrupa Paithani. Manage your orders, wishlist & fast checkout." />
+    <meta name="keywords" content="paithani sign up, paithani login, customer account paithani" />
     <meta property="og:title" content="Saikrupa Paithani – Pure Silk Paithani Sarees" />
     <meta property="og:description" content="Buy handwoven pure silk Paithani sarees directly from Saikrupa Paithani." />
     <meta property="og:image" content="saikrupa_logo.jpg" />
     <meta property="og:type" content="website" />
-
-     <link rel="icon" type="image/png" href="images/logo3.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
+    <link rel="icon" type="image/png" href="images/logo3.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
@@ -974,337 +963,340 @@
       </div>
     </div>
 <script>
-  // API Base URL - UPDATED TO RENDER
-  const API_BASE_URL = "https://saikrupapaithanisarees-mdqk.onrender.com";
-  console.log("🚀 Using API Base URL:", API_BASE_URL);
+// ========== CACHE BUSTING - FORCE FRESH LOAD ==========
+console.log("🔄 Fresh version loaded - Cache busted");
 
-  // Toggle panels for desktop
-  const container = document.getElementById("container");
-  const registerBtn = document.getElementById("registerBtn");
-  const loginBtn = document.getElementById("loginBtn");
-  
-  registerBtn.addEventListener("click", () => container.classList.add("active"));
-  loginBtn.addEventListener("click", () => container.classList.remove("active"));
+// API Base URL - UPDATED TO RENDER
+const API_BASE_URL = "https://saikrupapaithanisarees-mdqk.onrender.com";
+console.log("🚀 API Base URL:", API_BASE_URL);
 
-  // Mobile toggle buttons
-  const mobileSignupBtn = document.getElementById("mobileSignupBtn");
-  const mobileLoginBtn = document.getElementById("mobileLoginBtn");
-  
-  mobileSignupBtn.addEventListener("click", () => container.classList.add("active"));
-  mobileLoginBtn.addEventListener("click", () => container.classList.remove("active"));
+// Toggle panels for desktop
+const container = document.getElementById("container");
+const registerBtn = document.getElementById("registerBtn");
+const loginBtn = document.getElementById("loginBtn");
 
-  // Modal functionality
-  const forgotPasswordModal = document.getElementById("forgotPasswordModal");
-  const forgotPasswordLink = document.getElementById("forgotPasswordLink");
-  const closeModal = document.querySelector(".close-modal");
-  const sendOtpBtn = document.getElementById("sendOtpBtn");
-  const otpSection = document.getElementById("otpSection");
-  const resetPasswordBtn = document.getElementById("resetPasswordBtn");
-  const resendOtpLink = document.getElementById("resendOtpLink");
-  const timerElement = document.getElementById("timer");
-  const otpInputs = document.querySelectorAll(".otp-input");
+registerBtn.addEventListener("click", () => container.classList.add("active"));
+loginBtn.addEventListener("click", () => container.classList.remove("active"));
 
-  // Loading and Message overlays
-  const loadingOverlay = document.getElementById("loadingOverlay");
-  const loadingText = document.getElementById("loadingText");
-  const messageOverlay = document.getElementById("messageOverlay");
-  const messageIcon = document.getElementById("messageIcon");
-  const messageText = document.getElementById("messageText");
-  const messageBtn = document.getElementById("messageBtn");
+// Mobile toggle buttons
+const mobileSignupBtn = document.getElementById("mobileSignupBtn");
+const mobileLoginBtn = document.getElementById("mobileLoginBtn");
 
-  // Show loading overlay
-  function showLoading(text = "Processing...") {
+mobileSignupBtn.addEventListener("click", () => container.classList.add("active"));
+mobileLoginBtn.addEventListener("click", () => container.classList.remove("active"));
+
+// Modal functionality
+const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const closeModal = document.querySelector(".close-modal");
+const sendOtpBtn = document.getElementById("sendOtpBtn");
+const otpSection = document.getElementById("otpSection");
+const resetPasswordBtn = document.getElementById("resetPasswordBtn");
+const resendOtpLink = document.getElementById("resendOtpLink");
+const timerElement = document.getElementById("timer");
+const otpInputs = document.querySelectorAll(".otp-input");
+
+// Loading and Message overlays
+const loadingOverlay = document.getElementById("loadingOverlay");
+const loadingText = document.getElementById("loadingText");
+const messageOverlay = document.getElementById("messageOverlay");
+const messageIcon = document.getElementById("messageIcon");
+const messageText = document.getElementById("messageText");
+const messageBtn = document.getElementById("messageBtn");
+
+// Show loading overlay
+function showLoading(text = "Processing...") {
     loadingText.textContent = text;
     loadingOverlay.style.display = "flex";
-  }
+}
 
-  // Hide loading overlay
-  function hideLoading() {
+// Hide loading overlay
+function hideLoading() {
     loadingOverlay.style.display = "none";
-  }
+}
 
-  // Show message overlay
-  function showMessage(text, isSuccess = true) {
+// Show message overlay
+function showMessage(text, isSuccess = true) {
     messageText.textContent = text;
     
     if (isSuccess) {
-      messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
+        messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
     } else {
-      messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+        messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
     }
     
     messageOverlay.style.display = "flex";
-  }
+}
 
-  // Hide message overlay
-  function hideMessage() {
+// Hide message overlay
+function hideMessage() {
     messageOverlay.style.display = "none";
-  }
+}
 
-  // Set button loading state
-  function setButtonLoading(button, isLoading) {
+// Set button loading state
+function setButtonLoading(button, isLoading) {
     if (isLoading) {
-      button.classList.add("button-loading");
-      button.disabled = true;
+        button.classList.add("button-loading");
+        button.disabled = true;
     } else {
-      button.classList.remove("button-loading");
-      button.disabled = false;
+        button.classList.remove("button-loading");
+        button.disabled = false;
     }
-  }
+}
 
-  // Open modal
-  forgotPasswordLink.addEventListener("click", (e) => {
+// Open modal
+forgotPasswordLink.addEventListener("click", (e) => {
     e.preventDefault();
     forgotPasswordModal.style.display = "flex";
-  });
+});
 
-  // Close modal
-  closeModal.addEventListener("click", () => {
+// Close modal
+closeModal.addEventListener("click", () => {
     forgotPasswordModal.style.display = "none";
     resetForm();
-  });
+});
 
-  // Close modal when clicking outside
-  window.addEventListener("click", (e) => {
+// Close modal when clicking outside
+window.addEventListener("click", (e) => {
     if (e.target === forgotPasswordModal) {
-      forgotPasswordModal.style.display = "none";
-      resetForm();
+        forgotPasswordModal.style.display = "none";
+        resetForm();
     }
     
     if (e.target === messageOverlay) {
-      hideMessage();
+        hideMessage();
     }
-  });
+});
 
-  // Message button click
-  messageBtn.addEventListener("click", () => {
+// Message button click
+messageBtn.addEventListener("click", () => {
     hideMessage();
-  });
+});
 
-  // OTP input navigation
-  otpInputs.forEach((input) => {
+// OTP input navigation
+otpInputs.forEach((input) => {
     input.addEventListener("input", (e) => {
-      const value = e.target.value;
-      const index = parseInt(e.target.dataset.index);
+        const value = e.target.value;
+        const index = parseInt(e.target.dataset.index);
 
-      if (value && index < 5) {
-        otpInputs[index + 1].focus();
-      }
+        if (value && index < 5) {
+            otpInputs[index + 1].focus();
+        }
     });
 
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace" && !e.target.value && e.target.dataset.index > 0) {
-        otpInputs[parseInt(e.target.dataset.index) - 1].focus();
-      }
+        if (e.key === "Backspace" && !e.target.value && e.target.dataset.index > 0) {
+            otpInputs[parseInt(e.target.dataset.index) - 1].focus();
+        }
     });
-  });
+});
 
-  // Send OTP
-  sendOtpBtn.addEventListener("click", async () => {
+// Send OTP
+sendOtpBtn.addEventListener("click", async () => {
     const email = document.getElementById("resetEmail").value;
 
     if (!email) {
-      showMessage("Please enter your email", false);
-      return;
+        showMessage("Please enter your email", false);
+        return;
     }
 
     setButtonLoading(sendOtpBtn, true);
     showLoading("Sending OTP...");
 
     try {
-      console.log("📧 Sending OTP to:", email);
-      
-      const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+        console.log("📧 Sending OTP to:", email);
+        
+        const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
 
-      const result = await res.json();
-      console.log("OTP Response:", result);
+        const result = await res.json();
+        console.log("OTP Response:", result);
 
-      if (res.ok) {
-        otpSection.style.display = "block";
-        startTimer();
-        showMessage("OTP sent successfully!");
-      } else {
-        showMessage(result.message || "Failed to send OTP", false);
-      }
+        if (res.ok) {
+            otpSection.style.display = "block";
+            startTimer();
+            showMessage("OTP sent successfully!");
+        } else {
+            showMessage(result.message || "Failed to send OTP", false);
+        }
     } catch (err) {
-      console.error("OTP Error:", err);
-      showMessage("Server error. Please try again.", false);
+        console.error("OTP Error:", err);
+        showMessage("Server error. Please try again.", false);
     } finally {
-      hideLoading();
-      setButtonLoading(sendOtpBtn, false);
+        hideLoading();
+        setButtonLoading(sendOtpBtn, false);
     }
-  });
+});
 
-  // Reset password
-  resetPasswordBtn.addEventListener("click", async () => {
+// Reset password
+resetPasswordBtn.addEventListener("click", async () => {
     const email = document.getElementById("resetEmail").value;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     let otp = "";
 
     otpInputs.forEach((input) => {
-      otp += input.value;
+        otp += input.value;
     });
 
     if (!email || !otp || !newPassword || !confirmPassword) {
-      showMessage("Please fill all fields", false);
-      return;
+        showMessage("Please fill all fields", false);
+        return;
     }
 
     if (newPassword !== confirmPassword) {
-      showMessage("Passwords do not match", false);
-      return;
+        showMessage("Passwords do not match", false);
+        return;
     }
 
     if (otp.length !== 6) {
-      showMessage("Please enter the complete OTP", false);
-      return;
+        showMessage("Please enter the complete OTP", false);
+        return;
     }
 
     setButtonLoading(resetPasswordBtn, true);
     showLoading("Resetting password...");
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, newPassword }),
-      });
+        const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp, newPassword }),
+        });
 
-      const result = await res.json();
+        const result = await res.json();
 
-      if (res.ok) {
-        showMessage("Password reset successfully!");
-        forgotPasswordModal.style.display = "none";
-        resetForm();
-      } else {
-        showMessage(result.message || "Failed to reset password", false);
-      }
+        if (res.ok) {
+            showMessage("Password reset successfully!");
+            forgotPasswordModal.style.display = "none";
+            resetForm();
+        } else {
+            showMessage(result.message || "Failed to reset password", false);
+        }
     } catch (err) {
-      console.error("Reset password error:", err);
-      showMessage("Server error. Please try again.", false);
+        console.error("Reset password error:", err);
+        showMessage("Server error. Please try again.", false);
     } finally {
-      hideLoading();
-      setButtonLoading(resetPasswordBtn, false);
+        hideLoading();
+        setButtonLoading(resetPasswordBtn, false);
     }
-  });
+});
 
-  // Resend OTP
-  resendOtpLink.addEventListener("click", async (e) => {
+// Resend OTP
+resendOtpLink.addEventListener("click", async (e) => {
     e.preventDefault();
     const email = document.getElementById("resetEmail").value;
 
     if (!email) {
-      showMessage("Email is required", false);
-      return;
+        showMessage("Email is required", false);
+        return;
     }
 
     setButtonLoading(resendOtpLink, true);
     showLoading("Resending OTP...");
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/auth/resend-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
+        const res = await fetch(`${API_BASE_URL}/api/auth/resend-otp`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
 
-      const result = await res.json();
+        const result = await res.json();
 
-      if (res.ok) {
-        showMessage("OTP sent successfully!");
-        startTimer();
-      } else {
-        showMessage(result.message || "Failed to resend OTP", false);
-      }
+        if (res.ok) {
+            showMessage("OTP sent successfully!");
+            startTimer();
+        } else {
+            showMessage(result.message || "Failed to resend OTP", false);
+        }
     } catch (err) {
-      console.error("Resend OTP error:", err);
-      showMessage("Server error. Please try again.", false);
+        console.error("Resend OTP error:", err);
+        showMessage("Server error. Please try again.", false);
     } finally {
-      hideLoading();
-      setButtonLoading(resendOtpLink, false);
+        hideLoading();
+        setButtonLoading(resendOtpLink, false);
     }
-  });
+});
 
-  // Timer function
-  function startTimer() {
+// Timer function
+function startTimer() {
     let timeLeft = 120;
     const timerInterval = setInterval(() => {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        timerElement.textContent = "00:00";
-        resendOtpLink.style.pointerEvents = "auto";
-        resendOtpLink.style.color = "var(--primary-color)";
-      } else {
-        timeLeft--;
-        resendOtpLink.style.pointerEvents = "none";
-        resendOtpLink.style.color = "var(--gray)";
-      }
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "00:00";
+            resendOtpLink.style.pointerEvents = "auto";
+            resendOtpLink.style.color = "var(--primary-color)";
+        } else {
+            timeLeft--;
+            resendOtpLink.style.pointerEvents = "none";
+            resendOtpLink.style.color = "var(--gray)";
+        }
     }, 1000);
-  }
+}
 
-  // Reset form
-  function resetForm() {
+// Reset form
+function resetForm() {
     document.getElementById("resetEmail").value = "";
     document.getElementById("newPassword").value = "";
     document.getElementById("confirmPassword").value = "";
     otpInputs.forEach((input) => (input.value = ""));
     otpSection.style.display = "none";
     timerElement.textContent = "02:00";
-  }
+}
 
-  // Signup form
-  document.getElementById("signupForm").addEventListener("submit", async (e) => {
+// Signup form
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
     
     const data = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
     };
     
     setButtonLoading(submitBtn, true);
     showLoading("Creating your account...");
 
     try {
-      console.log("📝 Signup attempt:", data.email);
-      
-      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+        console.log("📝 Signup attempt:", data.email);
+        
+        const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
 
-      const result = await res.json();
-      console.log("Signup response:", result);
+        const result = await res.json();
+        console.log("Signup response:", result);
 
-      if (res.ok) {
-        showMessage("Registration successful! Please login.");
-        e.target.reset();
-        container.classList.remove("active");
-      } else {
-        showMessage(result.message || "Registration failed", false);
-      }
+        if (res.ok) {
+            showMessage("Registration successful! Please login.");
+            e.target.reset();
+            container.classList.remove("active");
+        } else {
+            showMessage(result.message || "Registration failed", false);
+        }
     } catch (err) {
-      console.error("Signup error:", err);
-      showMessage("Server error during registration", false);
+        console.error("Signup error:", err);
+        showMessage("Server error during registration", false);
     } finally {
-      hideLoading();
-      setButtonLoading(submitBtn, false);
+        hideLoading();
+        setButtonLoading(submitBtn, false);
     }
-  });
+});
 
-  // Login form
-  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+// Login form
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const submitBtn = e.target.querySelector('button[type="submit"]');
     
@@ -1312,44 +1304,45 @@
     showLoading("Logging you in...");
 
     try {
-      const data = {
-        email: e.target.email.value,
-        password: e.target.password.value,
-      };
+        const data = {
+            email: e.target.email.value,
+            password: e.target.password.value,
+        };
 
-      console.log("🔐 Login attempt:", data.email);
-      
-      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+        console.log("🔐 Login attempt:", data.email);
+        
+        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
 
-      const result = await res.json();
-      console.log("Login response:", result);
+        const result = await res.json();
+        console.log("Login response:", result);
 
-      if (res.ok && result.success) {
-        localStorage.setItem("authToken", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
+        if (res.ok && result.success) {
+            localStorage.setItem("authToken", result.token);
+            localStorage.setItem("user", JSON.stringify(result.user));
 
-        showMessage("Login successful! Redirecting...");
+            showMessage("Login successful! Redirecting...");
 
-        setTimeout(() => {
-          window.location.href = "dashboard.html";
-        }, 1500);
-      } else {
-        showMessage(result.message || "Login failed. Please check your credentials.", false);
-      }
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1500);
+        } else {
+            showMessage(result.message || "Login failed. Please check your credentials.", false);
+        }
     } catch (err) {
-      console.error("Login error:", err);
-      showMessage("Server error during login. Please try again.", false);
+        console.error("Login error:", err);
+        showMessage("Server error during login. Please try again.", false);
     } finally {
-      hideLoading();
-      setButtonLoading(submitBtn, false);
+        hideLoading();
+        setButtonLoading(submitBtn, false);
     }
-  });
+});
 
-  console.log("✅ Authentication system ready");
+console.log("✅ Authentication system ready - NO LOCALHOST!");
 </script>
+
   </body>
 </html>
