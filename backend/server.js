@@ -140,7 +140,7 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/pages/admin.html"));
+    res.sendFile(path.join(__dirname, "../frontend/pages/admin1.html"));
 });
 
 // Health check route for Render
