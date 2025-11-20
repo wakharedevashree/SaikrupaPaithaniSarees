@@ -973,11 +973,11 @@
         <img src="saikrupa_logo.jpg" alt="SaiKrupa Paithani" class="logo-text-image" />
       </a>
       <ul>
-        <li><a href="dashboard.html">Home</a></li>
-        <li><a href="product.html">Collections</a></li>
+        <li><a href="dashboard1.html">Home</a></li>
+        <li><a href="product1.html">Collections</a></li>
         
         <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
       <div class="nav-icons">
         <!-- Search Icon with Search Bar -->
@@ -990,13 +990,13 @@
         </div>
         
         <div class="nav-icon">
-          <a style="color: #920101" href="history.html">
+          <a style="color: #920101" href="history1.html">
             <i class="fas fa-shipping-fast mr-2"></i>
           </a>
         </div>
         
         <div class="nav-icon">
-          <a href="cart.html">
+          <a href="cart1.html">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count">0</span>
           </a>
@@ -1009,7 +1009,7 @@
     <header>
       <h1 class="page-title">Paithani Sarees Collection</h1>
       <ul class="breadcrumb">
-        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="dashboard1.html">Home</a></li>
         <li><a href="#">Collections</a></li>
         <li>Paithani Sarees</li>
       </ul>
@@ -1150,560 +1150,555 @@
     </footer>
 
     <!-- SEARCH FUNCTIONALITY SCRIPT -->
-    <script>
-      // Search functionality
-      const searchIcon = document.getElementById('searchIcon');
-      const searchBar = document.getElementById('searchBar');
-      const searchInput = document.getElementById('searchInput');
-      const searchBtn = document.getElementById('searchBtn');
-      let searchOverlay;
+   <!-- SEARCH FUNCTIONALITY SCRIPT -->
+<script>
+  // Search functionality
+  const searchIcon = document.getElementById('searchIcon');
+  const searchBar = document.getElementById('searchBar');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  let searchOverlay;
 
-      // Create overlay for closing search
-      function createSearchOverlay() {
-        searchOverlay = document.createElement('div');
-        searchOverlay.className = 'search-overlay';
-        document.body.appendChild(searchOverlay);
-        
-        searchOverlay.addEventListener('click', closeSearch);
-      }
+  // Create overlay for closing search
+  function createSearchOverlay() {
+    searchOverlay = document.createElement('div');
+    searchOverlay.className = 'search-overlay';
+    document.body.appendChild(searchOverlay);
+    
+    searchOverlay.addEventListener('click', closeSearch);
+  }
 
-      // Toggle search bar
-      function toggleSearch() {
-        searchBar.classList.toggle('active');
-        if (searchOverlay) {
-          searchOverlay.classList.toggle('active');
-        }
-        
-        if (searchBar.classList.contains('active')) {
-          searchInput.focus();
-        }
-      }
+  // Toggle search bar
+  function toggleSearch() {
+    searchBar.classList.toggle('active');
+    if (searchOverlay) {
+      searchOverlay.classList.toggle('active');
+    }
+    
+    if (searchBar.classList.contains('active')) {
+      searchInput.focus();
+    }
+  }
 
-      // Close search bar
-      function closeSearch() {
-        searchBar.classList.remove('active');
-        if (searchOverlay) {
-          searchOverlay.classList.remove('active');
-        }
-        searchInput.value = '';
-      }
+  // Close search bar
+  function closeSearch() {
+    searchBar.classList.remove('active');
+    if (searchOverlay) {
+      searchOverlay.classList.remove('active');
+    }
+    searchInput.value = '';
+  }
 
-      // Perform search
-      function performSearch() {
-        const searchTerm = searchInput.value.trim();
-        
-        if (searchTerm) {
-          // Redirect to product page with search parameter
-          window.location.href = `product.html?search=${encodeURIComponent(searchTerm)}`;
-        } else {
-          alert('Please enter a search term');
-          searchInput.focus();
-        }
-      }
+  // Perform search
+  function performSearch() {
+    const searchTerm = searchInput.value.trim();
+    
+    if (searchTerm) {
+      // Redirect to product page with search parameter
+      window.location.href = `product.html?search=${encodeURIComponent(searchTerm)}`;
+    } else {
+      alert('Please enter a search term');
+      searchInput.focus();
+    }
+  }
 
-      // Event listeners for search
-      document.addEventListener('DOMContentLoaded', function() {
-        // Initialize search functionality
-        createSearchOverlay();
-        
-        if (searchIcon) {
-          searchIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleSearch();
-          });
-        }
-
-        if (searchBtn) {
-          searchBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            performSearch();
-          });
-        }
-
-        if (searchInput) {
-          searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              performSearch();
-            }
-          });
-        }
-
-        // Close search when clicking on search bar itself (prevent closing)
-        if (searchBar) {
-          searchBar.addEventListener('click', function(e) {
-            e.stopPropagation();
-          });
-        }
-
-        // Navigation functionality
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector("nav ul");
-        const nav = document.querySelector("nav");
-
-        if (hamburger) {
-          hamburger.addEventListener("click", (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle("show");
-          });
-        }
-
-        document.addEventListener("click", function (event) {
-          const isClickInsideNav = event.target.closest("nav");
-          const isClickInsideMenu = event.target.closest("nav ul");
-
-          if (
-            !isClickInsideNav &&
-            !isClickInsideMenu &&
-            window.innerWidth <= 900
-          ) {
-            navMenu.classList.remove("show");
-          }
-        });
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 50) {
-            nav.classList.add("scrolled");
-          } else {
-            nav.classList.remove("scrolled");
-          }
-        });
+  // Event listeners for search
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize search functionality
+    createSearchOverlay();
+    
+    if (searchIcon) {
+      searchIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleSearch();
       });
-    </script>
+    }
 
-    <!-- PRODUCT FILTERING SCRIPT -->
-    <script>
-      // Product filtering functionality
-      document.addEventListener("DOMContentLoaded", async function () {
-        const productList = document.getElementById("productList");
-        const typeFilter = document.getElementById("typeFilter");
-        const priceRange = document.getElementById("priceRange");
-        const priceValue = document.getElementById("priceValue");
-        const sortFilter = document.getElementById("sortFilter");
-        const applyBtn = document.querySelector(".apply-btn");
-        const resetBtn = document.querySelector(".reset-btn");
-        const cartCount = document.querySelector(".cart-count");
+    if (searchBtn) {
+      searchBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        performSearch();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          performSearch();
+        }
+      });
+    }
+
+    // Close search when clicking on search bar itself (prevent closing)
+    if (searchBar) {
+      searchBar.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+
+    // Navigation functionality
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector("nav ul");
+    const nav = document.querySelector("nav");
+
+    if (hamburger) {
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle("show");
+      });
+    }
+
+    document.addEventListener("click", function (event) {
+      const isClickInsideNav = event.target.closest("nav");
+      const isClickInsideMenu = event.target.closest("nav ul");
+
+      if (
+        !isClickInsideNav &&
+        !isClickInsideMenu &&
+        window.innerWidth <= 900
+      ) {
+        navMenu.classList.remove("show");
+      }
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    });
+  });
+</script>
+
+<!-- PRODUCT FILTERING SCRIPT -->
+<script>
+  // Product filtering functionality
+  document.addEventListener("DOMContentLoaded", async function () {
+    const productList = document.getElementById("productList");
+    const typeFilter = document.getElementById("typeFilter");
+    const priceRange = document.getElementById("priceRange");
+    const priceValue = document.getElementById("priceValue");
+    const sortFilter = document.getElementById("sortFilter");
+    const applyBtn = document.querySelector(".apply-btn");
+    const resetBtn = document.querySelector(".reset-btn");
+    const cartCount = document.querySelector(".cart-count");
+    
+    // Loading and Message overlays
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const loadingText = document.getElementById("loadingText");
+    const messageOverlay = document.getElementById("messageOverlay");
+    const messageIcon = document.getElementById("messageIcon");
+    const messageText = document.getElementById("messageText");
+    const messageBtn = document.getElementById("messageBtn");
+
+    let products = [];
+    let filteredProducts = [];
+
+    // Show loading overlay
+    function showLoading(text = "Adding to Cart...") {
+      loadingText.textContent = text;
+      loadingOverlay.style.display = "flex";
+    }
+
+    // Hide loading overlay
+    function hideLoading() {
+      loadingOverlay.style.display = "none";
+    }
+
+    // Show message overlay
+    function showMessage(text, isSuccess = true) {
+      messageText.textContent = text;
+      
+      if (isSuccess) {
+        messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
+      } else {
+        messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+      }
+      
+      messageOverlay.style.display = "flex";
+    }
+
+    // Hide message overlay
+    function hideMessage() {
+      messageOverlay.style.display = "none";
+    }
+
+    // Message button click
+    messageBtn.addEventListener("click", () => {
+      hideMessage();
+    });
+
+    // Get authentication token
+    function getAuthToken() {
+      return localStorage.getItem('authToken');
+    }
+
+    // Update cart count from API
+    async function updateCartCount() {
+      try {
+        const authToken = getAuthToken();
         
-        // Loading and Message overlays
-        const loadingOverlay = document.getElementById("loadingOverlay");
-        const loadingText = document.getElementById("loadingText");
-        const messageOverlay = document.getElementById("messageOverlay");
-        const messageIcon = document.getElementById("messageIcon");
-        const messageText = document.getElementById("messageText");
-        const messageBtn = document.getElementById("messageBtn");
-
-        let products = [];
-        let filteredProducts = [];
-
-        // Show loading overlay
-        function showLoading(text = "Adding to Cart...") {
-          loadingText.textContent = text;
-          loadingOverlay.style.display = "flex";
+        if (!authToken) {
+          document.querySelector(".cart-count").textContent = "0";
+          return;
         }
 
-        // Hide loading overlay
-        function hideLoading() {
-          loadingOverlay.style.display = "none";
-        }
-
-        // Show message overlay
-        function showMessage(text, isSuccess = true) {
-          messageText.textContent = text;
-          
-          if (isSuccess) {
-            messageIcon.innerHTML = '<i class="fas fa-check-circle success-icon"></i>';
-          } else {
-            messageIcon.innerHTML = '<i class="fas fa-exclamation-circle error-icon"></i>';
+        const res = await fetch("https://saikrupapaithanisarees-mdqk.onrender.com/api/cart", {
+          headers: {
+            "Authorization": `Bearer ${authToken}`
           }
-          
-          messageOverlay.style.display = "flex";
-        }
-
-        // Hide message overlay
-        function hideMessage() {
-          messageOverlay.style.display = "none";
-        }
-
-        // Message button click
-        messageBtn.addEventListener("click", () => {
-          hideMessage();
         });
 
-        // Get authentication token
-        function getAuthToken() {
-          return localStorage.getItem('authToken');
-        }
-
-        // Update cart count from API
-        async function updateCartCount() {
-          try {
-            const authToken = getAuthToken();
-            
-            if (!authToken) {
-              document.querySelector(".cart-count").textContent = "0";
-              return;
-            }
-
-            const res = await fetch("http://localhost:5000/api/cart", {
-              //  const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart", {
-              headers: {
-                "Authorization": `Bearer ${authToken}`
-              }
-            });
-
-            if (res.ok) {
-              const result = await res.json();
-              if (result.success && result.cart && result.cart.items) {
-                const totalItems = result.cart.items.reduce((sum, item) => sum + item.quantity, 0);
-                document.querySelector(".cart-count").textContent = totalItems;
-              } else {
-                document.querySelector(".cart-count").textContent = "0";
-              }
-            } else {
-              document.querySelector(".cart-count").textContent = "0";
-            }
-          } catch (err) {
-            console.error("Failed to fetch cart count:", err);
+        if (res.ok) {
+          const result = await res.json();
+          if (result.success && result.cart && result.cart.items) {
+            const totalItems = result.cart.items.reduce((sum, item) => sum + item.quantity, 0);
+            document.querySelector(".cart-count").textContent = totalItems;
+          } else {
             document.querySelector(".cart-count").textContent = "0";
           }
+        } else {
+          document.querySelector(".cart-count").textContent = "0";
         }
+      } catch (err) {
+        console.error("Failed to fetch cart count:", err);
+        document.querySelector(".cart-count").textContent = "0";
+      }
+    }
 
-        // ✅ UPDATED: Add to cart handler with logo loading animation
-        async function addToCartHandler(productId, quantity = 1, event) {
-          try {
-            const authToken = getAuthToken();
-            
-            if (!authToken) {
-              showMessage("Please login to add items to cart", false);
-              setTimeout(() => {
-                if (confirm("Redirect to login page?")) {
-                  window.location.href = "signup_login.html";
-                }
-              }, 1000);
-              return;
-            }
-
-            // Show loading animation
-            showLoading("Adding to Cart...");
-
-            // Get current product details from database to ensure we have latest stock
-            const productResponse = await fetch(`http://localhost:5000/api/products/${productId}`);
-           // const productResponse = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${productId}`);
-            if (!productResponse.ok) {
-              throw new Error("Failed to fetch product details");
-            }
-            
-            const productResult = await productResponse.json();
-            const currentProduct = productResult;
-            
-            // Validate stock
-            if (currentProduct.stock === 0) {
-              throw new Error("This product is out of stock");
-            }
-            
-            if (quantity > currentProduct.stock) {
-              throw new Error(`Only ${currentProduct.stock} units available in stock`);
-            }
-
-            // Calculate new stock and update product in database
-            const newStock = currentProduct.stock - quantity;
-            
-            const updateResponse = await fetch(`http://localhost:5000/api/products/${productId}`, {
-           // const updateResponse = await fetch(`https://saikrupapaithanisarees.onrender.com/api/products/${productId}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                "Authorization": `Bearer ${authToken}`
-              },
-              body: JSON.stringify({
-                name: currentProduct.name,
-                price: currentProduct.price,
-                category: currentProduct.category,
-                stock: newStock,
-                description: currentProduct.description,
-                images: currentProduct.images
-              })
-            });
-
-            if (!updateResponse.ok) {
-              const errorData = await updateResponse.json();
-              throw new Error(errorData.error || 'Failed to update stock');
-            }
-
-            // Add to cart
-            const requestBody = {
-              productId: productId,
-              quantity: quantity
-            };
-
-            const res = await fetch("http://localhost:5000/api/cart/add", {
-          // const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/cart/add", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${authToken}`
-              },
-              body: JSON.stringify(requestBody)
-            });
-
-            const result = await res.json();
-
-            if (!res.ok) {
-              if (res.status === 401) {
-                localStorage.removeItem('authToken');
-                throw new Error("Session expired. Please login again.");
-              }
-              throw new Error(result.message || "Failed to add to cart");
-            }
-
-            if (result.success) {
-              // Hide loading and show success message
-              hideLoading();
-              showMessage("Product added to cart successfully!");
-              
-              // Update local products array with new stock
-              const productIndex = products.findIndex(p => p._id === productId);
-              if (productIndex !== -1) {
-                products[productIndex].stock = newStock;
-              }
-              
-              // Refresh display to show updated stock
-              applyFilters();
-              await updateCartCount();
-            } else {
-              throw new Error(result.message || "Failed to add to cart");
-            }
-
-          } catch (err) {
-            console.error("Add to cart error:", err);
-            // Hide loading and show error message
-            hideLoading();
-            showMessage(err.message, false);
-            
-            // Refresh products to ensure stock is accurate
-            await fetchProducts();
-          }
-        }
-
-        // ✅ Get URL parameters
-        function getUrlParams() {
-          const urlParams = new URLSearchParams(window.location.search);
-          return {
-            category: urlParams.get('category'),
-            search: urlParams.get('search')
-          };
-        }
-
-        // ✅ Fetch products from backend
-        async function fetchProducts() {
-          try {
-            const res = await fetch("http://localhost:5000/api/products");
-          // const res = await fetch("https://saikrupapaithanisarees.onrender.com/api/products");
-            if (!res.ok) throw new Error("Failed to fetch products");
-            const data = await res.json();
-            products = data;
-            
-            // Check URL parameters
-            const urlParams = getUrlParams();
-            
-            if (urlParams.category) {
-              // Auto-filter by category
-              typeFilter.value = urlParams.category;
-              applyFilters();
-            } else if (urlParams.search) {
-              // Auto-search
-              performSearch(urlParams.search);
-            } else {
-              filteredProducts = [...products];
-              renderProducts(products);
-            }
-            
-            updateProductCount();
-            
-            // Initialize cart count on page load
-            await updateCartCount();
-            
-          } catch (err) {
-            console.error("Error fetching products:", err);
-            productList.innerHTML = `<p style='color: red; text-align: center; padding: 40px;'>Failed to load products. Please try again later.</p>`;
-          }
-        }
-
-        // ✅ Search function
-        function performSearch(searchTerm) {
-          const searchLower = searchTerm.toLowerCase();
-          
-          filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(searchLower) ||
-            (product.description && product.description.toLowerCase().includes(searchLower)) ||
-            (product.category && product.category.toLowerCase().includes(searchLower))
-          );
-          
-          renderProducts(filteredProducts);
-          updateProductCount();
-          
-          // Update page title or show search term
-          const productCount = document.getElementById("productCount");
-          if (productCount) {
-            productCount.textContent = `(${filteredProducts.length} results for "${searchTerm}")`;
-          }
-        }
-
-        // ✅ Apply filters function
-        function applyFilters() {
-          const type = typeFilter.value;
-          const maxPrice = parseInt(priceRange.value);
-          const sortOption = sortFilter.value;
-
-          filteredProducts = products.filter((p) => {
-            const matchesType = type === "" || p.category === type;
-            const matchesPrice = p.price <= maxPrice;
-            return matchesType && matchesPrice;
-          });
-
-          // Apply sorting
-          if (sortOption === "lowToHigh") {
-            filteredProducts.sort((a, b) => a.price - b.price);
-          } else if (sortOption === "highToLow") {
-            filteredProducts.sort((a, b) => b.price - a.price);
-          } else if (sortOption === "popularity") {
-            filteredProducts.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-          } else if (sortOption === "newest") {
-            // Assuming you have a createdAt field
-            filteredProducts.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-          }
-
-          renderProducts(filteredProducts);
-          updateProductCount();
-        }
-
-        // ✅ UPDATED: Render products with real-time stock status
-        function renderProducts(items) {
-          productList.innerHTML = "";
-          productList.classList.add("products-grid");
-
-          if (!items.length) {
-            const urlParams = getUrlParams();
-            let message = 'No products found for the selected filters.';
-            
-            if (urlParams.search) {
-              message = `No products found for "${urlParams.search}". Try different keywords.`;
-            } else if (urlParams.category) {
-              message = `No products found in "${urlParams.category}" category.`;
-            }
-            
-            productList.innerHTML = `
-              <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
-                <p style='color: #777;'>${message}</p>
-                <button class="filter-btn reset-btn" style="margin-top: 10px;" onclick="resetFilters()">Show All Products</button>
-              </div>
-            `;
-            return;
-          }
-
-          items.forEach((product) => {
-            const imageSrc = product.images?.[0]
-              ? `http://localhost:5000/${product.images[0].replace(/\\/g, "/")}`
-           //  ? `https://saikrupapaithanisarees.onrender.com/${product.images[0].replace(/\\/g, "/")}`
-              : "https://via.placeholder.com/300x300?text=No+Image";
-
-            // Determine stock status based on actual stock from database
-            const isOutOfStock = product.stock === 0;
-            const isLowStock = product.stock > 0 && product.stock <= 10;
-            const stockStatusText = isOutOfStock ? 'Out of Stock' : (isLowStock ? 'Low Stock' : 'In Stock');
-            const stockStatusClass = isOutOfStock ? 'stock-out' : (isLowStock ? 'stock-low' : 'stock-good');
-            const buttonText = isOutOfStock ? 'Out of Stock' : 'Add to Cart';
-            const buttonClass = isOutOfStock ? 'out-of-stock-btn' : 'addToCart';
-
-            const card = document.createElement("div");
-            card.className = "product-card";
-
-            card.innerHTML = `
-              <img src="${imageSrc}" alt="${product.name}">
-              <div class="product-info">
-                <h3>${product.name}</h3>
-                <p>Type: ${product.category || "Uncategorized"}</p>
-                <div class="price">₹${product.price ? product.price.toLocaleString() : '0'}</div>
-                
-                <!-- Stock Status - Shows real-time stock from database -->
-                <div class="stock-status ${stockStatusClass}">
-                  <i class="fas ${isOutOfStock ? 'fa-times-circle' : isLowStock ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i>
-                  ${stockStatusText} - ${product.stock} units available
-                </div>
-                
-                <div class="rating">${"★".repeat(product.popularity || 0)}${"☆".repeat(5 - (product.popularity || 0))}</div>
-                <div class="card-actions">
-                  <button class="${buttonClass}" ${isOutOfStock ? 'disabled' : ''}>
-                    <i class="fas ${isOutOfStock ? 'fa-ban' : 'fa-shopping-cart'}"></i> ${buttonText}
-                  </button>
-                  <a href="description.html?id=${product._id}"><button class="shop-now">View More</button></a>
-                </div>
-              </div>
-            `;
-
-            // Only add event listener if not out of stock
-            if (!isOutOfStock) {
-              const btn = card.querySelector(".addToCart");
-              btn.addEventListener("click", async (event) => {
-                await addToCartHandler(product._id, 1, event);
-              });
-            }
-
-            productList.appendChild(card);
-          });
-        }
-
-        // ✅ Update product count
-        function updateProductCount() {
-          const productCount = document.getElementById("productCount");
-          if (productCount) {
-            const count = filteredProducts.length;
-            const urlParams = getUrlParams();
-            
-            if (urlParams.category) {
-              productCount.textContent = `(${count} ${urlParams.category} products)`;
-            } else if (urlParams.search) {
-              productCount.textContent = `(${count} results for "${urlParams.search}")`;
-            } else {
-              productCount.textContent = `(${count} products)`;
-            }
-          }
-        }
-
-        // ✅ Reset filters function
-        function resetFilters() {
-          typeFilter.value = "";
-          priceRange.value = 50000;
-          priceValue.textContent = "₹50,000";
-          sortFilter.value = "default";
-          
-          // Clear URL parameters
-          window.history.replaceState({}, '', 'product.html');
-          
-          filteredProducts = [...products];
-          renderProducts(filteredProducts);
-          updateProductCount();
-        }
-
-        // ✅ Event Listeners
-        applyBtn.addEventListener("click", applyFilters);
+    // ✅ UPDATED: Add to cart handler with logo loading animation
+    async function addToCartHandler(productId, quantity = 1, event) {
+      try {
+        const authToken = getAuthToken();
         
-        if (resetBtn) {
-          resetBtn.addEventListener("click", resetFilters);
+        if (!authToken) {
+          showMessage("Please login to add items to cart", false);
+          setTimeout(() => {
+            if (confirm("Redirect to login page?")) {
+              window.location.href = "signup.html";
+            }
+          }, 1000);
+          return;
         }
 
-        if (priceRange && priceValue) {
-          priceRange.addEventListener("input", function () {
-            priceValue.textContent = `₹${parseInt(priceRange.value).toLocaleString()}`;
+        // Show loading animation
+        showLoading("Adding to Cart...");
+
+        // Get current product details from database to ensure we have latest stock
+        const productResponse = await fetch(`https://saikrupapaithanisarees-mdqk.onrender.com/api/products/${productId}`);
+        if (!productResponse.ok) {
+          throw new Error("Failed to fetch product details");
+        }
+        
+        const productResult = await productResponse.json();
+        const currentProduct = productResult;
+        
+        // Validate stock
+        if (currentProduct.stock === 0) {
+          throw new Error("This product is out of stock");
+        }
+        
+        if (quantity > currentProduct.stock) {
+          throw new Error(`Only ${currentProduct.stock} units available in stock`);
+        }
+
+        // Calculate new stock and update product in database
+        const newStock = currentProduct.stock - quantity;
+        
+        const updateResponse = await fetch(`https://saikrupapaithanisarees-mdqk.onrender.com/api/products/${productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${authToken}`
+          },
+          body: JSON.stringify({
+            name: currentProduct.name,
+            price: currentProduct.price,
+            category: currentProduct.category,
+            stock: newStock,
+            description: currentProduct.description,
+            images: currentProduct.images
+          })
+        });
+
+        if (!updateResponse.ok) {
+          const errorData = await updateResponse.json();
+          throw new Error(errorData.error || 'Failed to update stock');
+        }
+
+        // Add to cart
+        const requestBody = {
+          productId: productId,
+          quantity: quantity
+        };
+
+        const res = await fetch("https://saikrupapaithanisarees-mdqk.onrender.com/api/cart/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            localStorage.removeItem('authToken');
+            throw new Error("Session expired. Please login again.");
+          }
+          throw new Error(result.message || "Failed to add to cart");
+        }
+
+        if (result.success) {
+          // Hide loading and show success message
+          hideLoading();
+          showMessage("Product added to cart successfully!");
+          
+          // Update local products array with new stock
+          const productIndex = products.findIndex(p => p._id === productId);
+          if (productIndex !== -1) {
+            products[productIndex].stock = newStock;
+          }
+          
+          // Refresh display to show updated stock
+          applyFilters();
+          await updateCartCount();
+        } else {
+          throw new Error(result.message || "Failed to add to cart");
+        }
+
+      } catch (err) {
+        console.error("Add to cart error:", err);
+        // Hide loading and show error message
+        hideLoading();
+        showMessage(err.message, false);
+        
+        // Refresh products to ensure stock is accurate
+        await fetchProducts();
+      }
+    }
+
+    // ✅ Get URL parameters
+    function getUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        category: urlParams.get('category'),
+        search: urlParams.get('search')
+      };
+    }
+
+    // ✅ Fetch products from backend
+    async function fetchProducts() {
+      try {
+        const res = await fetch("https://saikrupapaithanisarees-mdqk.onrender.com/api/products");
+        if (!res.ok) throw new Error("Failed to fetch products");
+        const data = await res.json();
+        products = data;
+        
+        // Check URL parameters
+        const urlParams = getUrlParams();
+        
+        if (urlParams.category) {
+          // Auto-filter by category
+          typeFilter.value = urlParams.category;
+          applyFilters();
+        } else if (urlParams.search) {
+          // Auto-search
+          performSearch(urlParams.search);
+        } else {
+          filteredProducts = [...products];
+          renderProducts(products);
+        }
+        
+        updateProductCount();
+        
+        // Initialize cart count on page load
+        await updateCartCount();
+        
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        productList.innerHTML = `<p style='color: red; text-align: center; padding: 40px;'>Failed to load products. Please try again later.</p>`;
+      }
+    }
+
+    // ✅ Search function
+    function performSearch(searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      
+      filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchLower) ||
+        (product.description && product.description.toLowerCase().includes(searchLower)) ||
+        (product.category && product.category.toLowerCase().includes(searchLower))
+      );
+      
+      renderProducts(filteredProducts);
+      updateProductCount();
+      
+      // Update page title or show search term
+      const productCount = document.getElementById("productCount");
+      if (productCount) {
+        productCount.textContent = `(${filteredProducts.length} results for "${searchTerm}")`;
+      }
+    }
+
+    // ✅ Apply filters function
+    function applyFilters() {
+      const type = typeFilter.value;
+      const maxPrice = parseInt(priceRange.value);
+      const sortOption = sortFilter.value;
+
+      filteredProducts = products.filter((p) => {
+        const matchesType = type === "" || p.category === type;
+        const matchesPrice = p.price <= maxPrice;
+        return matchesType && matchesPrice;
+      });
+
+      // Apply sorting
+      if (sortOption === "lowToHigh") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+      } else if (sortOption === "highToLow") {
+        filteredProducts.sort((a, b) => b.price - a.price);
+      } else if (sortOption === "popularity") {
+        filteredProducts.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+      } else if (sortOption === "newest") {
+        // Assuming you have a createdAt field
+        filteredProducts.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      }
+
+      renderProducts(filteredProducts);
+      updateProductCount();
+    }
+
+    // ✅ UPDATED: Render products with real-time stock status
+    function renderProducts(items) {
+      productList.innerHTML = "";
+      productList.classList.add("products-grid");
+
+      if (!items.length) {
+        const urlParams = getUrlParams();
+        let message = 'No products found for the selected filters.';
+        
+        if (urlParams.search) {
+          message = `No products found for "${urlParams.search}". Try different keywords.`;
+        } else if (urlParams.category) {
+          message = `No products found in "${urlParams.category}" category.`;
+        }
+        
+        productList.innerHTML = `
+          <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+            <p style='color: #777;'>${message}</p>
+            <button class="filter-btn reset-btn" style="margin-top: 10px;" onclick="resetFilters()">Show All Products</button>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach((product) => {
+        const imageSrc = product.images?.[0]
+          ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
+          : "https://via.placeholder.com/300x300?text=No+Image";
+
+        // Determine stock status based on actual stock from database
+        const isOutOfStock = product.stock === 0;
+        const isLowStock = product.stock > 0 && product.stock <= 10;
+        const stockStatusText = isOutOfStock ? 'Out of Stock' : (isLowStock ? 'Low Stock' : 'In Stock');
+        const stockStatusClass = isOutOfStock ? 'stock-out' : (isLowStock ? 'stock-low' : 'stock-good');
+        const buttonText = isOutOfStock ? 'Out of Stock' : 'Add to Cart';
+        const buttonClass = isOutOfStock ? 'out-of-stock-btn' : 'addToCart';
+
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        card.innerHTML = `
+          <img src="${imageSrc}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>Type: ${product.category || "Uncategorized"}</p>
+            <div class="price">₹${product.price ? product.price.toLocaleString() : '0'}</div>
+            
+            <!-- Stock Status - Shows real-time stock from database -->
+            <div class="stock-status ${stockStatusClass}">
+              <i class="fas ${isOutOfStock ? 'fa-times-circle' : isLowStock ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i>
+              ${stockStatusText} - ${product.stock} units available
+            </div>
+            
+            <div class="rating">${"★".repeat(product.popularity || 0)}${"☆".repeat(5 - (product.popularity || 0))}</div>
+            <div class="card-actions">
+              <button class="${buttonClass}" ${isOutOfStock ? 'disabled' : ''}>
+                <i class="fas ${isOutOfStock ? 'fa-ban' : 'fa-shopping-cart'}"></i> ${buttonText}
+              </button>
+              <a href="description1.html?id=${product._id}"><button class="shop-now">View More</button></a>
+            </div>
+          </div>
+        `;
+
+        // Only add event listener if not out of stock
+        if (!isOutOfStock) {
+          const btn = card.querySelector(".addToCart");
+          btn.addEventListener("click", async (event) => {
+            await addToCartHandler(product._id, 1, event);
           });
         }
 
-        // Make resetFilters available globally for the reset button in no products message
-        window.resetFilters = resetFilters;
-
-        // ✅ Initialize
-        fetchProducts();
+        productList.appendChild(card);
       });
-    </script>
+    }
+
+    // ✅ Update product count
+    function updateProductCount() {
+      const productCount = document.getElementById("productCount");
+      if (productCount) {
+        const count = filteredProducts.length;
+        const urlParams = getUrlParams();
+        
+        if (urlParams.category) {
+          productCount.textContent = `(${count} ${urlParams.category} products)`;
+        } else if (urlParams.search) {
+          productCount.textContent = `(${count} results for "${urlParams.search}")`;
+        } else {
+          productCount.textContent = `(${count} products)`;
+        }
+      }
+    }
+
+    // ✅ Reset filters function
+    function resetFilters() {
+      typeFilter.value = "";
+      priceRange.value = 50000;
+      priceValue.textContent = "₹50,000";
+      sortFilter.value = "default";
+      
+      // Clear URL parameters
+      window.history.replaceState({}, '', 'product1.html');
+      
+      filteredProducts = [...products];
+      renderProducts(filteredProducts);
+      updateProductCount();
+    }
+
+    // ✅ Event Listeners
+    applyBtn.addEventListener("click", applyFilters);
+    
+    if (resetBtn) {
+      resetBtn.addEventListener("click", resetFilters);
+    }
+
+    if (priceRange && priceValue) {
+      priceRange.addEventListener("input", function () {
+        priceValue.textContent = `₹${parseInt(priceRange.value).toLocaleString()}`;
+      });
+    }
+
+    // Make resetFilters available globally for the reset button in no products message
+    window.resetFilters = resetFilters;
+
+    // ✅ Initialize
+    fetchProducts();
+  });
+</script>
   </body>
 </html>
