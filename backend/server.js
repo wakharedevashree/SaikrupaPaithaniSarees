@@ -35,7 +35,7 @@
 
 // // Default route - serve homepage
 // app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../frontend/pages/home.html"));
+//   res.sendFile(path.join(__dirname, "../frontend/pages/home1.html"));
 // });
 // app.get("/admin", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../frontend/pages/admin.html"));
@@ -52,7 +52,7 @@
 //  app.use('/api/email', emailRoutes);
 
 // app.use((req, res) => {
-//   res.sendFile(path.join(__dirname, "../frontend/pages/home.html"));
+//   res.sendFile(path.join(__dirname, "../frontend/pages/home1.html"));
 // });
 
 // // 404 Fallback for unknown routes
