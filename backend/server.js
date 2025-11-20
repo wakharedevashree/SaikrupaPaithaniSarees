@@ -133,7 +133,7 @@ app.get("/api/test", (req, res) => {
 
 // Serve main pages
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/pages/home.html"));
+    res.sendFile(path.join(__dirname, "../frontend/pages/home1.html"));
 });
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/pages/signup.html"));
