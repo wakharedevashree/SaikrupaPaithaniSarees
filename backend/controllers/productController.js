@@ -68,7 +68,6 @@
 //   }
 // };
 
-
 import Product from "../models/Product.js";
 
 // Get all products
@@ -91,11 +90,11 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// Add new product - UPDATED FOR CLOUDINARY
+// Add new product - FIXED FOR CLOUDINARYSTORAGE
 export const addProduct = async (req, res) => {
   try {
-    // ✅ CHANGED: Get images from req.body.images (Cloudinary URLs) instead of req.files
-    const images = req.body.images || [];
+    // ✅ CORRECT: With CloudinaryStorage, images are in req.files[].path
+    const images = req.files ? req.files.map(file => file.path) : [];
     
     const product = new Product({
       name: req.body.name,
@@ -103,7 +102,7 @@ export const addProduct = async (req, res) => {
       price: parseFloat(req.body.price),
       stock: parseInt(req.body.stock),
       description: req.body.description,
-      images: images // Cloudinary URLs
+      images: images // Cloudinary URLs from req.files[].path
     });
     
     await product.save();
@@ -114,7 +113,7 @@ export const addProduct = async (req, res) => {
   }
 };
 
-// Update product - UPDATED FOR CLOUDINARY
+// Update product - FIXED FOR CLOUDINARYSTORAGE
 export const updateProduct = async (req, res) => {
   try {
     const updateData = {
@@ -125,9 +124,9 @@ export const updateProduct = async (req, res) => {
       description: req.body.description
     };
 
-    // ✅ CHANGED: Get images from req.body.images (Cloudinary URLs)
-    if (req.body.images && req.body.images.length > 0) {
-      updateData.images = req.body.images;
+    // ✅ CORRECT: With CloudinaryStorage, new images are in req.files[].path
+    if (req.files && req.files.length > 0) {
+      updateData.images = req.files.map(file => file.path);
     }
 
     const updated = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true });
