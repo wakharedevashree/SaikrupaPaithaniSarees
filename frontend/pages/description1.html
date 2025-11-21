@@ -479,7 +479,44 @@ function updateSlidesPerView() {
 }
 
 // Initialize slider
-function initSlider(products) {
+// function initSlider(products) {
+//   const sliderTrack = document.getElementById('sliderTrack');
+//   const sliderDots = document.getElementById('sliderDots');
+  
+//   if (!products.length) {
+//     sliderTrack.innerHTML = '<p class="text-center py-4 text-gray-700 col-span-full">No related products found.</p>';
+//     return;
+//   }
+  
+//   // Calculate total slides
+//   totalSlides = Math.ceil(products.length / slidesPerView);
+  
+//   // Clear previous content
+//   sliderTrack.innerHTML = '';
+//   sliderDots.innerHTML = '';
+  
+//   // Create slider items
+//   products.forEach(product => {
+//     const imageSrc = product.images?.[0]
+//       ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
+//       : "https://via.placeholder.com/300x300?text=No+Image";
+    
+//     const sliderItem = document.createElement('div');
+//     sliderItem.className = 'slider-item';
+//     sliderItem.innerHTML = `
+//       <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col">
+//         <img src="${imageSrc}" class="w-full h-48 object-cover rounded mb-3">
+//         <h3 class="font-bold text-primary text-lg mb-2">${product.name}</h3>
+//         <p class="text-primary font-semibold mb-3">₹${product.price ? product.price.toLocaleString() : '0'}</p>
+//         <a href="description1.html?id=${product._id}" class="mt-auto bg-primary text-white px-4 py-2 rounded text-center hover:bg-darkRed transition duration-300">
+//           View Details
+//         </a>
+//       </div>
+//     `;
+//     sliderTrack.appendChild(sliderItem);
+//   });
+
+     function initSlider(products) {
   const sliderTrack = document.getElementById('sliderTrack');
   const sliderDots = document.getElementById('sliderDots');
   
@@ -497,15 +534,19 @@ function initSlider(products) {
   
   // Create slider items
   products.forEach(product => {
-    const imageSrc = product.images?.[0]
-      ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
+    // ✅ FIXED: Use Cloudinary URLs directly
+    const imageSrc = product.images?.[0] 
+      ? product.images[0]  // Cloudinary URL is already complete
       : "https://via.placeholder.com/300x300?text=No+Image";
     
     const sliderItem = document.createElement('div');
     sliderItem.className = 'slider-item';
     sliderItem.innerHTML = `
       <div class="bg-white rounded-lg shadow p-4 h-full flex flex-col">
-        <img src="${imageSrc}" class="w-full h-48 object-cover rounded mb-3">
+        <img src="${imageSrc}" 
+             alt="${product.name}"
+             class="w-full h-48 object-cover rounded mb-3"
+             onerror="this.src='https://via.placeholder.com/300x300/800000/ffffff?text=Image+Not+Found'">
         <h3 class="font-bold text-primary text-lg mb-2">${product.name}</h3>
         <p class="text-primary font-semibold mb-3">₹${product.price ? product.price.toLocaleString() : '0'}</p>
         <a href="description1.html?id=${product._id}" class="mt-auto bg-primary text-white px-4 py-2 rounded text-center hover:bg-darkRed transition duration-300">
@@ -515,6 +556,9 @@ function initSlider(products) {
     `;
     sliderTrack.appendChild(sliderItem);
   });
+  
+  // ... rest of the function remains the same ...
+}
   
   // Create dots
   for (let i = 0; i < totalSlides; i++) {
@@ -922,7 +966,25 @@ async function fetchProductData(productId){
 }
 
 // Render product details with stock management
-function renderProduct(product){
+// function renderProduct(product){
+//   if(!product || !product.name){ 
+//     document.getElementById("productDetail").innerHTML = "<p class='text-center text-red-600'>Product not found!</p>"; 
+//     return; 
+//   }
+  
+//   // Store current product globally for quantity management
+//   currentProduct = product;
+  
+//   document.getElementById("breadcrumb-product").textContent = product.name;
+//   const stars = "★".repeat(product.popularity || 0) + "☆".repeat(5 - (product.popularity || 0));
+//   const mainImage = product.images && product.images.length > 0 ? 
+//     `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}` : 
+//     "https://via.placeholder.com/400x500?text=No+Image";
+  
+//   const thumbnails = product.images ? product.images.map((img, i) => `
+//     <img src="https://saikrupapaithanisarees-mdqk.onrender.com/${img.replace(/\\/g, "/")}" class="thumbnail ${i === 0 ? "active" : ""}" width="70" height="70">
+//   `).join("") : "";
+ function renderProduct(product){
   if(!product || !product.name){ 
     document.getElementById("productDetail").innerHTML = "<p class='text-center text-red-600'>Product not found!</p>"; 
     return; 
@@ -933,14 +995,16 @@ function renderProduct(product){
   
   document.getElementById("breadcrumb-product").textContent = product.name;
   const stars = "★".repeat(product.popularity || 0) + "☆".repeat(5 - (product.popularity || 0));
+  
+  // ✅ FIXED: Use Cloudinary URLs directly
   const mainImage = product.images && product.images.length > 0 ? 
-    `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}` : 
+    product.images[0] : // Cloudinary URL is already complete
     "https://via.placeholder.com/400x500?text=No+Image";
   
   const thumbnails = product.images ? product.images.map((img, i) => `
-    <img src="https://saikrupapaithanisarees-mdqk.onrender.com/${img.replace(/\\/g, "/")}" class="thumbnail ${i === 0 ? "active" : ""}" width="70" height="70">
+    <img src="${img}" class="thumbnail ${i === 0 ? "active" : ""}" width="70" height="70"
+         onerror="this.src='https://via.placeholder.com/70x70/800000/ffffff?text=Image+Error'">
   `).join("") : "";
- 
   
   // Determine stock status
   const isOutOfStock = product.stock === 0;
