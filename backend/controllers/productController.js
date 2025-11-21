@@ -90,30 +90,33 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// Add new product - FIXED FOR CLOUDINARYSTORAGE
+// Add new product - FOR MEMORY STORAGE + CLOUDINARY
 export const addProduct = async (req, res) => {
   try {
-    // ✅ CORRECT: With CloudinaryStorage, images are in req.files[].path
-    const images = req.files ? req.files.map(file => file.path) : [];
+    console.log("➕ Creating product with data:", req.body);
+    
+    // ✅ Images come from Cloudinary middleware in req.body.images
+    const images = req.body.images || [];
     
     const product = new Product({
       name: req.body.name,
       category: req.body.category,
       price: parseFloat(req.body.price),
       stock: parseInt(req.body.stock),
-      description: req.body.description,
-      images: images // Cloudinary URLs from req.files[].path
+      description: req.body.description || "",
+      images: images // Cloudinary URLs from middleware
     });
     
     await product.save();
+    console.log("✅ Product created successfully:", product._id);
     res.status(201).json(product);
   } catch (err) {
-    console.error("Add product error:", err);
+    console.error("❌ Add product error:", err);
     res.status(400).json({ error: err.message });
   }
 };
 
-// Update product - FIXED FOR CLOUDINARYSTORAGE
+// Update product - FOR MEMORY STORAGE + CLOUDINARY
 export const updateProduct = async (req, res) => {
   try {
     const updateData = {
@@ -121,20 +124,21 @@ export const updateProduct = async (req, res) => {
       category: req.body.category,
       price: parseFloat(req.body.price),
       stock: parseInt(req.body.stock),
-      description: req.body.description
+      description: req.body.description || ""
     };
 
-    // ✅ CORRECT: With CloudinaryStorage, new images are in req.files[].path
-    if (req.files && req.files.length > 0) {
-      updateData.images = req.files.map(file => file.path);
+    // ✅ New images come from Cloudinary middleware in req.body.images
+    if (req.body.images && req.body.images.length > 0) {
+      updateData.images = req.body.images;
     }
 
     const updated = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true });
     if (!updated) return res.status(404).json({ message: "Product not found" });
 
+    console.log("✅ Product updated successfully:", updated._id);
     res.json(updated);
   } catch (err) {
-    console.error("Update product error:", err);
+    console.error("❌ Update product error:", err);
     res.status(400).json({ error: err.message });
   }
 };
