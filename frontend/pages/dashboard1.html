@@ -5403,35 +5403,84 @@ nav.scrolled .logo-text-image {
           }
         }
 
-        function displayNewArrivals(products) {
-          const newArrivals = products.slice(0, 8);
+        // function displayNewArrivals(products) {
+        //   const newArrivals = products.slice(0, 8);
           
-          if (newArrivals.length === 0) {
-            arrivalContainer.innerHTML = `
-              <div style="text-align: center; color: #800000; padding: 40px;">
-                <p>No new arrivals available at the moment.</p>
-              </div>
-            `;
-            return;
-          }
+        //   if (newArrivals.length === 0) {
+        //     arrivalContainer.innerHTML = `
+        //       <div style="text-align: center; color: #800000; padding: 40px;">
+        //         <p>No new arrivals available at the moment.</p>
+        //       </div>
+        //     `;
+        //     return;
+        //   }
 
-          arrivalContainer.innerHTML = newArrivals.map(product => {
-            const imageSrc = product.images?.[0] 
-              ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
-              : 'https://via.placeholder.com/300x300?text=No+Image';
+        //   arrivalContainer.innerHTML = newArrivals.map(product => {
+        //     const imageSrc = product.images?.[0] 
+        //       ? `https://saikrupapaithanisarees-mdqk.onrender.com/${product.images[0].replace(/\\/g, "/")}`
+        //       : 'https://via.placeholder.com/300x300?text=No+Image';
             
-            return `
-              <div class="arrival-card">
-                <img src="${imageSrc}" alt="${product.name}" />
-                <h3>${product.name}</h3>
-                <p>₹${product.price.toLocaleString()}</p>
-                <a href="description1.html?id=${product._id}">
-                  <button class="buy-btn">View More</button>
-                </a>
-              </div>
-            `;
-          }).join('');
-        }
+        //     return `
+        //       <div class="arrival-card">
+        //         <img src="${imageSrc}" alt="${product.name}" />
+        //         <h3>${product.name}</h3>
+        //         <p>₹${product.price.toLocaleString()}</p>
+        //         <a href="description1.html?id=${product._id}">
+        //           <button class="buy-btn">View More</button>
+        //         </a>
+        //       </div>
+        //     `;
+        //   }).join('');
+        // }
+        function displayNewArrivals(products) {
+  console.log("🎨 Displaying arrivals:", products);
+  
+  if (!arrivalContainer) {
+    console.error("❌ arrivalContainer not found!");
+    return;
+  }
+  
+  const newArrivals = products.slice(0, 8);
+  console.log("🖼️ Displaying first", newArrivals.length, "products");
+
+  if (newArrivals.length === 0) {
+    arrivalContainer.innerHTML = `
+      <div style="text-align: center; color: #800000; padding: 40px; width: 100%;">
+        <p>No products available at the moment. Please check back later.</p>
+      </div>
+    `;
+    return;
+  }
+
+  arrivalContainer.innerHTML = newArrivals.map(product => {
+    console.log("📝 Processing product:", product.name);
+    
+    // ✅ FIXED: Use Cloudinary URLs directly
+    let imageSrc = 'https://via.placeholder.com/300x400/800000/ffffff?text=No+Image+Available';
+    
+    if (product.images && product.images.length > 0 && product.images[0]) {
+      // Cloudinary URLs are already complete URLs, use them directly
+      imageSrc = product.images[0];
+    }
+    
+    console.log("🖼️ Image source:", imageSrc);
+    
+    return `
+      <div class="arrival-card">
+        <img src="${imageSrc}" alt="${product.name || 'Paithani Saree'}" 
+             onerror="this.src='https://via.placeholder.com/300x400/800000/ffffff?text=Image+Not+Found'"
+             style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;" />
+        <h3>${product.name || 'Beautiful Paithani Saree'}</h3>
+        <p>₹${product.price ? product.price.toLocaleString('en-IN') : 'Price not available'}</p>
+        <a href="signup.html">
+          <button class="buy-btn">View Details</button>
+        </a>
+      </div>
+    `;
+  }).join('');
+  
+  console.log("✅ Products successfully displayed in HTML");
+}
 
         fetchNewArrivals();
       });
