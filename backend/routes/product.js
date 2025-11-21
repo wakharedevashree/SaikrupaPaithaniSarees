@@ -97,10 +97,8 @@
 
 // export default router;
 
-
 import express from "express";
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "cloudinary";
 import { 
   getProducts, 
@@ -117,30 +115,60 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Cloudinary storage
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary.v2,
-  params: {
-    folder: "saikrupa-paithani",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [
-      { width: 800, height: 800, crop: "limit", quality: "auto" }
-    ]
-  },
-});
-
+// Use memory storage (more reliable)
+const storage = multer.memoryStorage();
 const upload = multer({ 
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }
 });
+
+// Custom middleware to upload to Cloudinary
+const uploadToCloudinary = async (req, res, next) => {
+  try {
+    console.log("📤 Uploading files to Cloudinary...");
+    
+    if (req.files && req.files.length > 0) {
+      const uploadPromises = req.files.map(file => {
+        return new Promise((resolve, reject) => {
+          const uploadStream = cloudinary.v2.uploader.upload_stream(
+            {
+              folder: "saikrupa-paithani",
+              transformation: [
+                { width: 800, height: 800, crop: "limit", quality: "auto" }
+              ]
+            },
+            (error, result) => {
+              if (error) {
+                console.error("❌ Cloudinary upload error:", error);
+                reject(error);
+              } else {
+                console.log("✅ Uploaded to Cloudinary:", result.secure_url);
+                resolve(result.secure_url);
+              }
+            }
+          );
+          uploadStream.end(file.buffer);
+        });
+      });
+
+      const imageUrls = await Promise.all(uploadPromises);
+      req.body.images = imageUrls; // Put Cloudinary URLs in req.body.images
+      console.log("🎯 Cloudinary URLs:", imageUrls);
+    }
+    next();
+  } catch (error) {
+    console.error("❌ Cloudinary middleware error:", error);
+    res.status(500).json({ error: "Failed to upload images to Cloudinary" });
+  }
+};
 
 const router = express.Router();
 
 // Routes
 router.get("/", getProducts);
 router.get("/:id", getProductById);
-router.post("/", upload.array("images", 5), addProduct);
-router.put("/:id", upload.array("images", 5), updateProduct);
+router.post("/", upload.array("images", 5), uploadToCloudinary, addProduct);
+router.put("/:id", upload.array("images", 5), uploadToCloudinary, updateProduct);
 router.delete("/:id", deleteProduct);
 
-export default router; // ✅ FIXED: Was "export default rout"
+export default router;
