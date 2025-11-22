@@ -2035,8 +2035,17 @@
           }
           
           // Take first 8 products or all if less than 8
-          const newArrivals = products.slice(0, 8);
-          console.log("🖼️ Displaying first", newArrivals.length, "products");
+         
+        //const newArrivals = products.slice(0, 8);
+         const newArrivals = products
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt || a.updatedAt || 0);
+      const dateB = new Date(b.createdAt || b.updatedAt || 0);
+      return dateB - dateA; // Descending order (newest first)
+    })
+    .slice(0, 12);
+          
+        console.log("🖼️ Displaying first", newArrivals.length, "products");
 
           if (newArrivals.length === 0) {
               arrivalContainer.innerHTML = `
